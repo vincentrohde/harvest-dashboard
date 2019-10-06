@@ -13,6 +13,7 @@
   "dependencies": {
     "axios": "^0.19.0",
     "dotenv-webpack": "^1.7.0",
+    "node-sass": "^4.12.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "webpack": "^4.41.0",
@@ -20,10 +21,13 @@
     "webpack-dev-server": "^3.8.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.6.2",
     "@babel/preset-react": "^7.0.0",
-    "@babel/core": "^7.0.0",
     "babel-loader": "^8.0.6",
-    "html-webpack-plugin": "^3.2.0"
+    "css-loader": "^3.2.0",
+    "html-webpack-plugin": "^3.2.0",
+    "sass-loader": "^8.0.0",
+    "style-loader": "^1.0.0"
   }
 }

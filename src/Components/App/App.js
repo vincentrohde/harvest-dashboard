@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from "axios";
 
+import style from './App.scss';
+
 class App extends Component {
     constructor () {
         super();
