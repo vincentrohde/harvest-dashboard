@@ -3,7 +3,9 @@ import axios from "axios";
 import { connect } from 'react-redux';
 import { addTimeEntries } from '../../stores/actions/entries';
 
-import PieChart from "../PieChart/PieChart";
+import style from './Entries.scss';
+
+import CategoriesOverview from '../CategoriesOverview/CategoriesOverview';
 
 class Entries extends Component {
     constructor (props) {
@@ -26,7 +28,6 @@ class Entries extends Component {
                 that.props.addTimeEntries({
                     timeEntries: that.entries
                 });
-                that.hoursByCategory = that.getHoursByCategory(that.props.entries.timeEntries);
             })
             .catch(function (error) {
                 console.log(error);
@@ -68,11 +69,16 @@ class Entries extends Component {
     }
 
     render () {
-        const { timeEntries } = this.props.entries;
+        if (this.props.entries.timeEntries) {
+            this.hoursByCategory = this.getHoursByCategory(this.props.entries.timeEntries);
+        }
 
         return (
             <section className="Entries">
-                <PieChart information={ this.hoursByCategory !== undefined ? this.hoursByCategory : null} />
+                <CategoriesOverview
+                    information={ this.hoursByCategory !== undefined ? this.hoursByCategory : null}
+                />
+
             </section>
         )
     }
