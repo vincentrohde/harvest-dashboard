@@ -1,0 +1,49 @@
+.Entry {
+    display: flex;
+    justify-content: space-between;
+
+    .meta-data-container {
+        position: relative;
+        flex: 1;
+
+        .title {
+            position: absolute;
+            bottom: 0;
+            font-weight: 400;
+            font-size: 18px;
+            margin: 10px 0 0;
+        }
+
+        .meta-data {
+            font-size: 14px;
+
+            span {
+                &:after {
+                    content: '|';
+                    color: #000;
+                    margin: 0 5px;
+                }
+
+                &:last-of-type {
+                    &:after {
+                        content: none;
+                    }
+                }
+
+                &.category {
+                    color: dodgerblue;
+                }
+            }
+        }
+    }
+
+    .time-container {
+        text-align: right;
+
+        .time {
+            font-size: 25px;
+            color: #ff6f5e;
+            margin: 10px 0 0;
+        }
+    }
+}

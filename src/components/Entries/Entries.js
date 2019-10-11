@@ -6,6 +6,7 @@ import { addTimeEntries } from '../../stores/actions/entries';
 import style from './Entries.scss';
 
 import CategoriesOverview from '../CategoriesOverview/CategoriesOverview';
+import EntriesList from "../EntriesList/EntriesList";
 
 class Entries extends Component {
     constructor (props) {
@@ -78,7 +79,7 @@ class Entries extends Component {
                 <CategoriesOverview
                     information={ this.hoursByCategory !== undefined ? this.hoursByCategory : null}
                 />
-
+                <EntriesList />
             </section>
         )
     }
