@@ -52,7 +52,7 @@ const CategoriesOverview = (props) => {
     });
 
     return (
-        <div className="CategoriesOverview">
+        <div className="CategoriesOverview tab-container">
             <h2 className="title">Categories</h2>
             <p className="caption">by hours</p>
             <div className="chart-container">
