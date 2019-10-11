@@ -18,7 +18,7 @@ class App extends Component {
         return (
             <Provider store={store}>
                 <div className="App">
-                    <h1>React-Harvest</h1>
+                    <h1 className="app-title">Harvest Dashboard</h1>
                     <Entries />
                 </div>
             </Provider>

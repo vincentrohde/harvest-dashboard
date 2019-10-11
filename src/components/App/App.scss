@@ -1,3 +1,10 @@
 .App {
-  font-family: 'Helvetica';
+    font-family: 'Helvetica';
+    height: 100vh;
+    padding: 10px;
+    background: #ededed;
+
+    .app-title {
+        padding: 10px 0;
+    }
 }
