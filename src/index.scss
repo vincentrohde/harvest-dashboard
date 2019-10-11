@@ -10,3 +10,19 @@
     background: #fff;
     border-radius: 10px;
 }
+
+.pipes {
+    & > span {
+        &:after {
+            content: '|';
+            color: #000;
+            margin: 0 5px;
+        }
+
+        &:last-of-type {
+            &:after {
+                content: none;
+            }
+        }
+    }
+}

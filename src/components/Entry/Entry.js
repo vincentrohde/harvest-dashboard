@@ -26,9 +26,9 @@ const Entry = (props) => {
     console.log('### date: ', date);
 
     return (
-        <div className="Entry tab-container">
+        <div className={`Entry tab-container${information.is_running ? ' active' : ''}`}>
             <div className="meta-data-container">
-                <p className="meta-data">
+                <p className="meta-data pipes">
                     <span className="category">{ information.task.name }</span>
                     <span>{ information.user.name }</span>
                 </p>

@@ -2,6 +2,29 @@
     display: flex;
     justify-content: space-between;
 
+    &.active {
+        background: #ff6f5e;
+        color: #fff;
+
+        .meta-data-container {
+            .meta-data {
+                .category {
+                    color: #0c00ad;
+                }
+            }
+        }
+
+        .time-container {
+            .time {
+                color: black;
+            }
+        }
+
+        .title {
+            color: black;
+        }
+    }
+
     .meta-data-container {
         position: relative;
         flex: 1;
@@ -18,18 +41,6 @@
             font-size: 14px;
 
             span {
-                &:after {
-                    content: '|';
-                    color: #000;
-                    margin: 0 5px;
-                }
-
-                &:last-of-type {
-                    &:after {
-                        content: none;
-                    }
-                }
-
                 &.category {
                     color: dodgerblue;
                 }
@@ -41,7 +52,7 @@
         text-align: right;
 
         .time {
-            font-size: 25px;
+            font-size: 22px;
             color: #ff6f5e;
             margin: 10px 0 0;
         }

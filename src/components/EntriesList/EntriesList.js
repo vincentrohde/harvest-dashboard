@@ -20,7 +20,10 @@ class EntriesList extends Component {
             <section className="EntriesList">
                 <div className="header tab-container">
                     { this.entries && (
-                        <p>{ this.entries.length } Entries</p>
+                        <p className="meta-data pipes">
+                            <span>{ this.entries.length } Entries</span>
+                            <span>Total Time</span>
+                        </p>
                     )}
                 </div>
                 <div className="entries-container">
