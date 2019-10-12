@@ -1,4 +1,7 @@
 import { createStore } from 'redux'
 import application from './reducers/reducers';
 
-export default createStore(application);
+export default createStore(
+    application,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
