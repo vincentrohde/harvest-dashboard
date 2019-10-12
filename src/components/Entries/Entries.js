@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from "axios";
 import { connect } from 'react-redux';
 import { addTimeEntries } from '../../stores/actions/entries';
+import { addTasks } from '../../stores/actions/tasks';
 
 import style from './Entries.scss';
 
@@ -14,6 +15,7 @@ class Entries extends Component {
         this.props = props;
 
         this.getTimeEntries();
+        this.getTasks();
     }
 
     getTimeEntries () {
@@ -33,6 +35,38 @@ class Entries extends Component {
             .catch(function (error) {
                 console.log(error);
             });
+    }
+
+    getTasks () {
+        const that = this;
+        axios.get(process.env.API_URL + '/v2/tasks', {
+            headers: {
+                "Authorization": "Bearer " + process.env.ACCESS_TOKEN,
+                "Harvest-Account-ID": process.env.ACCOUNT_ID
+            }
+        })
+            .then(function (response) {
+                const { tasks } = response.data;
+                const filteredTasksData = that.filterTasksDataForStateSet(tasks);
+                that.props.addTasks({
+                    tasks: filteredTasksData
+                });
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    filterTasksDataForStateSet (tasks) {
+        let filteredTasks = tasks.map(task => {
+            return {
+                id: task.id,
+                name: task.name,
+                isActive: task.is_default
+            }
+        });
+
+        return filteredTasks;
     }
 
     getHoursByCategory (entries) {
@@ -91,6 +125,6 @@ const mapStateToProps = state => {
     }
 };
 
-const mapDispatchToProps = { addTimeEntries };
+const mapDispatchToProps = { addTimeEntries, addTasks };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Entries);
