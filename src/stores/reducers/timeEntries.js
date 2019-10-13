@@ -1,9 +1,9 @@
 import {
     UPDATE_TIME_ENTRY,
     ADD_TIME_ENTRIES
-} from '../actions/entries';
+} from '../actions/timeEntries';
 
-export const entries = (state = {}, action) => {
+export const timeEntries = (state = {}, action) => {
     switch (action.type) {
         case UPDATE_TIME_ENTRY:
             const timeEntry = action.payload;
@@ -18,15 +18,16 @@ export const entries = (state = {}, action) => {
                     }
                 })
             };
+            const updatedEntries = updateObjectInArray(state.timeEntries);
             return {
                 ...state,
-                timeEntries: updateObjectInArray(state.timeEntries)
+                timeEntries: [...updatedEntries]
             };
         case ADD_TIME_ENTRIES:
-            const { timeEntries } = action.payload;
+            const timeEntries = action.payload;
             return {
                 ...state,
-                timeEntries
+                timeEntries: [...timeEntries]
             };
         default:
             return state

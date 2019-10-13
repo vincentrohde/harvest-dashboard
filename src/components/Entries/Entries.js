@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import axios from "axios";
 import { connect } from 'react-redux';
-import { addTimeEntries } from '../../stores/actions/entries';
+
+import { addTimeEntries } from '../../stores/actions/timeEntries';
+import { addProjects } from '../../stores/actions/projects';
 import { addTasks } from '../../stores/actions/tasks';
 
 import style from './Entries.scss';
@@ -13,24 +15,24 @@ class Entries extends Component {
     constructor (props) {
         super();
         this.props = props;
+        this.headersAPI = {
+            "Authorization": "Bearer " + process.env.ACCESS_TOKEN,
+            "Harvest-Account-ID": process.env.ACCOUNT_ID
+        };
 
         this.getTimeEntries();
+        this.getProjects();
         this.getTasks();
     }
 
     getTimeEntries () {
         const that = this;
         axios.get(process.env.API_URL + '/v2/time_entries', {
-            headers: {
-                "Authorization": "Bearer " + process.env.ACCESS_TOKEN,
-                "Harvest-Account-ID": process.env.ACCOUNT_ID
-            }
+            headers: this.headersAPI
         })
             .then(function (response) {
-                that.entries = response.data.time_entries;
-                that.props.addTimeEntries({
-                    timeEntries: that.entries
-                });
+                that.timeEntries = response.data.time_entries;
+                that.props.addTimeEntries(that.timeEntries);
             })
             .catch(function (error) {
                 console.log(error);
@@ -40,14 +42,11 @@ class Entries extends Component {
     getTasks () {
         const that = this;
         axios.get(process.env.API_URL + '/v2/tasks', {
-            headers: {
-                "Authorization": "Bearer " + process.env.ACCESS_TOKEN,
-                "Harvest-Account-ID": process.env.ACCOUNT_ID
-            }
+            headers: this.headersAPI
         })
             .then(function (response) {
                 const { tasks } = response.data;
-                const filteredTasksData = that.filterTasksDataForStateSet(tasks);
+                const filteredTasksData = that.filterAPIDataForState(tasks);
                 that.props.addTasks({
                     tasks: filteredTasksData
                 });
@@ -57,16 +56,33 @@ class Entries extends Component {
             });
     }
 
-    filterTasksDataForStateSet (tasks) {
-        let filteredTasks = tasks.map(task => {
+    getProjects () {
+        const that = this;
+        axios.get(process.env.API_URL + '/v2/projects', {
+            headers: this.headersAPI
+        })
+            .then(function (response) {
+                const { projects } = response.data;
+                const filteredProjectsData = that.filterAPIDataForState(projects);
+                that.props.addProjects({
+                    projects: filteredProjectsData
+                });
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    filterAPIDataForState (list) {
+        const filteredList = list.map(item => {
             return {
-                id: task.id,
-                name: task.name,
-                isActive: task.is_default
+                id: item.id,
+                name: item.name,
+                isActive: item.is_default || item.is_active
             }
         });
 
-        return filteredTasks;
+        return filteredList;
     }
 
     getHoursByCategory (entries) {
@@ -104,8 +120,8 @@ class Entries extends Component {
     }
 
     render () {
-        if (this.props.entries.timeEntries) {
-            this.hoursByCategory = this.getHoursByCategory(this.props.entries.timeEntries);
+        if (this.props.timeEntries.timeEntries) {
+            this.hoursByCategory = this.getHoursByCategory(this.props.timeEntries.timeEntries);
         }
 
         return (
@@ -125,6 +141,6 @@ const mapStateToProps = state => {
     }
 };
 
-const mapDispatchToProps = { addTimeEntries, addTasks };
+const mapDispatchToProps = { addTimeEntries, addProjects, addTasks };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Entries);

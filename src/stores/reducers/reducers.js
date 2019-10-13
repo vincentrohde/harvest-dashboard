@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 
-import { entries } from './entries';
+import { timeEntries } from './timeEntries';
+import { projects } from './projects';
 import { tasks } from './tasks';
 
 const application = combineReducers({
-    entries,
+    timeEntries,
+    projects,
     tasks
 });
 

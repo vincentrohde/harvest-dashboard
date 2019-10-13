@@ -3,7 +3,7 @@ import axios from "axios";
 import moment from 'moment';
 
 import { connect } from 'react-redux';
-import { updateTimeEntry } from '../../stores/actions/entries';
+import { updateTimeEntry } from '../../stores/actions/timeEntries';
 
 import style from './Entry.scss';
 
@@ -89,6 +89,7 @@ class Entry extends Component {
                 </div>
                 <div className="time-container">
                     <p className="date">{ this.date }</p>
+                    <p className="edit">Edit</p>
                     <h3 className="time">{ this.hours }</h3>
                 </div>
             </div>
@@ -96,6 +97,12 @@ class Entry extends Component {
     }
 };
 
+const mapStateToProps = state => {
+    return {
+        ...state
+    }
+};
+
 const mapDispatchToProps = { updateTimeEntry };
 
-export default connect(null, mapDispatchToProps)(Entry);
+export default connect(mapStateToProps, mapDispatchToProps)(Entry);
