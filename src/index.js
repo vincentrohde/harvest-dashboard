@@ -4,4 +4,4 @@ import App from './components/App/App';
 
 import style from './index.scss';
 
-ReactDOM.render(<App />, document.querySelector('.app'));
+ReactDOM.render(<App />, document.querySelector('.app-container'));

@@ -51,6 +51,14 @@
     .time-container {
         text-align: right;
 
+        .date, .edit {
+            display: inline;
+        }
+
+        .date {
+            margin-right: 10px;
+        }
+
         .time {
             font-size: 22px;
             color: #ff6f5e;
