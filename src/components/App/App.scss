@@ -1,9 +1,12 @@
 .App {
-    font-family: 'Helvetica';
     min-height: 100vh;
     padding: 10px;
     max-width: 900px;
     margin: 0 auto;
+
+    * {
+        font-family: 'Helvetica';
+    }
 
     .app-title {
         padding: 10px 0;
