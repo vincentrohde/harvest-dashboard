@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { updateEditEntry } from '../../stores/actions/timeEntries';
 
 import style from './EntriesList.scss';
 
-import Entry from "../Entry/Entry";
-
-import { updateEditEntry } from "../../stores/actions/timeEntries";
+import Entry from '../Entry/Entry';
 
 class EntriesList extends Component {
     constructor (props) {
         super();
         this.props = props;
+        this.reducers = this.props.reducers;
         this.element = React.createRef();
     }
 
@@ -28,16 +28,18 @@ class EntriesList extends Component {
         entryList.addEventListener('click', ({ target }) => {
             const element = target;
             const entry = element.closest('.Entry');
+
             if (entry && target.classList.contains('edit')) {
-                const id = entry.dataset.id;
+                const id = Number(entry.dataset.id);
                 this.props.updateEditEntry(id);
             }
         });
     }
 
     render () {
+        let entries;
         if (this.props.timeEntries.timeEntries) {
-            this.entries = this.props.timeEntries.timeEntries;
+            entries = this.props.timeEntries;
         }
 
         return (
@@ -45,38 +47,36 @@ class EntriesList extends Component {
                 className="EntriesList"
                 ref={this.element}
             >
-                <div className="header tab-container">
-                    { this.entries && (
-                        <p className="meta-data pipes">
-                            <span>{ this.entries.length } Entries</span>
-                            <span>Total Time</span>
-                        </p>
-                    )}
-                </div>
-                <div className="entries-container">
-                    {
-                        this.entries &&
-                        this.entries.map((entry, index) => {
-
-                            return (<Entry
-                                key={index}
-                                information={entry}
-                                isEdit={entry.id === Number(this.props.timeEntries.editEntry)}
-                            />);
-                        })
-                    }
-                </div>
+                { this.props.timeEntries.timeEntries && (
+                    <div>
+                        <div className="header tab-container">
+                            <p className="meta-data pipes">
+                                <span>{ entries.timeEntries.length } Entries</span>
+                                <span>Total Time</span>
+                            </p>
+                        </div>
+                        <div className="entries-container">
+                            {
+                                entries.timeEntries.map((entry, index) => {
+                                    return (<Entry
+                                        key={index}
+                                        information={entry}
+                                        isEdit={entry.id === Number(entries.editEntry)}
+                                        isNew={false}
+                                        reducers={this.reducers}
+                                    />);
+                                })
+                            }
+                        </div>
+                    </div>
+                )};
             </section>
         )
     }
 };
 
-const mapStateToProps = state => {
-    return {
-        ...state
-    }
+const mapDispatchToProps = {
+    updateEditEntry
 };
 
-const mapDispatchToProps = { updateEditEntry };
-
-export default connect(mapStateToProps, mapDispatchToProps)(EntriesList);
+export default connect(null, mapDispatchToProps)(EntriesList);

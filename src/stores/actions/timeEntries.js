@@ -12,7 +12,7 @@ export const addTimeEntries = (timeEntries) => {
 export const updateEditEntry = (id) => {
     return {
         type: UPDATE_EDIT_ENTRY,
-        payload: id
+        payload: Number(id)
     }
 };
 

@@ -1,28 +1,66 @@
 import React, { Component } from 'react';
-import axios from "axios";
+import axios from 'axios';
 import { connect } from 'react-redux';
 
-import { addTimeEntries } from '../../stores/actions/timeEntries';
-import { addProjects } from '../../stores/actions/projects';
-import { addTasks } from '../../stores/actions/tasks';
+import { addTimeEntries, updateEditEntry, updateTimeEntry } from '../../stores/actions/timeEntries';
+import { addActiveProjects, addProjects } from '../../stores/actions/projects';
+import { addActiveTasks, addTasks } from '../../stores/actions/tasks';
 
 import style from './Entries.scss';
 
 import CategoriesOverview from '../CategoriesOverview/CategoriesOverview';
-import EntriesList from "../EntriesList/EntriesList";
+import EntriesList from '../EntriesList/EntriesList';
+import Entry from '../Entry/Entry';
 
 class Entries extends Component {
     constructor (props) {
         super();
         this.props = props;
         this.headersAPI = {
-            "Authorization": "Bearer " + process.env.ACCESS_TOKEN,
-            "Harvest-Account-ID": process.env.ACCOUNT_ID
+            'Authorization': 'Bearer ' + process.env.ACCESS_TOKEN,
+            'Harvest-Account-ID': process.env.ACCOUNT_ID
         };
 
         this.getTimeEntries();
         this.getProjects();
         this.getTasks();
+    }
+
+    shouldComponentUpdate (nextProps) {
+        this.handleStateUpdate(nextProps);
+
+        return true;
+    }
+
+    handleStateUpdate (nextProps) {
+        const filterData = (selector) => {
+            if (nextProps[selector]) {
+                const dataOld = this.props[selector];
+                const dataNew = nextProps[selector];
+
+                const dataOldJSON = JSON.stringify(dataOld);
+                const dataNewJSON = JSON.stringify(dataNew);
+
+                if (dataOldJSON !== dataNewJSON) {
+                    return this.filterInactiveData(dataNew[selector]);
+                }
+
+                return false;
+            }
+
+            return false;
+        }
+
+        const newTasks = filterData('tasks');
+        const newProjects = filterData('projects');
+
+        if (newTasks) {
+            this.props.addActiveTasks(newTasks);
+        }
+
+        if (newProjects) {
+            this.props.addActiveProjects(newProjects);
+        }
     }
 
     getTimeEntries () {
@@ -85,6 +123,10 @@ class Entries extends Component {
         return filteredList;
     }
 
+    filterInactiveData (list = []) {
+        return list.filter(item => item.isActive === true);
+    }
+
     getHoursByCategory (entries) {
         const getHoursByCategory = (entries) => {
             const categoriesOnlyList = entries.map(entry => entry.category);
@@ -124,12 +166,24 @@ class Entries extends Component {
             this.hoursByCategory = this.getHoursByCategory(this.props.timeEntries.timeEntries);
         }
 
+        console.log('#### this.props.timeEntries: ', this.props.timeEntries);
+
         return (
-            <section className="Entries">
+            <section className='Entries'>
+                <Entry
+                    isEdit={true}
+                    isNew={true}
+                />
                 <CategoriesOverview
                     information={ this.hoursByCategory !== undefined ? this.hoursByCategory : null}
                 />
-                <EntriesList />
+                <EntriesList
+                    timeEntries={this.props.timeEntries}
+                    reducers={{
+                        updateEditEntry,
+                        updateTimeEntry
+                    }}
+                />
             </section>
         )
     }
@@ -141,6 +195,12 @@ const mapStateToProps = state => {
     }
 };
 
-const mapDispatchToProps = { addTimeEntries, addProjects, addTasks };
+const mapDispatchToProps = {
+    addTimeEntries,
+    addActiveProjects,
+    addProjects,
+    addActiveTasks,
+    addTasks
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Entries);
