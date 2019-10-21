@@ -35,4 +35,25 @@ Utils.objectsAreEquivalentToEachOther = (a, b) => {
     return true;
 }
 
+Utils.hoursToHoursMinutes = (hours) => {
+    const totalMinutes = hours * 60;
+
+    const convertedHours = Math.floor(totalMinutes / 60);
+    let convertedMinutes = Math.floor(totalMinutes % 60);
+
+    if (convertedMinutes.toString().length == 1) {
+        convertedMinutes = '0' + convertedMinutes;
+    }
+
+    return `${convertedHours}:${convertedMinutes}`;
+};
+
+Utils.hoursMinutesToHours = (time) => {
+    time = time.toString();
+    const timeComponents = time.split(':');
+    const dec = parseInt((timeComponents[1]/6)*10, 10);
+
+    return parseFloat(parseInt(timeComponents[0], 10) + '.' + (dec<10?'0':'') + dec);
+};
+
 export default Utils;
