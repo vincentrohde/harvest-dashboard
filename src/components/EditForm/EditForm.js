@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { Form, Input, Button, Select } from 'semantic-ui-react';
 import { DateInput } from 'semantic-ui-calendar-react';
-import axios from "axios";
+import FormError from '../FormError/FormError';
+
+import axios from 'axios';
 import moment from 'moment';
+import _ from 'underscore';
+import Utils from '../../utils/utils';
 
 import { connect } from 'react-redux';
 import { updateEditEntry, updateTimeEntry } from '../../stores/actions/timeEntries';
@@ -17,7 +21,9 @@ class EditForm extends Component {
         this.reducers = this.props.reducers;
 
         this.state = {
-            ...this.props.defaults
+            entry: {
+                ...this.props.defaults
+            }
         };
 
         this.headersAPI = {
@@ -65,75 +71,126 @@ class EditForm extends Component {
 
     resetStateToDefault () {
         this.setState({
-            task_id: '',
-            project_id: '',
-            notes: '',
-            hours: '',
-            spent_date: ''
+            ...this.state,
+            entry: {
+                ...this.state.entry,
+                task_id: '',
+                project_id: '',
+                notes: '',
+                hours: '0:00',
+                spent_date: ''
+            }
         });
     }
 
     handleSubmit (event) {
         event.preventDefault();
         const that = this;
+
         const convertDateForAPI = (inputDate) => {
             return moment(inputDate, 'DD.MM.YYYY').format('YYYY-MM-DD');
         };
 
-        if (this.props.isNew) {
-            const headers = {...this.headersAPI, 'Content-Type': 'application/json'};
-            const date = convertDateForAPI(this.state.spent_date);
+        const getHours = () => {
+            const hours = Utils.hoursMinutesToHours(this.state.entry.hours);
+            return Number(hours);
+        };
 
-            const data = {
-                project_id: this.state.project_id,
-                task_id: this.state.task_id,
-                spent_date: date,
-                hours: Number(this.state.hours),
-                notes: this.state.notes
-            };
+        const handlePostConversion = () => {
+            const isNewEntry = this.props.isNew;
 
-            console.log('### data: ', data);
+            if (isNewEntry) {
+                const headers = {...this.headersAPI, 'Content-Type': 'application/json'};
 
-            axios.post(`${process.env.API_URL}/v2/time_entries`,
-                data,
-                { headers })
-                .then(function () {
-                    that.resetStateToDefault();
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-        } else {
-            axios.patch(`${process.env.API_URL}/v2/time_entries/${that.entryID}`,
-                {...this.state},
-                {
-                    headers: {...this.headersAPI, 'Content-Type': 'application/json'}
-                })
-                .then(function ({ request }) {
-                    if (request.readyState === 4 && request.status === 200) {
-                        that.props.updateEditEntry('');
+                axios.post(`${process.env.API_URL}/v2/time_entries`,
+                    {...this.state.entry},
+                    { headers })
+                    .then(function () {
+                        that.resetStateToDefault();
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            } else {
+                axios.patch(`${process.env.API_URL}/v2/time_entries/${that.entryID}`,
+                    {...this.state.entry},
+                    {
+                        headers: {...this.headersAPI, 'Content-Type': 'application/json'}
+                    })
+                    .then(function ({ request }) {
+                        if (request.readyState === 4 && request.status === 200) {
+                            that.props.updateEditEntry('');
 
-                        axios.get(`${process.env.API_URL}/v2/time_entries/${that.entryID}`, {
-                            headers: that.headersAPI
-                        })
-                            .then(function ({ data }) {
-                                that.props.updateTimeEntry(data);
+                            axios.get(`${process.env.API_URL}/v2/time_entries/${that.entryID}`, {
+                                headers: that.headersAPI
                             })
-                            .catch(function (error) {
-                                console.log(error);
-                            });
-                    }
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+                                .then(function ({ data }) {
+                                    that.props.updateTimeEntry(data);
+                                })
+                                .catch(function (error) {
+                                    console.log(error);
+                                });
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
         }
+
+        const convertInput = (callback) => {
+            const convertedHours = getHours();
+            const convertedDate = convertDateForAPI(this.state.entry.spent_date);
+
+            this.setState({
+                entry: {
+                    hours: convertedHours,
+                    spent_date: convertedDate
+                }
+            }, () => {
+                callback();
+            })
+        };
+
+        convertInput(handlePostConversion);
     }
 
     handleChange (event, { name, value }) {
+        const target = event.target;
+
+        const checkChange = () => {
+            if (name === 'hours') {
+                const hoursInputRegex = /(^([1-9]?)([0-9])(:)([0-5])([0-9])$)/;
+                const input = this.state.entry[name];
+                const hoursInputTestPassed = input.match(hoursInputRegex);
+
+                if (!hoursInputTestPassed) {
+                    this.setState({
+                        ...this.state,
+                        error: name
+                    }, () => {});
+                } else {
+                    this.setState({
+                        ...this.state,
+                        error: ''
+                    }, () => {
+                        console.log(this.state);
+                    });
+                }
+            }
+        }
+
+        const debouncedChangeChecker = _.debounce(checkChange, 500);
+
         this.setState({
-            [name]: value
-        }, () => {});
+            ...this.state,
+            entry: {
+                ...this.state.entry,
+                [name]: value
+            }
+        }, () => {
+            debouncedChangeChecker();
+        });
     }
 
     convertDataToSelectOptions (list) {
@@ -150,36 +207,36 @@ class EditForm extends Component {
         const tasks = this.tasks;
         const projects = this.projects;
 
-        console.log('this.props.isNew: ', this.props.isNew);
-
         return (
-            <div className="EditForm">
+            <div className="EditForm full">
                 { (tasks && projects) && (
                     <Form
                         onSubmit={this.handleSubmit.bind(this)}
+                        error
                     >
+                        <FormError error={this.state.error}/>
                         <Form.Group widths="equal">
                             <Form.Field
                                 control={Select}
-                                label={{ children: 'Task', htmlFor: 'form-select-control-task' }}
+                                label={{ children: "Task", htmlFor: "form-select-control-task" }}
                                 search
-                                searchInput={{ id: 'form-select-control-task' }}
+                                searchInput={{ id: "form-select-control-task" }}
                                 options={tasks}
                                 placeholder="Task"
                                 name="task_id"
                                 onChange={this.handleChange.bind(this)}
-                                value={this.state.task_id}
+                                value={this.state.entry.task_id}
                             />
                             <Form.Field
                                 control={Select}
-                                label={{ children: 'Project', htmlFor: 'form-select-control-task' }}
+                                label={{ children: "Project", htmlFor: "form-select-control-task" }}
                                 search
-                                searchInput={{ id: 'form-select-control-task' }}
+                                searchInput={{ id: "form-select-control-task" }}
                                 options={projects}
                                 placeholder="Project"
                                 name="project_id"
                                 onChange={this.handleChange.bind(this)}
-                                value={this.state.project_id}
+                                value={this.state.entry.project_id}
                             />
                         </Form.Group>
 
@@ -190,7 +247,7 @@ class EditForm extends Component {
                                 placeholder="Notes"
                                 name="notes"
                                 onChange={this.handleChange.bind(this)}
-                                value={this.state.notes}
+                                value={this.state.entry.notes}
                                 width={12}
                             />
                             <Form.Field
@@ -198,8 +255,9 @@ class EditForm extends Component {
                                 label="Hours"
                                 placeholder="Hours"
                                 name="hours"
+                                error={this.state.error === "hours"}
                                 onChange={this.handleChange.bind(this)}
-                                value={this.state.hours}
+                                value={this.state.entry.hours}
                                 width={4}
                             />
                         </Form.Group>
@@ -211,8 +269,8 @@ class EditForm extends Component {
                                 placeholder="Date"
                                 label="Date"
                                 inlineLabel={false}
-                                dateFormat={'DD.MM.YYYY'}
-                                value={this.state.spent_date}
+                                dateFormat={"DD.MM.YYYY"}
+                                value={this.state.entry.spent_date}
                                 onChange={this.handleChange.bind(this)}
                             />
                             <Button
