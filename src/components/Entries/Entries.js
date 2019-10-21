@@ -166,8 +166,6 @@ class Entries extends Component {
             this.hoursByCategory = this.getHoursByCategory(this.props.timeEntries.timeEntries);
         }
 
-        console.log('#### this.props.timeEntries: ', this.props.timeEntries);
-
         return (
             <section className='Entries'>
                 <Entry
