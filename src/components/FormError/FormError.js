@@ -2,10 +2,15 @@ import React from 'react';
 import { Message } from "semantic-ui-react";
 
 const FormError = ({ error }) => {
+    console.log(error);
+
     let errorContent;
-    switch (error) {
+    switch (error[0]) {
         case 'hours':
             errorContent = 'Hours need to be in format (H)H:MM';
+            break;
+        case 'spent_date':
+            errorContent = 'Date needs to be in format DD.MM.YYYY';
             break;
         default:
             errorContent = 'There is something wrong with your inputs';

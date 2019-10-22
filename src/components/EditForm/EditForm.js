@@ -21,6 +21,7 @@ class EditForm extends Component {
         this.reducers = this.props.reducers;
 
         this.state = {
+            error: [],
             entry: {
                 ...this.props.defaults
             }
@@ -72,6 +73,7 @@ class EditForm extends Component {
     resetStateToDefault () {
         this.setState({
             ...this.state,
+            error: [],
             entry: {
                 ...this.state.entry,
                 task_id: '',
@@ -159,24 +161,46 @@ class EditForm extends Component {
         const target = event.target;
 
         const checkChange = () => {
-            if (name === 'hours') {
-                const hoursInputRegex = /(^([1-9]?)([0-9])(:)([0-5])([0-9])$)/;
-                const input = this.state.entry[name];
-                const hoursInputTestPassed = input.match(hoursInputRegex);
+            const hoursInputRegex = /(^([1-9]?)([0-9])(:)([0-5])([0-9])$)/;
+            const dateInputRegex = /^[0-9]{2}[.]{1}[0-9]{2}[.]{1}[0-9]{4}$/;
 
-                if (!hoursInputTestPassed) {
+            const removeErrorFromList = (errorList, name) => {
+                errorList.forEach((item, index) => {
+                    if (item === name) {
+                        errorList.splice(index, 1);
+                    }
+                });
+            }
+
+            const regexHandler = (inputName, regex) => {
+                const input = this.state.entry[inputName];
+                const inputTestPassed = input.match(regex);
+
+                if (!inputTestPassed) {
                     this.setState({
                         ...this.state,
-                        error: name
+                        error: [...this.state.error, name]
                     }, () => {});
                 } else {
+                    let errorList = [...this.state.error];
+
+                    removeErrorFromList(errorList, name);
+
                     this.setState({
                         ...this.state,
-                        error: ''
+                        error: errorList
                     }, () => {
                         console.log(this.state);
                     });
                 }
+            }
+
+            if (name === 'hours') {
+                regexHandler(name, hoursInputRegex);
+            }
+
+            if (name === 'spent_date') {
+                regexHandler(name, dateInputRegex);
             }
         }
 
@@ -203,6 +227,11 @@ class EditForm extends Component {
         })
     }
 
+    isNameInErrorList (name) {
+        const errorList = this.state.error;
+        return errorList.includes(name);
+    }
+
     render () {
         const tasks = this.tasks;
         const projects = this.projects;
@@ -212,7 +241,7 @@ class EditForm extends Component {
                 { (tasks && projects) && (
                     <Form
                         onSubmit={this.handleSubmit.bind(this)}
-                        error
+                        error={this.state.error.length != '0'}
                     >
                         <FormError error={this.state.error}/>
                         <Form.Group widths="equal">
@@ -255,7 +284,7 @@ class EditForm extends Component {
                                 label="Hours"
                                 placeholder="Hours"
                                 name="hours"
-                                error={this.state.error === "hours"}
+                                error={this.isNameInErrorList('hours')}
                                 onChange={this.handleChange.bind(this)}
                                 value={this.state.entry.hours}
                                 width={4}
@@ -271,11 +300,21 @@ class EditForm extends Component {
                                 inlineLabel={false}
                                 dateFormat={"DD.MM.YYYY"}
                                 value={this.state.entry.spent_date}
+                                error={this.isNameInErrorList('spent_date')}
                                 onChange={this.handleChange.bind(this)}
                             />
                             <Button
                                 width={4}
-                                size="medium">
+                                size="medium"
+                                disabled={
+                                    this.state.error.length != '0' ||
+                                    !this.state.entry.hours ||
+                                    !this.state.entry.project_id ||
+                                    !this.state.entry.task_id ||
+                                    !this.state.entry.notes ||
+                                    !this.state.entry.spent_date
+                                }
+                            >
                                 Submit
                             </Button>
                         </Form.Group>
