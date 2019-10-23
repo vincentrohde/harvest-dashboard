@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import { Grid } from 'semantic-ui-react';
 
 import { addTimeEntries, updateEditEntry, updateTimeEntry } from '../../stores/actions/timeEntries';
 import { addActiveProjects, addProjects } from '../../stores/actions/projects';
@@ -168,20 +169,28 @@ class Entries extends Component {
 
         return (
             <section className='Entries'>
-                <Entry
-                    isEdit={true}
-                    isNew={true}
-                />
-                <CategoriesOverview
-                    information={ this.hoursByCategory !== undefined ? this.hoursByCategory : null}
-                />
-                <EntriesList
-                    timeEntries={this.props.timeEntries}
-                    reducers={{
-                        updateEditEntry,
-                        updateTimeEntry
-                    }}
-                />
+                <Grid>
+                    <Grid.Column width={16}>
+                        <Entry
+                            isEdit={true}
+                            isNew={true}
+                        />
+                    </Grid.Column>
+                    <Grid.Column width={8}>
+                        <CategoriesOverview
+                            information={ this.hoursByCategory !== undefined ? this.hoursByCategory : null}
+                        />
+                    </Grid.Column>
+                    <Grid.Column width={16}>
+                        <EntriesList
+                            timeEntries={this.props.timeEntries}
+                            reducers={{
+                                updateEditEntry,
+                                updateTimeEntry
+                            }}
+                        />
+                    </Grid.Column>
+                </Grid>
             </section>
         )
     }
