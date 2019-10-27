@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Button, Select } from 'semantic-ui-react';
+import { Form, Input, Button, Select, Icon } from 'semantic-ui-react';
 import { DateInput } from 'semantic-ui-calendar-react';
 import FormError from '../FormError/FormError';
 
@@ -319,7 +319,7 @@ class EditForm extends Component {
                                     !this.state.entry.spent_date
                                 }
                             >
-                                Submit
+                                <Icon name="send" /> Submit
                             </Button>
                         </Form.Group>
                     </Form>

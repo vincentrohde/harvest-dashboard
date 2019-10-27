@@ -11,7 +11,8 @@
         color: #fff;
 
         &.edit {
-            background: #ffd6c2;
+            background: #fff;
+            color: unset;
         }
 
         .meta-data-container {
@@ -105,6 +106,10 @@
             font-size: 22px;
             color: #ff6f5e;
             margin: 10px 0 0;
+
+            i {
+                font-size: 0.9em;
+            }
         }
     }
 }
