@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Input, Button, Select } from 'semantic-ui-react';
+import { Form, Input, Button, Select, Icon } from 'semantic-ui-react';
 import { DateInput } from 'semantic-ui-calendar-react';
 import FormError from '../FormError/FormError';
 
@@ -267,31 +267,6 @@ class EditForm extends Component {
                                 onChange={this.handleChange.bind(this)}
                                 value={this.state.entry.project_id}
                             />
-                        </Form.Group>
-
-                        <Form.Group>
-                            <Form.Field
-                                control={Input}
-                                label="Notes"
-                                placeholder="Notes"
-                                name="notes"
-                                onChange={this.handleChange.bind(this)}
-                                value={this.state.entry.notes}
-                                width={12}
-                            />
-                            <Form.Field
-                                control={Input}
-                                label="Hours"
-                                placeholder="Hours"
-                                name="hours"
-                                error={this.isNameInErrorList('hours')}
-                                onChange={this.handleChange.bind(this)}
-                                value={this.state.entry.hours}
-                                width={4}
-                            />
-                        </Form.Group>
-
-                        <Form.Group>
                             <DateInput
                                 className="submit-btn"
                                 name="spent_date"
@@ -303,9 +278,38 @@ class EditForm extends Component {
                                 error={this.isNameInErrorList('spent_date')}
                                 onChange={this.handleChange.bind(this)}
                             />
-                            <Button
+                        </Form.Group>
+
+                        <Form.Group>
+                            <Form.Field
+                                className="form-input"
+                                control={Input}
+                                label="Notes"
+                                placeholder="Notes"
+                                name="notes"
+                                onChange={this.handleChange.bind(this)}
+                                value={this.state.entry.notes}
+                                width={12}
+                            />
+                            <Form.Field
+                                className="form-input"
+                                control={Input}
+                                label="Hours"
+                                placeholder="Hours"
+                                name="hours"
+                                error={this.isNameInErrorList('hours')}
+                                onChange={this.handleChange.bind(this)}
+                                value={this.state.entry.hours}
                                 width={4}
+                            />
+                        </Form.Group>
+
+                        <Form.Group className="submit-row">
+                            <Button
+                                className="submit-button"
+                                width={8}
                                 size="medium"
+                                primary
                                 disabled={
                                     this.state.error.length != '0' ||
                                     !this.state.entry.hours ||
@@ -315,7 +319,7 @@ class EditForm extends Component {
                                     !this.state.entry.spent_date
                                 }
                             >
-                                Submit
+                                <Icon name="send" /> Submit
                             </Button>
                         </Form.Group>
                     </Form>

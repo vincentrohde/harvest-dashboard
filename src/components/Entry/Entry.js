@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Icon } from 'semantic-ui-react';
 
 import axios from 'axios';
 import moment from 'moment';
@@ -146,14 +147,19 @@ class Entry extends Component {
                         <div className="meta-data-container">
                             <p className="meta-data pipes">
                                 <span className="category">{ information.task.name }</span>
-                                <span>{ information.user.name }</span>
+                                <span>{ this.date }</span>
                             </p>
                             <h3 className="title">{ information.notes }</h3>
                         </div>
                         <div className="time-container">
-                            <p className="date">{ this.date }</p>
-                            <p className="edit">Edit</p>
-                            <h3 className="time">{ this.hours }</h3>
+                            {/*<p className="date">{ this.date }</p>*/}
+                            <p className="edit">
+                                <Icon name="pencil" />
+                            </p>
+                            <h3 className="time">
+                                <Icon name={`clock ${this.isActive ? '' : 'outline'}`} />
+                                { this.hours }
+                            </h3>
                         </div>
                     </div>
                 )}

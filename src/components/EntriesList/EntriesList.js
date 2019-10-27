@@ -27,9 +27,10 @@ class EntriesList extends Component {
 
         entryList.addEventListener('click', ({ target }) => {
             const element = target;
+            const editAction = element.closest('p.edit');
             const entry = element.closest('.Entry');
 
-            if (entry && target.classList.contains('edit')) {
+            if (entry && editAction) {
                 const id = Number(entry.dataset.id);
                 this.props.updateEditEntry(id);
             }
@@ -69,7 +70,7 @@ class EntriesList extends Component {
                             }
                         </div>
                     </div>
-                )};
+                )}
             </section>
         )
     }
