@@ -2,8 +2,6 @@ import React from 'react';
 import { Message } from "semantic-ui-react";
 
 const FormError = ({ error }) => {
-    console.log(error);
-
     let errorContent;
     switch (error[0]) {
         case 'hours':
