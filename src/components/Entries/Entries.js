@@ -176,7 +176,7 @@ class Entries extends Component {
                             isNew={true}
                         />
                     </Grid.Column>
-                    <Grid.Column width={8}>
+                    <Grid.Column mobile={16} tablet={8} computer={8}>
                         <CategoriesOverview
                             information={ this.hoursByCategory !== undefined ? this.hoursByCategory : null}
                         />

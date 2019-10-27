@@ -1,7 +1,18 @@
 .Entry {
+
+    @media (max-width:600px)  {
+        p {
+            margin-bottom: 0;
+        }
+    }
+
     &.active {
         background: #ff6f5e;
         color: #fff;
+
+        &.edit {
+            background: #ffd6c2;
+        }
 
         .meta-data-container {
             .meta-data {
@@ -61,6 +72,11 @@
             font-weight: 400;
             font-size: 18px;
             margin: 10px 0 0;
+
+            @media (max-width:600px)  {
+                position: relative;
+                bottom: unset;
+            }
         }
 
         .meta-data {

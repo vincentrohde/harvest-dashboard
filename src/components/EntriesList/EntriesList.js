@@ -69,7 +69,7 @@ class EntriesList extends Component {
                             }
                         </div>
                     </div>
-                )};
+                )}
             </section>
         )
     }
