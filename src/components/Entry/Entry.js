@@ -157,7 +157,7 @@ class Entry extends Component {
                                 <Icon name="pencil" />
                             </p>
                             <h3 className="time">
-                                <Icon name={`clock ${this.isActive ? '' : 'outline'}`} />
+                                <Icon name={`clock${this.isActive ? '' : ' outline'}`} />
                                 { this.hours }
                             </h3>
                         </div>
