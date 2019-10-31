@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { Grid } from 'semantic-ui-react';
+import moment from 'moment';
 
+import { setFilters } from '../../stores/actions/filters';
 import { addTimeEntries, updateEditEntry, updateTimeEntry } from '../../stores/actions/timeEntries';
 import { addActiveProjects, addProjects } from '../../stores/actions/projects';
 import { addActiveTasks, addTasks } from '../../stores/actions/tasks';
@@ -12,6 +14,7 @@ import style from './Entries.scss';
 import CategoriesOverview from '../CategoriesOverview/CategoriesOverview';
 import EntriesList from '../EntriesList/EntriesList';
 import Entry from '../Entry/Entry';
+import DatePickerForm from '../DatePickerForm/DatePickerForm';
 
 class Entries extends Component {
     constructor (props) {
@@ -22,7 +25,12 @@ class Entries extends Component {
             'Harvest-Account-ID': process.env.ACCOUNT_ID
         };
 
-        this.getTimeEntries();
+        this.props.setFilters({
+            dateRange: [
+                moment().format('YYYY-MM-DD')
+            ]
+        });
+
         this.getProjects();
         this.getTasks();
     }
@@ -34,7 +42,7 @@ class Entries extends Component {
     }
 
     handleStateUpdate (nextProps) {
-        const filterData = (selector) => {
+        const isNewPropDifferent = (selector) => {
             if (nextProps[selector]) {
                 const dataOld = this.props[selector];
                 const dataNew = nextProps[selector];
@@ -43,39 +51,64 @@ class Entries extends Component {
                 const dataNewJSON = JSON.stringify(dataNew);
 
                 if (dataOldJSON !== dataNewJSON) {
-                    return this.filterInactiveData(dataNew[selector]);
+                    return dataNew;
                 }
 
                 return false;
             }
 
             return false;
+        };
+
+        const newFilters = isNewPropDifferent('filters');
+        let newTasks = isNewPropDifferent('tasks');
+        let newProjects = isNewPropDifferent('projects');
+
+        if (newFilters) {
+            this.getTimeEntries(newFilters);
         }
 
-        const newTasks = filterData('tasks');
-        const newProjects = filterData('projects');
-
         if (newTasks) {
+            newTasks = this.filterInactiveData(newTasks['tasks']);
             this.props.addActiveTasks(newTasks);
         }
 
         if (newProjects) {
+            newProjects = this.filterInactiveData(newProjects['projects']);
             this.props.addActiveProjects(newProjects);
         }
     }
 
-    getTimeEntries () {
+    getTimeEntries (filters) {
         const that = this;
-        axios.get(process.env.API_URL + '/v2/time_entries', {
-            headers: this.headersAPI
-        })
-            .then(function (response) {
-                that.timeEntries = response.data.time_entries;
-                that.props.addTimeEntries(that.timeEntries);
+        const getDateRange = ({ dateRange }) => {
+            if (dateRange && dateRange.length) {
+                if (dateRange.length > 1) {
+                    return [dateRange[0], dateRange[1]]
+                } else {
+                    return [dateRange[0], dateRange[0]]
+                }
+            }
+
+            return false;
+        };
+
+        const dateRange = getDateRange(filters);
+
+        if (dateRange) {
+            axios.get(`${process.env.API_URL}/v2/time_entries?from=${dateRange[0]}&to=${dateRange[1]}`, {
+                headers: {
+                    ...this.headersAPI
+                }
             })
-            .catch(function (error) {
-                console.log(error);
-            });
+                .then(function (response) {
+                    that.timeEntries = response.data.time_entries;
+                    that.props.addTimeEntries(that.timeEntries);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
     }
 
     getTasks () {
@@ -171,6 +204,9 @@ class Entries extends Component {
             <section className='Entries'>
                 <Grid>
                     <Grid.Column width={16}>
+                        <DatePickerForm />
+                    </Grid.Column>
+                    <Grid.Column width={16}>
                         <Entry
                             isEdit={true}
                             isNew={true}
@@ -207,7 +243,8 @@ const mapDispatchToProps = {
     addActiveProjects,
     addProjects,
     addActiveTasks,
-    addTasks
+    addTasks,
+    setFilters
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Entries);

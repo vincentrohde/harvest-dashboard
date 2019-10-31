@@ -15,7 +15,7 @@ export const filters = (state = {}, action) => {
             dateRange = action.payload;
             return {
                 ...state,
-                dateRange
+                dateRange: [...dateRange]
             };
         default:
             return {
