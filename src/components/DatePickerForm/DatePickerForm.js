@@ -90,9 +90,9 @@ class DatePickerForm extends Component {
     }
 
     setInputToCurrentDate () {
-
         const e = new Event('input', { bubbles: true });
-        const input = document.querySelector('.date-picker input');
+        const input = this.datePicker.inputNode;
+
         this.setNativeValue(input, `${moment().format('DD-MM-YYYY')} - `);
         input.dispatchEvent(e);
     }
