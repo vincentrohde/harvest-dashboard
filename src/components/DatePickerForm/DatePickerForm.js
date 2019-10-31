@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Form } from 'semantic-ui-react';
+import { Form, Grid, Button, Icon } from 'semantic-ui-react';
 import moment from 'moment';
 import {
     DatesRangeInput
@@ -13,6 +13,7 @@ class DatePickerForm extends Component {
     constructor (props) {
         super();
         this.props = props;
+        this.datePicker = false;
 
         this.state = {
             dateRange: this.props.dateRange
@@ -88,16 +89,54 @@ class DatePickerForm extends Component {
         }
     }
 
+    setInputToCurrentDate () {
+
+        const e = new Event('input', { bubbles: true });
+        const input = document.querySelector('.date-picker input');
+        this.setNativeValue(input, `${moment().format('DD-MM-YYYY')} - `);
+        input.dispatchEvent(e);
+    }
+
+    setNativeValue (element, value) {
+        const valueSetter = Object.getOwnPropertyDescriptor(element, 'value').set;
+        const prototype = Object.getPrototypeOf(element);
+        const prototypeValueSetter = Object.getOwnPropertyDescriptor(prototype, 'value').set;
+
+        if (valueSetter && valueSetter !== prototypeValueSetter) {
+            prototypeValueSetter.call(element, value);
+        } else {
+            valueSetter.call(element, value);
+        }
+    };
+
     render () {
         return (
-            <Form className="DatePickerForm">
-                <DatesRangeInput
-                    name="dateRange"
-                    placeholder="From - To"
-                    value={this.getDateRangeValue()}
-                    iconPosition="left"
-                    onChange={this.handleChange.bind(this)}
-                />
+            <Form
+                className="DatePickerForm"
+            >
+                <Grid>
+                    <Grid.Column width={12}>
+                        <DatesRangeInput
+                            className="date-picker"
+                            name="dateRange"
+                            placeholder="From - To"
+                            value={this.getDateRangeValue()}
+                            iconPosition="left"
+                            onChange={this.handleChange.bind(this)}
+                            ref={(element) => { this.datePicker = element; }}
+                        />
+                    </Grid.Column>
+                    <Grid.Column width={4}>
+                        <Button
+                            className="today-button full"
+                            size="medium"
+                            primary
+                            onClick={this.setInputToCurrentDate.bind(this)}
+                        >
+                            <Icon name="thumbtack" /> Today
+                        </Button>
+                    </Grid.Column>
+                </Grid>
             </Form>
         )
     }
