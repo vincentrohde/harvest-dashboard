@@ -1,0 +1,16 @@
+export const SET_FILTERS = 'SET_FILTERS';
+export const UPDATE_DATE_RANGE = 'UPDATE_DATE_RANGE';
+
+export const setFilters = (filters) => {
+    return {
+        type: SET_FILTERS,
+        payload: filters
+    }
+};
+
+export const updateDateRange = (dateRange) => {
+    return {
+        type: UPDATE_DATE_RANGE,
+        payload: dateRange
+    }
+};
