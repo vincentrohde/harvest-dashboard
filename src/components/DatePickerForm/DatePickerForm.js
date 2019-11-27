@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Form, Grid, Button, Icon } from 'semantic-ui-react';
+import { Form, Grid, Button, Icon, Select } from 'semantic-ui-react';
 import moment from 'moment';
 import {
     DatesRangeInput
@@ -14,9 +14,32 @@ class DatePickerForm extends Component {
         super();
         this.props = props;
         this.datePicker = false;
+        this.ranges = [
+            {
+                key: '1',
+                value: 'today',
+                text: 'Today',
+            },
+            {
+                key: '2',
+                value: 'one-week',
+                text: 'Last Week',
+            },
+            {
+                key: '3',
+                value: 'one-month',
+                text: 'Last Month',
+            },
+            {
+                key: '4',
+                value: 'one-year',
+                text: 'Last Year',
+            }
+        ];
 
         this.state = {
-            dateRange: this.props.dateRange
+            dateRange: this.props.dateRange,
+            preset: ''
         };
     }
 
@@ -36,10 +59,13 @@ class DatePickerForm extends Component {
 
         this.setState({
             ...this.state,
+            preset: this.setPreset ? this.state.preset : '',
             [name]: dates
         }, () => {
             stateCallback();
         });
+
+        this.setPreset = false;
     }
 
     getArrayFromDateRangeInput (input) {
@@ -89,14 +115,43 @@ class DatePickerForm extends Component {
         }
     }
 
-    setInputToCurrentDate () {
-        const e = new Event('input', { bubbles: true });
+    setInputToCurrentDate (ev, {value}) {
+        const event = new Event('input', { bubbles: true });
         const input = this.datePicker.inputNode;
+        const currentDay = moment().format('DD-MM-YYYY');
+        let inputValue, oneWeekAgo, oneMonthAgo, oneYearAgo;
+        this.setPreset = true;
 
-        this.setNativeValue(input, `${moment().format('DD-MM-YYYY')} - `);
-        input.dispatchEvent(e);
+        this.setState({
+            ...this.state,
+            preset: value
+        }, () => {
+            switch (value) {
+                case 'today':
+                    inputValue = `${currentDay} - `;
+                    break;
+                case 'one-week':
+                    oneWeekAgo = moment().subtract(6,'days').format('DD-MM-YYYY');
+                    inputValue = `${oneWeekAgo} - ${currentDay}`;
+                    break;
+                case 'one-month':
+                    oneMonthAgo = moment().subtract(29,'days').format('DD-MM-YYYY');
+                    inputValue = `${oneMonthAgo} - ${currentDay}`;
+                    break;
+                case 'one-year':
+                    oneYearAgo = moment().subtract(364,'days').format('DD-MM-YYYY');
+                    inputValue = `${oneYearAgo} - ${currentDay}`;
+                    break;
+                default:
+                    return;
+            }
+
+            this.setNativeValue(input, inputValue);
+            input.dispatchEvent(event);
+        });
     }
 
+    // todo: what is this doing?
     setNativeValue (element, value) {
         const valueSetter = Object.getOwnPropertyDescriptor(element, 'value').set;
         const prototype = Object.getPrototypeOf(element);
@@ -115,10 +170,11 @@ class DatePickerForm extends Component {
                 className="DatePickerForm"
             >
                 <Grid>
-                    <Grid.Column width={12}>
+                    <Grid.Column width={10}>
                         <DatesRangeInput
                             className="date-picker"
                             name="dateRange"
+                            label={{ children: "Date Range", htmlFor: "form-select-control-task" }}
                             placeholder="From - To"
                             value={this.getDateRangeValue()}
                             iconPosition="left"
@@ -126,15 +182,19 @@ class DatePickerForm extends Component {
                             ref={(element) => { this.datePicker = element; }}
                         />
                     </Grid.Column>
-                    <Grid.Column width={4}>
-                        <Button
-                            className="today-button full"
-                            size="medium"
-                            primary
-                            onClick={this.setInputToCurrentDate.bind(this)}
-                        >
-                            <Icon name="thumbtack" /> Today
-                        </Button>
+                    <Grid.Column width={6}>
+                        <Form.Field
+                            control={Select}
+                            label={{ children: "Preset", htmlFor: "form-select-control-task" }}
+                            search
+                            searchInput={{ id: "form-select-control-task" }}
+                            options={this.ranges}
+                            placeholder="Preset"
+                            name="preset"
+                            clearable
+                            onChange={this.setInputToCurrentDate.bind(this)}
+                            value={this.state.preset}
+                        />
                     </Grid.Column>
                 </Grid>
             </Form>
