@@ -33,6 +33,7 @@ class EditForm extends Component {
         };
 
         this.entryID = this.props.entryID;
+        this.isNewEntry = this.props.isNew;
 
         this.setOptionsIfAvailable();
 
@@ -87,6 +88,7 @@ class EditForm extends Component {
 
     handleSubmit (event) {
         event.preventDefault();
+
         const that = this;
 
         const convertDateForAPI = (inputDate) => {
@@ -98,14 +100,26 @@ class EditForm extends Component {
             return Number(hours);
         };
 
-        const handlePostConversion = () => {
-            const isNewEntry = this.props.isNew;
+        const convertInput = (input) => {
+            const convertedHours = getHours();
+            const convertedDate = convertDateForAPI(this.state.entry.spent_date);
+
+            return {
+                ...input,
+                hours: convertedHours,
+                spent_date: convertedDate
+            };
+        };
+
+        const submitInputDataToHarvestAPI = () => {
+            const isNewEntry = this.isNewEntry;
+            const userInput = convertInput({...this.state.entry});
 
             if (isNewEntry) {
                 const headers = {...this.headersAPI, 'Content-Type': 'application/json'};
 
                 axios.post(`${process.env.API_URL}/v2/time_entries`,
-                    {...this.state.entry},
+                    userInput,
                     { headers })
                     .then(function () {
                         that.resetStateToDefault();
@@ -115,7 +129,7 @@ class EditForm extends Component {
                     });
             } else {
                 axios.patch(`${process.env.API_URL}/v2/time_entries/${that.entryID}`,
-                    {...this.state.entry},
+                    userInput,
                     {
                         headers: {...this.headersAPI, 'Content-Type': 'application/json'}
                     })
@@ -138,23 +152,9 @@ class EditForm extends Component {
                         console.log(error);
                     });
             }
-        }
-
-        const convertInput = (callback) => {
-            const convertedHours = getHours();
-            const convertedDate = convertDateForAPI(this.state.entry.spent_date);
-
-            this.setState({
-                entry: {
-                    hours: convertedHours,
-                    spent_date: convertedDate
-                }
-            }, () => {
-                callback();
-            })
         };
 
-        convertInput(handlePostConversion);
+        submitInputDataToHarvestAPI();
     }
 
     handleChange (event, { name, value }) {
@@ -170,7 +170,7 @@ class EditForm extends Component {
                         errorList.splice(index, 1);
                     }
                 });
-            }
+            };
 
             const regexHandler = (inputName, regex) => {
                 const input = this.state.entry[inputName];
@@ -204,7 +204,7 @@ class EditForm extends Component {
             }
         }
 
-        const debouncedChangeChecker = _.debounce(checkChange, 500);
+        const debouncedChangeChecker = _.debounce(checkChange, 2000);
 
         this.setState({
             ...this.state,
@@ -215,6 +215,12 @@ class EditForm extends Component {
         }, () => {
             debouncedChangeChecker();
         });
+    }
+
+    handleCancel () {
+        if (!this.isNewEntry) {
+            this.props.updateEditEntry('');
+        }
     }
 
     convertDataToSelectOptions (list) {
@@ -242,6 +248,7 @@ class EditForm extends Component {
                     <Form
                         onSubmit={this.handleSubmit.bind(this)}
                         error={this.state.error.length != '0'}
+                        autoComplete="off"
                     >
                         <FormError error={this.state.error}/>
                         <Form.Group widths="equal">
@@ -304,10 +311,21 @@ class EditForm extends Component {
                             />
                         </Form.Group>
 
-                        <Form.Group className="submit-row">
+                        <Form.Group className="submit-row" widths="equal">
+                            { !this.isNewEntry && (
+                                <Button
+                                    className="cancel-button js-cancel"
+                                    width={5}
+                                    size="medium"
+                                    type="button"
+                                    onClick={this.handleCancel.bind(this)}
+                                >
+                                    <Icon name="undo" /> Cancel
+                                </Button>
+                            )}
                             <Button
-                                className="submit-button"
-                                width={8}
+                                className="submit-button js-submit"
+                                width={5}
                                 size="medium"
                                 primary
                                 disabled={

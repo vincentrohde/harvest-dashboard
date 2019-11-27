@@ -10,11 +10,12 @@
     }
 
     .submit-row {
-        margin-top: 1em;
+        display: flex;
+        justify-content: center;
+        margin: 1em 0.5em 0;
     }
 
     .submit-button {
-        width: 100%;
         margin: 0 0.5em;
     }
 }
