@@ -6,7 +6,6 @@ import FormError from '../FormError/FormError';
 import axios from 'axios';
 import moment from 'moment';
 import _ from 'underscore';
-import Utils from '../../utils/utils';
 import { TimeHelper } from '../../helpers';
 
 import { connect } from 'react-redux';
@@ -98,7 +97,7 @@ class EditForm extends Component {
         };
 
         const getHours = () => {
-            const hours = Utils.hoursMinutesToHours(this.state.entry.hours);
+            const hours = TimeHelper.hoursAndMinutesToHours(this.state.entry.hours);
             return Number(hours);
         };
 

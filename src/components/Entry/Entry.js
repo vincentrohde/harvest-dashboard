@@ -4,6 +4,7 @@ import { Icon } from 'semantic-ui-react';
 import axios from 'axios';
 import moment from 'moment';
 import Utils from '../../utils/utils';
+import { TimeHelper } from '../../helpers';
 
 import EditForm from '../EditForm/EditForm';
 
@@ -33,7 +34,7 @@ class Entry extends Component {
             this.activeInterval = 2000;
 
             this.date = moment(this.information.spent_date).format('DD.MM.YYYY');
-            this.hours = Utils.hoursToHoursMinutes(this.information.hours);
+            this.hours = TimeHelper.hoursToHoursAndMinutes(this.information.hours);
 
             this.defaults = this.getObjectForDefaults(this.information);
 
@@ -73,7 +74,7 @@ class Entry extends Component {
                 task_id: information.task.id,
                 project_id: information.project.id,
                 notes: information.notes,
-                hours: Utils.hoursToHoursMinutes(information.hours),
+                hours: TimeHelper.hoursToHoursAndMinutes(information.hours),
                 spent_date: moment(information.spent_date).format('DD.MM.YYYY')
             }
         }
@@ -119,7 +120,7 @@ class Entry extends Component {
         const information = this.props.information;
 
         if (!this.isNew) {
-            this.hours = Utils.hoursToHoursMinutes(this.props.information.hours);
+            this.hours = TimeHelper.hoursToHoursAndMinutes(this.props.information.hours);
             this.isActive = this.props.information.is_running;
         }
 
