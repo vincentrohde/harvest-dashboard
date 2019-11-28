@@ -7,10 +7,12 @@ import axios from 'axios';
 import moment from 'moment';
 import _ from 'underscore';
 import Utils from '../../utils/utils';
+import { TimeHelper } from '../../helpers';
 
 import { connect } from 'react-redux';
 import { updateEditEntry, updateTimeEntry } from '../../stores/actions/timeEntries';
 import { editFormOptionsSelector } from '../../stores/selectors/index';
+import { dateRangeFilterSelector } from '../../stores/selectors/filters';
 
 import style from './EditForm.scss';
 
@@ -238,9 +240,24 @@ class EditForm extends Component {
         return errorList.includes(name);
     }
 
+    getDateFromDateFilter () {
+        if (this.props.dateRange.length) {
+            let dateRange = this.props.dateRange;
+            dateRange = dateRange.map(item => TimeHelper.iso8601ToDDMMYYY(item));
+
+            return `${dateRange[0]}`
+        }
+
+        return false;
+    }
+
     render () {
         const tasks = this.tasks;
         const projects = this.projects;
+
+        this.entryDate = this.state.entry.spent_date ?
+            this.state.entry.spent_date :
+            this.getDateFromDateFilter();
 
         return (
             <div className="EditForm full">
@@ -281,7 +298,7 @@ class EditForm extends Component {
                                 label="Date"
                                 inlineLabel={false}
                                 dateFormat={"DD.MM.YYYY"}
-                                value={this.state.entry.spent_date}
+                                value={this.entryDate}
                                 error={this.isNameInErrorList('spent_date')}
                                 onChange={this.handleChange.bind(this)}
                             />
@@ -349,7 +366,8 @@ class EditForm extends Component {
 
 const mapStateToProps = state => {
     return {
-        options: editFormOptionsSelector(state)
+        options: editFormOptionsSelector(state),
+        dateRange: dateRangeFilterSelector(state)
     }
 };
 
