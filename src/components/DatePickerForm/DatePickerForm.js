@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Form, Grid, Button, Icon, Select } from 'semantic-ui-react';
+import { Form, Grid, Select } from 'semantic-ui-react';
 import moment from 'moment';
+
+import { TimeHelper } from '../../helpers';
+
 import {
     DatesRangeInput
 } from 'semantic-ui-calendar-react';
@@ -48,7 +51,7 @@ class DatePickerForm extends Component {
         let stateCallback;
         if (value.length) {
             dates = this.getArrayFromDateRangeInput(value);
-            dates = dates.map(item => this.ddMMYYYYToISO8601(item));
+            dates = dates.map(item => TimeHelper.ddMMYYYYToISO8601(item));
             stateCallback = () => {
                 this.props.updateDateRange(this.state.dateRange)
             };
@@ -80,30 +83,10 @@ class DatePickerForm extends Component {
         return cleanDateInputFormat(matches);
     }
 
-    iso8601ToDDMMYYY (date) {
-        const isDDMMYYYY = moment(date, 'DD.MM.YYYY').format('DD.MM.YYYY') === date;
-
-        if (isDDMMYYYY) {
-            return date;
-        }
-
-        return moment(date).format('DD.MM.YYYY');
-    }
-
-    ddMMYYYYToISO8601 (date) {
-        const isISO8601 = moment(date, 'YYYY-MM-DD').format('YYYY-MM-DD') === date;
-
-        if (isISO8601) {
-            return date;
-        }
-
-        return moment(date, 'DD.MM.YYYY').format('YYYY-MM-DD');
-    }
-
     getDateRangeValue () {
         if (this.state.dateRange.length) {
             let dateRange = this.state.dateRange;
-            dateRange = dateRange.map(item => this.iso8601ToDDMMYYY(item));
+            dateRange = dateRange.map(item => TimeHelper.iso8601ToDDMMYYY(item));
 
             if (dateRange.length >= 2) {
                 return `${dateRange[0]} - ${dateRange[1]}`;
