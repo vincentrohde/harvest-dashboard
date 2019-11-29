@@ -18,7 +18,9 @@ function hoursAndMinutesToHours (time) {
     const timeComponents = time.split(':');
     const dec = parseInt((timeComponents[1]/6)*10, 10);
 
-    return parseFloat(parseInt(timeComponents[0], 10) + '.' + (dec<10?'0':'') + dec);
+    const hours = parseFloat(parseInt(timeComponents[0], 10) + '.' + (dec<10?'0':'') + dec);
+
+    return Number(hours);
 };
 
 function iso8601ToDDMMYYY (date) {

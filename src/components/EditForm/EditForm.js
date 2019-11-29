@@ -92,18 +92,12 @@ class EditForm extends Component {
 
         const that = this;
 
-        const convertDateForAPI = (inputDate) => {
-            return moment(inputDate, 'DD.MM.YYYY').format('YYYY-MM-DD');
-        };
+        const convertUserInputForAPI = (input) => {
+            const inputHours = this.state.entry.hours;
+            const inputDate = this.state.entry.spent_date;
 
-        const getHours = () => {
-            const hours = TimeHelper.hoursAndMinutesToHours(this.state.entry.hours);
-            return Number(hours);
-        };
-
-        const convertInput = (input) => {
-            const convertedHours = getHours();
-            const convertedDate = convertDateForAPI(this.state.entry.spent_date);
+            const convertedHours = TimeHelper.hoursAndMinutesToHours(inputHours);
+            const convertedDate = TimeHelper.ddMMYYYYToISO8601(inputDate);
 
             return {
                 ...input,
@@ -114,7 +108,7 @@ class EditForm extends Component {
 
         const submitInputDataToHarvestAPI = () => {
             const isNewEntry = this.isNewEntry;
-            const userInput = convertInput({...this.state.entry});
+            const userInput = convertUserInputForAPI({...this.state.entry});
 
             if (isNewEntry) {
                 const headers = {...this.headersAPI, 'Content-Type': 'application/json'};
