@@ -57,7 +57,7 @@ class CategoriesOverview extends Component {
         return false;
     };
 
-    isEqualProps = (prevProps, newProps) => {
+    isEqualProps (prevProps, newProps) {
 
         let prevInformation = prevProps.information;
         let newInformation = newProps.information;
