@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { Icon } from 'semantic-ui-react';
-
 import axios from 'axios';
 import moment from 'moment';
-import Utils from '../../utils/utils';
 import { TimeHelper } from '../../helpers';
-
 import EditForm from '../EditForm/EditForm';
 
 import style from './Entry.scss';
@@ -15,8 +12,8 @@ class Entry extends Component {
         super();
         this.props = props;
 
-        this.isEdit = this.props.isEdit;
-        this.isNew = this.props.isNew;
+        this.isEdit = this.props.isEdit || false;
+        this.isNew = this.props.isNew || false;
 
         if (this.isNew) {
             this.id = 0;
@@ -104,16 +101,17 @@ class Entry extends Component {
 
     getCurrentEntryTime () {
         const that = this;
+
         axios.get(`${process.env.API_URL}/v2/time_entries/${that.id}`, {
             headers: this.headersAPI
         })
-            .then(function ({ data }) {
-                that.props.reducers.updateTimeEntry(data);
-                that.handleActiveInterval();
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        .then(function ({ data }) {
+            that.props.reducers.updateTimeEntry(data);
+            that.handleActiveInterval();
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
     };
 
     render () {
