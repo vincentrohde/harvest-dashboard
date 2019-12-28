@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import { Form, Input, Button, Select, Icon } from 'semantic-ui-react';
 import { DateInput } from 'semantic-ui-calendar-react';
 import FormError from '../FormError/FormError';
-
 import axios from 'axios';
-import moment from 'moment';
 import _ from 'underscore';
 import { TimeHelper } from '../../helpers';
-
 import { connect } from 'react-redux';
 import { updateEditEntry, updateTimeEntry } from '../../stores/actions/timeEntries';
 import { editFormOptionsSelector } from '../../stores/selectors/index';
@@ -42,6 +39,8 @@ class EditForm extends Component {
     }
 
     shouldComponentUpdate (nextProps) {
+        // todo: what is this code doing? more explanation needed
+
         const oldTasks = this.props.options.activeTasksSelector;
         const newTasks = nextProps.options.activeTasksSelector;
 
@@ -153,7 +152,6 @@ class EditForm extends Component {
     }
 
     handleChange (event, { name, value }) {
-        const target = event.target;
 
         const checkChange = () => {
             const hoursInputRegex = /(^([1-9]?)([0-9])(:)([0-5])([0-9])$)/;
