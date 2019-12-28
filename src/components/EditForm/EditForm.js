@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import { Form, Input, Button, Select, Icon } from 'semantic-ui-react';
 import { DateInput } from 'semantic-ui-calendar-react';
 import FormError from '../FormError/FormError';
-
 import axios from 'axios';
-import moment from 'moment';
 import _ from 'underscore';
 import { TimeHelper } from '../../helpers';
-
 import { connect } from 'react-redux';
 import { updateEditEntry, updateTimeEntry } from '../../stores/actions/timeEntries';
 import { editFormOptionsSelector } from '../../stores/selectors/index';
@@ -42,6 +39,8 @@ class EditForm extends Component {
     }
 
     shouldComponentUpdate (nextProps) {
+        // todo: what is this code doing? more explanation needed
+
         const oldTasks = this.props.options.activeTasksSelector;
         const newTasks = nextProps.options.activeTasksSelector;
 
@@ -92,18 +91,12 @@ class EditForm extends Component {
 
         const that = this;
 
-        const convertDateForAPI = (inputDate) => {
-            return moment(inputDate, 'DD.MM.YYYY').format('YYYY-MM-DD');
-        };
+        const convertUserInputForAPI = (input) => {
+            const inputHours = this.state.entry.hours;
+            const inputDate = this.state.entry.spent_date;
 
-        const getHours = () => {
-            const hours = TimeHelper.hoursAndMinutesToHours(this.state.entry.hours);
-            return Number(hours);
-        };
-
-        const convertInput = (input) => {
-            const convertedHours = getHours();
-            const convertedDate = convertDateForAPI(this.state.entry.spent_date);
+            const convertedHours = TimeHelper.hoursAndMinutesToHours(inputHours);
+            const convertedDate = TimeHelper.ddMMYYYYToISO8601(inputDate);
 
             return {
                 ...input,
@@ -114,7 +107,7 @@ class EditForm extends Component {
 
         const submitInputDataToHarvestAPI = () => {
             const isNewEntry = this.isNewEntry;
-            const userInput = convertInput({...this.state.entry});
+            const userInput = convertUserInputForAPI({...this.state.entry});
 
             if (isNewEntry) {
                 const headers = {...this.headersAPI, 'Content-Type': 'application/json'};
@@ -159,7 +152,6 @@ class EditForm extends Component {
     }
 
     handleChange (event, { name, value }) {
-        const target = event.target;
 
         const checkChange = () => {
             const hoursInputRegex = /(^([1-9]?)([0-9])(:)([0-5])([0-9])$)/;
