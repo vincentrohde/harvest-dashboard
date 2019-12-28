@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Chart from 'chart.js';
-import Utils from "../../utils/utils";
+import { ObjectHelper } from '../../helpers';
 
 import style from './CategoriesOverview.scss';
 
@@ -15,7 +15,7 @@ class CategoriesOverview extends Component {
     }
 
     prepareDataForChart (entries) {
-        entries = Utils.sortObjectsArray(true, entries, 'hours');
+        entries = ObjectHelper.sortObjectsArray(true, entries, 'hours');
         const categories = this.getCategoriesFromEntries(entries);
         const hours = this.getHoursByTwoDecimals(entries);
         return {
