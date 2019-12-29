@@ -2,13 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form, Grid, Select } from 'semantic-ui-react';
 import moment from 'moment';
-
 import { TimeHelper } from '../../helpers';
-
-import {
-    DatesRangeInput
-} from 'semantic-ui-calendar-react';
-
+import { DatesRangeInput} from 'semantic-ui-calendar-react';
 import { updateDateRange } from '../../stores/actions/filters';
 import { dateRangeFilterSelector } from '../../stores/selectors/filters';
 
@@ -191,8 +186,6 @@ const mapStateToProps = state => {
     }
 };
 
-const mapDispatchToProps = {
-    updateDateRange
-};
+const mapDispatchToProps = { updateDateRange };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DatePickerForm);
