@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateEditEntry } from '../../stores/actions/timeEntries';
+import { updateEditEntry, updateTimeEntry } from '../../stores/actions/timeEntries';
 import { TimeHelper } from '../../helpers';
 import Entry from '../Entry/Entry';
 import MetaDataHeader from './MetaDataHeader/MetaDataHeader';
@@ -51,26 +51,27 @@ export class EntriesList extends Component {
     }
 
     render () {
-        let entries;
-        if (this.props.timeEntries.timeEntries) {
-            entries = this.props.timeEntries;
-            this.setTotalTimeForAllEntries(entries.timeEntries);
+        const { editEntry } = this.props.timeEntries;
+        const { timeEntries } = this.props.timeEntries;
+
+        if (timeEntries) {
+            this.setTotalTimeForAllEntries(timeEntries);
         }
 
         return (
             <section className="EntriesList" ref={this.element} >
-                { this.props.timeEntries.timeEntries && (
+                { timeEntries && (
                     <div>
-                        <MetaDataHeader totalTime={this.totalTime} entriesAmount={entries.timeEntries.length} />
+                        <MetaDataHeader totalTime={this.totalTime} entriesAmount={timeEntries.length} />
                         <div className="entries-container">
                             {
-                                entries.timeEntries.map((entry, index) => {
+                                timeEntries.map((entry, index) => {
                                     return (<Entry
                                         key={index}
                                         information={entry}
-                                        isEdit={entry.id === Number(entries.editEntry)}
+                                        isEdit={entry.id === Number(editEntry)}
                                         isNew={false}
-                                        reducers={this.reducers}
+                                        reducers={this.props.updateTimeEntry}
                                     />);
                                 })
                             }
@@ -82,6 +83,9 @@ export class EntriesList extends Component {
     }
 };
 
-const mapDispatchToProps = { updateEditEntry };
+const mapDispatchToProps = {
+    updateEditEntry,
+    updateTimeEntry
+};
 
 export default connect(null, mapDispatchToProps)(EntriesList);
