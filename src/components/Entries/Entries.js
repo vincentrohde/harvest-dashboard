@@ -3,18 +3,16 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { Grid } from 'semantic-ui-react';
 import moment from 'moment';
-
 import { setFilters } from '../../stores/actions/filters';
-import { addTimeEntries, updateEditEntry, updateTimeEntry } from '../../stores/actions/timeEntries';
+import { addTimeEntries } from '../../stores/actions/timeEntries';
 import { addActiveProjects, addProjects } from '../../stores/actions/projects';
 import { addActiveTasks, addTasks } from '../../stores/actions/tasks';
-
-import style from './Entries.scss';
-
 import CategoriesOverview from '../CategoriesOverview/CategoriesOverview';
 import EntriesList from '../EntriesList/EntriesList';
 import Entry from '../Entry/Entry';
 import DatePickerForm from '../DatePickerForm/DatePickerForm';
+
+import style from './Entries.scss';
 
 class Entries extends Component {
     constructor (props) {
@@ -200,6 +198,9 @@ class Entries extends Component {
             this.hoursByCategory = this.getHoursByCategory(this.props.timeEntries.timeEntries);
         }
 
+        const isHoursByCategory = (typeof this.hoursByCategory !== 'undefined') &&
+            this.hoursByCategory.length;
+
         return (
             <section className='Entries'>
                 <Grid>
@@ -212,19 +213,16 @@ class Entries extends Component {
                             isNew={true}
                         />
                     </Grid.Column>
-                    <Grid.Column mobile={16} tablet={8} computer={8}>
-                        <CategoriesOverview
-                            information={ this.hoursByCategory !== undefined ? this.hoursByCategory : null}
-                        />
-                    </Grid.Column>
+
+                    { isHoursByCategory ?
+                        (<Grid.Column mobile={16} tablet={8} computer={8}>
+                            <CategoriesOverview
+                                information={this.hoursByCategory}
+                            />
+                        </Grid.Column>) : null }
+
                     <Grid.Column width={16}>
-                        <EntriesList
-                            timeEntries={this.props.timeEntries}
-                            reducers={{
-                                updateEditEntry,
-                                updateTimeEntry
-                            }}
-                        />
+                        <EntriesList timeEntries={this.props.timeEntries} />
                     </Grid.Column>
                 </Grid>
             </section>
@@ -237,7 +235,6 @@ const mapStateToProps = state => {
         ...state
     }
 };
-
 const mapDispatchToProps = {
     addTimeEntries,
     addActiveProjects,
