@@ -4,6 +4,7 @@ import { updateEditEntry, updateTimeEntry } from '../../stores/actions/timeEntri
 import { TimeHelper } from '../../helpers';
 import Entry from '../Entry/Entry';
 import MetaDataHeader from './MetaDataHeader/MetaDataHeader';
+import { timeEntriesSelector, editEntrySelector } from '../../stores/selectors/timeEntries';
 
 import style from './EntriesList.scss';
 
@@ -11,7 +12,6 @@ export class EntriesList extends Component {
     constructor (props) {
         super();
         this.props = props;
-        this.reducers = this.props.reducers;
         this.element = React.createRef();
         this.totalTime = 0;
     }
@@ -51,8 +51,7 @@ export class EntriesList extends Component {
     }
 
     render () {
-        const { editEntry } = this.props.timeEntries;
-        const { timeEntries } = this.props.timeEntries;
+        const { editEntry, timeEntries } = this.props;
 
         if (timeEntries) {
             this.setTotalTimeForAllEntries(timeEntries);
@@ -83,9 +82,16 @@ export class EntriesList extends Component {
     }
 };
 
+const mapStateToProps = state => {
+    return {
+        timeEntries: timeEntriesSelector(state),
+        editEntry: editEntrySelector(state)
+    }
+};
+
 const mapDispatchToProps = {
     updateEditEntry,
     updateTimeEntry
 };
 
-export default connect(null, mapDispatchToProps)(EntriesList);
+export default connect(mapStateToProps, mapDispatchToProps)(EntriesList);
