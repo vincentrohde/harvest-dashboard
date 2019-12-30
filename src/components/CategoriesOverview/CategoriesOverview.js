@@ -8,13 +8,24 @@ class CategoriesOverview extends Component {
     constructor (props) {
         super();
         this.props = props;
+        this.colorsArray = [
+            '#f54291', '#ddb6c6', '#4baea0', '#b6e6bd', '#6bc5d2', '#d2fafb', '#ff935c', '#ef4b4b'
+        ];
     }
 
     shouldComponentUpdate (nextProps) {
         return this.isEqualProps(this.props, nextProps);
     }
 
-    prepareDataForChart (entries) {
+    componentDidMount () {
+        this.setChart();
+    }
+
+    componentDidUpdate () {
+        this.setChart();
+    }
+
+    convertRawDataForChart (entries) {
         entries = ObjectHelper.sortObjectsArray(true, entries, 'hours');
         const categories = this.getCategoriesFromEntries(entries);
         const hours = this.getHoursByTwoDecimals(entries);
@@ -53,7 +64,7 @@ class CategoriesOverview extends Component {
         });
 
         return isPropsHoursDifference;
-    };
+    }
 
     isCategoryListChange (prevList, newList) {
         if (typeof prevList === 'undefined' || prevList === null || prevList.length === 0) {
@@ -65,7 +76,7 @@ class CategoriesOverview extends Component {
         }
 
         return false;
-    };
+    }
 
     isEqualProps (prevProps, newProps) {
 
@@ -80,40 +91,39 @@ class CategoriesOverview extends Component {
 
         return this.isPropsHoursDifference(prevInformation, newInformation);
 
-    };
+    }
 
-    componentDidUpdate () {
-        const colorsArray = [
-            '#f54291', '#ddb6c6', '#4baea0', '#b6e6bd', '#6bc5d2', '#d2fafb', '#ff935c', '#ef4b4b'
-        ];
+    getChartDataObject (data, labels) {
+        return {
+            datasets: [{
+                label: '',
+                backgroundColor: this.colorsArray,
+                borderWidth: '0',
+                data
+            }],
+            options: {
+                legend: {
+                    display: true,
+                    position: 'bottom',
+                    labels: {
+                        fontColor: '#000'
+                    }
+                }
+            },
+            labels
+        };
+    }
 
+    setChart () {
         if (this.props.information) {
             const chartContainer = document.querySelector('.chart-canvas');
             const { information } = this.props;
-            const { hours, categories } = this.prepareDataForChart(information);
-
-            const data = {
-                datasets: [{
-                    label: 'My First dataset',
-                    backgroundColor: colorsArray,
-                    borderWidth: '0',
-                    data: hours
-                }],
-                options: {
-                    legend: {
-                        display: true,
-                        position: 'bottom',
-                        labels: {
-                            fontColor: '#000'
-                        }
-                    }
-                },
-                labels: categories
-            };
+            const { hours, categories } = this.convertRawDataForChart(information);
+            const data = this.getChartDataObject(hours, categories);
 
             const chart = new Chart(chartContainer, {
                 type: 'doughnut',
-                data: data
+                data
             });
         }
     }
@@ -128,7 +138,7 @@ class CategoriesOverview extends Component {
                 </div>
             </div>
         );
-    };
+    }
 };
 
 export default CategoriesOverview;
