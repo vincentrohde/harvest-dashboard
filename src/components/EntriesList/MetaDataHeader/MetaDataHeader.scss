@@ -1,0 +1,9 @@
+.MetaDataHeader {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .meta-data {
+        flex: 1;
+    }
+}

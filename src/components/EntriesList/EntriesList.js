@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updateEditEntry } from '../../stores/actions/timeEntries';
+import { TimeHelper } from '../../helpers';
+import Entry from '../Entry/Entry';
+import MetaDataHeader from './MetaDataHeader/MetaDataHeader';
 
 import style from './EntriesList.scss';
 
-import Entry from '../Entry/Entry';
-
-class EntriesList extends Component {
+export class EntriesList extends Component {
     constructor (props) {
         super();
         this.props = props;
         this.reducers = this.props.reducers;
         this.element = React.createRef();
+        this.totalTime = 0;
     }
 
     componentDidMount () {
@@ -37,25 +39,29 @@ class EntriesList extends Component {
         });
     }
 
+    setTotalTimeForAllEntries (entries) {
+        this.totalTime = this.getTotalTimeForAllEntries(entries);
+    }
+
+    getTotalTimeForAllEntries (entries) {
+        let hours = 0;
+        entries.forEach(entry => hours += entry.hours);
+
+        return TimeHelper.hoursToHoursAndMinutes(hours);
+    }
+
     render () {
         let entries;
         if (this.props.timeEntries.timeEntries) {
             entries = this.props.timeEntries;
+            this.setTotalTimeForAllEntries(entries.timeEntries);
         }
 
         return (
-            <section
-                className="EntriesList"
-                ref={this.element}
-            >
+            <section className="EntriesList" ref={this.element} >
                 { this.props.timeEntries.timeEntries && (
                     <div>
-                        <div className="header tab-container">
-                            <p className="meta-data pipes">
-                                <span>{ entries.timeEntries.length } Entries</span>
-                                <span>Total Time</span>
-                            </p>
-                        </div>
+                        <MetaDataHeader totalTime={this.totalTime} entriesAmount={entries.timeEntries.length} />
                         <div className="entries-container">
                             {
                                 entries.timeEntries.map((entry, index) => {
@@ -76,8 +82,6 @@ class EntriesList extends Component {
     }
 };
 
-const mapDispatchToProps = {
-    updateEditEntry
-};
+const mapDispatchToProps = { updateEditEntry };
 
 export default connect(null, mapDispatchToProps)(EntriesList);

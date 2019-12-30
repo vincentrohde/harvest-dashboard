@@ -1,14 +1,4 @@
 .EntriesList {
     width: 100%;
     flex: 0 0 100%;
-
-    .header {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-
-        .meta-data {
-            flex: 1;
-        }
-    }
 }
