@@ -16,7 +16,6 @@ class EditForm extends Component {
     constructor (props) {
         super();
         this.props = props;
-        this.reducers = this.props.reducers;
 
         this.state = {
             error: [],
@@ -41,11 +40,11 @@ class EditForm extends Component {
     shouldComponentUpdate (nextProps) {
         // todo: what is this code doing? more explanation needed
 
-        const oldTasks = this.props.options.activeTasksSelector;
-        const newTasks = nextProps.options.activeTasksSelector;
+        const oldTasks = this.props.options.tasksSelector;
+        const newTasks = nextProps.options.tasksSelector;
 
-        const oldProjects = this.props.options.activeProjectsSelector;
-        const newProjects = nextProps.options.activeProjectsSelector;
+        const oldProjects = this.props.options.projectsSelector;
+        const newProjects = nextProps.options.projectsSelector;
 
         if (!oldTasks && newTasks) {
             this.tasks = this.convertDataToSelectOptions(newTasks);
@@ -59,8 +58,8 @@ class EditForm extends Component {
     }
 
     setOptionsIfAvailable () {
-        const tasks = this.props.options.activeTasksSelector;
-        const projects = this.props.options.activeProjectsSelector;
+        const tasks = this.props.options.tasksSelector;
+        const projects = this.props.options.projectsSelector;
 
         if (tasks) {
             this.tasks = this.convertDataToSelectOptions(tasks);

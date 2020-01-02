@@ -1,14 +1,14 @@
 import { createSelector } from 'reselect';
 
-const activeTasksSelector = (state) => state.tasks.tasksActive;
-const activeProjectsSelector = (state) => state.projects.projectsActive;
+const tasksSelector = (state) => state.tasks.tasks;
+const projectsSelector = (state) => state.projects.projects;
 
 export const editFormOptionsSelector = createSelector(
-    [ activeTasksSelector, activeProjectsSelector],
-    (activeTasksSelector, activeProjectsSelector) => {
+    [ tasksSelector, projectsSelector],
+    (tasksSelector, projectsSelector) => {
         return {
-            activeTasksSelector,
-            activeProjectsSelector
+            tasksSelector,
+            projectsSelector
         }
     }
 );
