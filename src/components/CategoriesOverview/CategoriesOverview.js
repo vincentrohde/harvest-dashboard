@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Chart from 'chart.js';
 import { ObjectHelper } from '../../helpers';
+import { timeEntriesSelector } from '../../stores/selectors/timeEntries';
+import { connect } from 'react-redux';
 
 import style from './CategoriesOverview.scss';
 
@@ -14,7 +16,8 @@ class CategoriesOverview extends Component {
     }
 
     shouldComponentUpdate (nextProps) {
-        return this.isEqualProps(this.props, nextProps);
+        const nextData = this.getHoursByCategory(nextProps.timeEntries);
+        return this.isEqualProps(this.hoursByCategory, nextData);
     }
 
     componentDidMount () {
@@ -79,18 +82,13 @@ class CategoriesOverview extends Component {
     }
 
     isEqualProps (prevProps, newProps) {
-
-        let prevInformation = prevProps.information;
-        let newInformation = newProps.information;
-
-        const isCategoryListChange = this.isCategoryListChange(prevInformation, newInformation);
+        const isCategoryListChange = this.isCategoryListChange(prevProps, newProps);
 
         if (isCategoryListChange) {
             return true;
         }
 
-        return this.isPropsHoursDifference(prevInformation, newInformation);
-
+        return this.isPropsHoursDifference(prevProps, newProps);
     }
 
     getChartDataObject (data, labels) {
@@ -115,10 +113,9 @@ class CategoriesOverview extends Component {
     }
 
     setChart () {
-        if (this.props.information) {
+        if (this.hoursByCategory) {
             const chartContainer = document.querySelector('.chart-canvas');
-            const { information } = this.props;
-            const { hours, categories } = this.convertRawDataForChart(information);
+            const { hours, categories } = this.convertRawDataForChart(this.hoursByCategory);
             const data = this.getChartDataObject(hours, categories);
 
             const chart = new Chart(chartContainer, {
@@ -128,7 +125,45 @@ class CategoriesOverview extends Component {
         }
     }
 
+    getHoursByCategory (entries) {
+        const getHoursByCategory = (entries) => {
+            const categoriesOnlyList = entries.map(entry => entry.category);
+            const uniqueCategories = [...new Set(categoriesOnlyList)];
+            let hoursByCategoryList = uniqueCategories.map((category) => {
+                return {
+                    category,
+                    hours: 0
+                }
+            });
+
+            entries.forEach(entry => {
+                hoursByCategoryList.forEach((category) => {
+                    if (category.category == entry.category) {
+                        category.hours += entry.hours;
+                    }
+                });
+            });
+
+            return hoursByCategoryList;
+        };
+
+        let filteredEntries = [];
+
+        entries.forEach((entry) => {
+            filteredEntries.push({
+                category: entry.task.name,
+                hours: entry.hours
+            });
+        });
+
+        return getHoursByCategory(filteredEntries);
+    }
+
     render () {
+        if (this.props.timeEntries) {
+            this.hoursByCategory = this.getHoursByCategory(this.props.timeEntries);
+        }
+
         return (
             <div className="CategoriesOverview tab-container">
                 <h2 className="title">Categories</h2>
@@ -141,4 +176,10 @@ class CategoriesOverview extends Component {
     }
 };
 
-export default CategoriesOverview;
+const mapStateToProps = state => {
+    return {
+        timeEntries: timeEntriesSelector(state)
+    }
+};
+
+export default connect(mapStateToProps, null)(CategoriesOverview);
