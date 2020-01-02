@@ -70,7 +70,7 @@ export class EntriesList extends Component {
                                         information={entry}
                                         isEdit={entry.id === Number(editEntry)}
                                         isNew={false}
-                                        reducers={this.props.updateTimeEntry}
+                                        updateTimeEntry={this.props.updateTimeEntry}
                                     />);
                                 })
                             }

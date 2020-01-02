@@ -106,7 +106,7 @@ class Entry extends Component {
             headers: this.headersAPI
         })
         .then(function ({ data }) {
-            that.props.reducers.updateTimeEntry(data);
+            that.props.updateTimeEntry(data);
             that.handleActiveInterval();
         })
         .catch(function (error) {
