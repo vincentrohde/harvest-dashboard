@@ -13,6 +13,7 @@ import EntriesList from '../EntriesList/EntriesList';
 import Entry from '../Entry/Entry';
 import DatePickerForm from '../DatePickerForm/DatePickerForm';
 import { filtersSelector } from '../../stores/selectors/filters';
+import { apiService } from '../../lib/ApiService/ApiService';
 
 import style from './Entries.scss';
 
@@ -20,10 +21,6 @@ class Entries extends Component {
     constructor (props) {
         super();
         this.props = props;
-        this.headersAPI = {
-            'Authorization': 'Bearer ' + process.env.ACCESS_TOKEN,
-            'Harvest-Account-ID': process.env.ACCOUNT_ID
-        };
 
         this.props.setFilters({
             dateRange: [
@@ -36,9 +33,7 @@ class Entries extends Component {
     }
 
     shouldComponentUpdate (nextProps) {
-        this.handleStateUpdate(nextProps);
-
-        return true;
+        return this.handleStateUpdate(nextProps);
     }
 
     handleStateUpdate (nextProps) {
@@ -46,60 +41,41 @@ class Entries extends Component {
 
         if (isNewFilters) {
             this.getTimeEntries(isNewFilters);
+
+            return isNewFilters;
         }
     }
 
     getTimeEntries (filters) {
-        const that = this;
         const dateRange = this.getDateRange(filters.dateRange);
 
         if (dateRange) {
-            axios.get(`${process.env.API_URL}/v2/time_entries?from=${dateRange[0]}&to=${dateRange[1]}`, {
-                headers: {
-                    ...this.headersAPI
-                }
-            })
-                .then(function (response) {
-                    const timeEntries = response.data.time_entries;
-                    that.props.addTimeEntries(timeEntries);
-                })
-                .catch(function (error) {
-                    console.log(error);
+            const from = dateRange[0];
+            const to = dateRange[1];
+            apiService.getTimeEntries(from, to)
+                .then((timeEntries) => {
+                    this.props.addTimeEntries(timeEntries);
                 });
         }
     }
 
     getTasks () {
-        const that = this;
-        axios.get(process.env.API_URL + '/v2/tasks', {
-            headers: this.headersAPI
-        })
-            .then(function (response) {
-                const { tasks } = response.data;
-                const filteredTasksData = that.filterAPIDataForState(tasks);
-                that.props.addTasks({
+        apiService.getTasks()
+            .then((tasks) => {
+                const filteredTasksData = this.filterAPIDataForState(tasks);
+                this.props.addTasks({
                     tasks: filteredTasksData
                 });
-            })
-            .catch(function (error) {
-                console.log(error);
             });
     }
 
     getProjects () {
-        const that = this;
-        axios.get(process.env.API_URL + '/v2/projects', {
-            headers: this.headersAPI
-        })
-            .then(function (response) {
-                const { projects } = response.data;
-                const filteredProjectsData = that.filterAPIDataForState(projects);
-                that.props.addProjects({
+        apiService.getProjects()
+            .then((projects) => {
+                const filteredProjectsData = this.filterAPIDataForState(projects);
+                this.props.addProjects({
                     projects: filteredProjectsData
                 });
-            })
-            .catch(function (error) {
-                console.log(error);
             });
     }
 
@@ -127,7 +103,6 @@ class Entries extends Component {
     };
 
     render () {
-
         return (
             <section className='Entries'>
                 <Grid>
