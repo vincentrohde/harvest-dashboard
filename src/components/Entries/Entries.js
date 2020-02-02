@@ -44,6 +44,8 @@ class Entries extends Component {
 
             return isNewFilters;
         }
+
+        return false;
     }
 
     getTimeEntries (filters) {
