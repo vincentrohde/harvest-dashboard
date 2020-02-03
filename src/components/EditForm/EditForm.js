@@ -111,7 +111,7 @@ class EditForm extends Component {
             if (isNewEntry) {
                 const headers = {...this.headersAPI, 'Content-Type': 'application/json'};
 
-                axios.post(`${process.env.API_URL}/time_entries`,
+                axios.post(`${process.env.API_URL}/v2/time_entries`,
                     userInput,
                     { headers })
                     .then(function () {
@@ -121,7 +121,7 @@ class EditForm extends Component {
                         console.log(error);
                     });
             } else {
-                axios.patch(`${process.env.API_URL}/time_entries/${that.entryID}`,
+                axios.patch(`${process.env.API_URL}/v2/time_entries/${that.entryID}`,
                     userInput,
                     {
                         headers: {...this.headersAPI, 'Content-Type': 'application/json'}
@@ -130,7 +130,7 @@ class EditForm extends Component {
                         if (request.readyState === 4 && request.status === 200) {
                             that.props.updateEditEntry('');
 
-                            axios.get(`${process.env.API_URL}/time_entries/${that.entryID}`, {
+                            axios.get(`${process.env.API_URL}/v2/time_entries/${that.entryID}`, {
                                 headers: that.headersAPI
                             })
                                 .then(function ({ data }) {

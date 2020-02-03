@@ -7,9 +7,10 @@ const requestConfig = {
     }
 };
 
-const TIME_ENTRIES_URL = process.env.API_URL + '/time_entries';
-const TASKS_URL = process.env.API_URL + '/tasks';
-const PROJECTS_URL = process.env.API_URL + '/projects';
+const V2_API_URL = process.env.API_URL + '/v2';
+const TIME_ENTRIES_URL = V2_API_URL + '/time_entries';
+const TASKS_URL = V2_API_URL + '/tasks';
+const PROJECTS_URL = V2_API_URL + '/projects';
 
 class ApiService {
     getTimeEntries (from, to) {
@@ -33,6 +34,7 @@ class ApiService {
             })
             .catch((error) => console.log(error));
     }
+
     getProjects () {
         return axios.get(PROJECTS_URL, requestConfig)
             .then((response) => {

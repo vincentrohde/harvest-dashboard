@@ -102,7 +102,7 @@ class Entry extends Component {
     getCurrentEntryTime () {
         const that = this;
 
-        axios.get(`${process.env.API_URL}/time_entries/${that.id}`, {
+        axios.get(`${process.env.API_URL}/v2/time_entries/${that.id}`, {
             headers: this.headersAPI
         })
         .then(function ({ data }) {
