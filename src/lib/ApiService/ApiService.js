@@ -1,9 +1,16 @@
-import axios from "axios";
+import axios from 'axios';
 
 const requestConfig = {
     headers: {
         'Authorization': 'Bearer ' + process.env.ACCESS_TOKEN,
         'Harvest-Account-ID': process.env.ACCOUNT_ID
+    }
+};
+
+const updateConfig = {
+    headers: {
+        ...requestConfig.headers,
+        'Content-Type': 'application/json'
     }
 };
 
@@ -13,6 +20,18 @@ const TASKS_URL = V2_API_URL + '/tasks';
 const PROJECTS_URL = V2_API_URL + '/projects';
 
 class ApiService {
+    addTimeEntry (timeEntry) {
+        return axios.post(TIME_ENTRIES_URL, timeEntry, updateConfig);
+    }
+
+    updateTimeEntry (timeEntry, entryID) {
+        return axios.patch(`${TIME_ENTRIES_URL}/${entryID}`, timeEntry, updateConfig);
+    }
+
+    getTimeEntry (entryID) {
+        return axios.get(`${TIME_ENTRIES_URL}/${entryID}`, requestConfig);
+    }
+
     getTimeEntries (from, to) {
         return axios.get(TIME_ENTRIES_URL + `?from=${from}&to=${to}`, requestConfig)
             .then((response) => {

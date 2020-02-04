@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { updateEditEntry, updateTimeEntry } from '../../stores/actions/timeEntries';
 import { editFormOptionsSelector } from '../../stores/selectors/index';
 import { dateRangeFilterSelector } from '../../stores/selectors/filters';
+import { apiService } from '../../lib/ApiService/ApiService';
 
 import style from './EditForm.scss';
 
@@ -22,11 +23,6 @@ class EditForm extends Component {
             entry: {
                 ...this.props.defaults
             }
-        };
-
-        this.headersAPI = {
-            'Authorization': 'Bearer ' + process.env.ACCESS_TOKEN,
-            'Harvest-Account-ID': process.env.ACCOUNT_ID
         };
 
         this.entryID = this.props.entryID;
@@ -106,42 +102,28 @@ class EditForm extends Component {
 
         const submitInputDataToHarvestAPI = () => {
             const isNewEntry = this.isNewEntry;
-            const userInput = convertUserInputForAPI({...this.state.entry});
+            const timeEntry = convertUserInputForAPI({...this.state.entry});
 
             if (isNewEntry) {
-                const headers = {...this.headersAPI, 'Content-Type': 'application/json'};
-
-                axios.post(`${process.env.API_URL}/v2/time_entries`,
-                    userInput,
-                    { headers })
-                    .then(function () {
+                apiService.addTimeEntry(timeEntry)
+                    .then(() => {
                         that.resetStateToDefault();
                     })
-                    .catch(function (error) {
+                    .catch((error) => {
                         console.log(error);
                     });
             } else {
-                axios.patch(`${process.env.API_URL}/v2/time_entries/${that.entryID}`,
-                    userInput,
-                    {
-                        headers: {...this.headersAPI, 'Content-Type': 'application/json'}
-                    })
-                    .then(function ({ request }) {
+                apiService.updateTimeEntry(timeEntry, that.entryID)
+                    .then(({ request }) => {
                         if (request.readyState === 4 && request.status === 200) {
                             that.props.updateEditEntry('');
-
-                            axios.get(`${process.env.API_URL}/v2/time_entries/${that.entryID}`, {
-                                headers: that.headersAPI
-                            })
-                                .then(function ({ data }) {
-                                    that.props.updateTimeEntry(data);
-                                })
-                                .catch(function (error) {
-                                    console.log(error);
-                                });
+                            return apiService.getTimeEntry(that.entryID);
                         }
                     })
-                    .catch(function (error) {
+                    .then(({ data }) => {
+                        that.props.updateTimeEntry(data);
+                    })
+                    .catch((error) => {
                         console.log(error);
                     });
             }
