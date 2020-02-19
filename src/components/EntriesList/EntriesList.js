@@ -27,14 +27,23 @@ export class EntriesList extends Component {
     handleEditModeForEntries () {
         const entryList = this.element.current;
 
+        // todo: needs refactoring
         entryList.addEventListener('click', ({ target }) => {
             const element = target;
-            const editAction = element.closest('p.edit');
+            const editAction = element.closest('.edit');
+            const deleteAction = element.closest('.delete');
             const entry = element.closest('.Entry');
 
-            if (entry && editAction) {
-                const id = Number(entry.dataset.id);
-                this.props.updateEditEntry(id);
+            if (entry) {
+                if (editAction) {
+                    const id = Number(entry.dataset.id);
+                    this.props.updateEditEntry(id);
+                }
+
+                if (deleteAction) {
+                    const id = Number(entry.dataset.id);
+                    this.props.updateEditEntry(id);
+                }
             }
         });
     }

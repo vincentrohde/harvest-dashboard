@@ -24,6 +24,10 @@ class ApiService {
         return axios.post(TIME_ENTRIES_URL, timeEntry, updateConfig);
     }
 
+    deleteTimeEntry (timeEntry) {
+        return axios.delete(TIME_ENTRIES_URL, timeEntry, requestConfig);
+    }
+
     updateTimeEntry (timeEntry, entryID) {
         return axios.patch(`${TIME_ENTRIES_URL}/${entryID}`, timeEntry, updateConfig);
     }

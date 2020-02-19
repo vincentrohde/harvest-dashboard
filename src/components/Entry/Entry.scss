@@ -94,8 +94,10 @@
     .time-container {
         text-align: right;
 
-        .date, .edit {
-            display: inline;
+        .actions-header {
+            .delete, .edit {
+                display: inline;
+            }
         }
 
         .date {

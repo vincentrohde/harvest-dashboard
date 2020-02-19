@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Icon } from 'semantic-ui-react';
-import axios from 'axios';
 import moment from 'moment';
 import { TimeHelper } from '../../helpers';
 import EditForm from '../EditForm/EditForm';
+import { apiService } from '../../lib/ApiService/ApiService';
 
 import style from './Entry.scss';
 
@@ -22,11 +22,6 @@ class Entry extends Component {
             this.information = this.props.information;
 
             this.id = this.information.id;
-
-            this.headersAPI = {
-                "Authorization": "Bearer " + process.env.ACCESS_TOKEN,
-                "Harvest-Account-ID": process.env.ACCOUNT_ID
-            };
 
             this.activeInterval = 2000;
 
@@ -102,16 +97,11 @@ class Entry extends Component {
     getCurrentEntryTime () {
         const that = this;
 
-        axios.get(`${process.env.API_URL}/v2/time_entries/${that.id}`, {
-            headers: this.headersAPI
-        })
-        .then(function ({ data }) {
-            that.props.updateTimeEntry(data);
-            that.handleActiveInterval();
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+        apiService.getTimeEntry(that.id)
+            .then(({ data }) => {
+                that.props.updateTimeEntry(data);
+                that.handleActiveInterval();
+            });
     };
 
     render () {
@@ -151,10 +141,14 @@ class Entry extends Component {
                             <h3 className="title">{ information.notes }</h3>
                         </div>
                         <div className="time-container">
-                            {/*<p className="date">{ this.date }</p>*/}
-                            <p className="edit">
-                                <Icon name="pencil" />
-                            </p>
+                            <div className="actions-header">
+                                <p className="delete">
+                                    <Icon name="trash alternate" />
+                                </p>
+                                <p className="edit">
+                                    <Icon name="pencil" />
+                                </p>
+                            </div>
                             <h3 className="time">
                                 <Icon name={`clock${this.isActive ? '' : ' outline'}`} />
                                 { this.hours }
