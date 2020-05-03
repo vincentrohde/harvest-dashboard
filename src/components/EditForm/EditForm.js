@@ -31,7 +31,7 @@ class EditForm extends Component {
         this.entryID = this.props.entryID;
         this.isNewEntry = this.props.isNew;
 
-        this.setOptionsIfAvailable();
+        this.setSelectOptionsIfDataIsAvailable();
 
         this.handleChange.bind(this);
     }
@@ -57,7 +57,7 @@ class EditForm extends Component {
     }
 
     // TODO rename this
-    setOptionsIfAvailable () {
+    setSelectOptionsIfDataIsAvailable () {
         const tasks = this.props.options.tasksSelector;
         const projects = this.props.options.projectsSelector;
 
@@ -85,97 +85,102 @@ class EditForm extends Component {
         });
     }
 
+    convertUserInputForAPI (input) {
+        const inputHours = this.state.entry.hours;
+        const inputDate = this.state.entry.spent_date;
+
+        const convertedHours = timeService.hoursAndMinutesToHours(inputHours);
+        const convertedDate = timeService.ddMMYYYYToISO8601(inputDate);
+
+        return {
+            ...input,
+            hours: convertedHours,
+            spent_date: convertedDate
+        };
+    };
+
+    handleSubmitOfNewEntry (timeEntry) {
+        apiService.addTimeEntry(timeEntry)
+            .then(({ data }) => {
+                this.props.addTimeEntry(data);
+                this.resetStateToDefault();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    handleSubmitOfEntryUpdate (timeEntry) {
+        apiService.updateTimeEntry(timeEntry, this.entryID)
+            .then(({ request }) => {
+                if (request.readyState === 4 && request.status === 200) {
+                    const data = JSON.parse(request.response);
+                    this.props.updateEditEntry('');
+                    this.props.updateTimeEntry(data);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
     handleSubmit (event) {
         event.preventDefault();
 
-        const convertUserInputForAPI = (input) => {
-            const inputHours = this.state.entry.hours;
-            const inputDate = this.state.entry.spent_date;
+        const isNewEntry = this.isNewEntry;
+        const timeEntry = this.convertUserInputForAPI({...this.state.entry});
 
-            const convertedHours = timeService.hoursAndMinutesToHours(inputHours);
-            const convertedDate = timeService.ddMMYYYYToISO8601(inputDate);
+        if (isNewEntry) {
+            this.handleSubmitOfNewEntry(timeEntry);
+        } else {
+            this.handleSubmitOfEntryUpdate(timeEntry)
+        }
+    }
 
-            return {
-                ...input,
-                hours: convertedHours,
-                spent_date: convertedDate
-            };
-        };
-
-        const submitInputDataToHarvestAPI = () => {
-            const isNewEntry = this.isNewEntry;
-            const timeEntry = convertUserInputForAPI({...this.state.entry});
-
-            if (isNewEntry) {
-                apiService.addTimeEntry(timeEntry)
-                    .then(({ data }) => {
-                        this.props.addTimeEntry(data);
-                        this.resetStateToDefault();
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
-            } else {
-                apiService.updateTimeEntry(timeEntry, this.entryID)
-                    .then(({ request }) => {
-                        if (request.readyState === 4 && request.status === 200) {
-                            const data = JSON.parse(request.response);
-                            this.props.updateEditEntry('');
-                            this.props.updateTimeEntry(data);
-                        }
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
+    removeErrorFromList (errorList, name) {
+        errorList.forEach((item, index) => {
+            if (item === name) {
+                errorList.splice(index, 1);
             }
-        };
+        });
+    }
 
-        submitInputDataToHarvestAPI();
+    regexHandler (inputName, regex) {
+        const input = this.state.entry[inputName];
+        const inputTestPassed = input.match(regex);
+
+        if (!inputTestPassed) {
+            this.setState({
+                ...this.state,
+                error: [...this.state.error, name]
+            }, () => {});
+        } else {
+            let errorList = [...this.state.error];
+
+            this.removeErrorFromList(errorList, name);
+
+            this.setState({
+                ...this.state,
+                error: errorList
+            }, () => {
+                console.log(this.state);
+            });
+        }
     }
 
     handleChange (event, { name, value }) {
+        const that = this;
 
         const checkChange = () => {
             const hoursInputRegex = /(^([1-9]?)([0-9])(:)([0-5])([0-9])$)/;
             const dateInputRegex = /^[0-9]{2}[.]{1}[0-9]{2}[.]{1}[0-9]{4}$/;
 
-            const removeErrorFromList = (errorList, name) => {
-                errorList.forEach((item, index) => {
-                    if (item === name) {
-                        errorList.splice(index, 1);
-                    }
-                });
-            };
-
-            const regexHandler = (inputName, regex) => {
-                const input = this.state.entry[inputName];
-                const inputTestPassed = input.match(regex);
-
-                if (!inputTestPassed) {
-                    this.setState({
-                        ...this.state,
-                        error: [...this.state.error, name]
-                    }, () => {});
-                } else {
-                    let errorList = [...this.state.error];
-
-                    removeErrorFromList(errorList, name);
-
-                    this.setState({
-                        ...this.state,
-                        error: errorList
-                    }, () => {
-                        console.log(this.state);
-                    });
-                }
-            }
-
             if (name === 'hours') {
-                regexHandler(name, hoursInputRegex);
+                that.regexHandler(name, hoursInputRegex);
             }
 
             if (name === 'spent_date') {
-                regexHandler(name, dateInputRegex);
+                that.regexHandler(name, dateInputRegex);
             }
         }
 
