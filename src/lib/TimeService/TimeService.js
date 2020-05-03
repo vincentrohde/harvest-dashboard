@@ -5,7 +5,7 @@ class TimeService {
         const totalMinutes = hours * 60;
 
         const convertedHours = Math.floor(totalMinutes / 60);
-        let convertedMinutes = Math.floor(totalMinutes % 60);
+        let convertedMinutes = Math.round(totalMinutes % 60);
 
         if (convertedMinutes.toString().length == 1) {
             convertedMinutes = '0' + convertedMinutes;
