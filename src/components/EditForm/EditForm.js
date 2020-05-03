@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Form, Input, Button, Select, Icon } from 'semantic-ui-react';
 import { DateInput } from 'semantic-ui-calendar-react';
-import FormError from '../FormError/FormError';
-import axios from 'axios';
+import FormError from './FormError/FormError';
 import _ from 'underscore';
 import { TimeHelper } from '../../helpers';
 import { connect } from 'react-redux';
-import { updateEditEntry, updateTimeEntry } from '../../stores/actions/timeEntries';
+import { addTimeEntry, updateEditEntry, updateTimeEntry } from '../../stores/actions/timeEntries';
 import { editFormOptionsSelector } from '../../stores/selectors/index';
 import { dateRangeFilterSelector } from '../../stores/selectors/filters';
 import { apiService } from '../../lib/ApiService/ApiService';
@@ -15,8 +14,7 @@ import style from './EditForm.scss';
 
 class EditForm extends Component {
     constructor (props) {
-        super();
-        this.props = props;
+        super(props);
 
         this.state = {
             error: [],
@@ -53,6 +51,7 @@ class EditForm extends Component {
         return true;
     }
 
+    // TODO rename this
     setOptionsIfAvailable () {
         const tasks = this.props.options.tasksSelector;
         const projects = this.props.options.projectsSelector;
@@ -84,8 +83,6 @@ class EditForm extends Component {
     handleSubmit (event) {
         event.preventDefault();
 
-        const that = this;
-
         const convertUserInputForAPI = (input) => {
             const inputHours = this.state.entry.hours;
             const inputDate = this.state.entry.spent_date;
@@ -106,22 +103,21 @@ class EditForm extends Component {
 
             if (isNewEntry) {
                 apiService.addTimeEntry(timeEntry)
-                    .then(() => {
-                        that.resetStateToDefault();
+                    .then(({ data }) => {
+                        this.props.addTimeEntry(data);
+                        this.resetStateToDefault();
                     })
                     .catch((error) => {
                         console.log(error);
                     });
             } else {
-                apiService.updateTimeEntry(timeEntry, that.entryID)
+                apiService.updateTimeEntry(timeEntry, this.entryID)
                     .then(({ request }) => {
                         if (request.readyState === 4 && request.status === 200) {
-                            that.props.updateEditEntry('');
-                            return apiService.getTimeEntry(that.entryID);
+                            const data = JSON.parse(request.response);
+                            this.props.updateEditEntry('');
+                            this.props.updateTimeEntry(data);
                         }
-                    })
-                    .then(({ data }) => {
-                        that.props.updateTimeEntry(data);
                     })
                     .catch((error) => {
                         console.log(error);
@@ -197,6 +193,7 @@ class EditForm extends Component {
         }
     }
 
+    // Convert tasks and projects data from state
     convertDataToSelectOptions (list) {
         return list.map(item => {
             return {
@@ -344,6 +341,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
+    addTimeEntry,
     updateEditEntry,
     updateTimeEntry
 };

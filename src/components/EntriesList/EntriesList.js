@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { updateEditEntry, updateTimeEntry } from '../../stores/actions/timeEntries';
+import { deleteTimeEntry, updateEditEntry, updateTimeEntry } from '../../stores/actions/timeEntries';
 import { TimeHelper } from '../../helpers';
 import Entry from '../Entry/Entry';
 import MetaDataHeader from './MetaDataHeader/MetaDataHeader';
 import { timeEntriesSelector, editEntrySelector } from '../../stores/selectors/timeEntries';
+import { apiService } from '../../lib/ApiService/ApiService';
 
 import style from './EntriesList.scss';
 
@@ -35,14 +36,16 @@ export class EntriesList extends Component {
             const entry = element.closest('.Entry');
 
             if (entry) {
+                const id = Number(entry.dataset.id);
                 if (editAction) {
-                    const id = Number(entry.dataset.id);
                     this.props.updateEditEntry(id);
                 }
 
                 if (deleteAction) {
-                    const id = Number(entry.dataset.id);
-                    this.props.updateEditEntry(id);
+                    apiService.deleteTimeEntry(id)
+                        .then(() => {
+                            this.props.deleteTimeEntry(id);
+                        });
                 }
             }
         });
@@ -99,6 +102,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
+    deleteTimeEntry,
     updateEditEntry,
     updateTimeEntry
 };
