@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+// Configs
+
 const requestConfig = {
     headers: {
         'Authorization': 'Bearer ' + process.env.ACCESS_TOKEN,
@@ -13,6 +15,8 @@ const updateConfig = {
         'Content-Type': 'application/json'
     }
 };
+
+// URLs for different requests
 
 const V2_API_URL = process.env.API_URL + '/v2';
 const TIME_ENTRIES_URL = V2_API_URL + '/time_entries';

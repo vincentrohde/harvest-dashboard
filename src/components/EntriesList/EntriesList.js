@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { deleteTimeEntry, updateEditEntry, updateTimeEntry } from '../../stores/actions/timeEntries';
-import { TimeHelper } from '../../helpers';
+import { timeService } from '../../lib/TimeService/TimeService';
 import Entry from '../Entry/Entry';
 import MetaDataHeader from './MetaDataHeader/MetaDataHeader';
 import { timeEntriesSelector, editEntrySelector } from '../../stores/selectors/timeEntries';
@@ -59,7 +59,7 @@ export class EntriesList extends Component {
         let hours = 0;
         entries.forEach(entry => hours += entry.hours);
 
-        return TimeHelper.hoursToHoursAndMinutes(hours);
+        return timeService.hoursToHoursAndMinutes(hours);
     }
 
     render () {

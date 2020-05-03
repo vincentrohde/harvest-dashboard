@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Chart from 'chart.js';
-import { ObjectHelper } from '../../helpers';
+import { objectService } from '../../lib/ObjectService/ObjectService';
 import { timeEntriesSelector } from '../../stores/selectors/timeEntries';
 import { connect } from 'react-redux';
 
@@ -29,7 +29,7 @@ class CategoriesOverview extends Component {
     }
 
     convertRawDataForChart (entries) {
-        entries = ObjectHelper.sortObjectsArray(true, entries, 'hours');
+        entries = objectService.sortObjectsArray(true, entries, 'hours');
         const categories = this.getCategoriesFromEntries(entries);
         const hours = this.getHoursByTwoDecimals(entries);
         return {

@@ -6,7 +6,7 @@ import { setFilters } from '../../stores/actions/filters';
 import { addTimeEntries } from '../../stores/actions/timeEntries';
 import { addProjects } from '../../stores/actions/projects';
 import { addTasks } from '../../stores/actions/tasks';
-import { ObjectHelper } from '../../helpers';
+import { objectService } from '../../lib/ObjectService/ObjectService';
 import CategoriesOverview from '../CategoriesOverview/CategoriesOverview';
 import EntriesList from '../EntriesList/EntriesList';
 import Entry from '../Entry/Entry';
@@ -36,7 +36,7 @@ class Entries extends Component {
     }
 
     handleStateUpdate (nextProps) {
-        const isNewFilters = ObjectHelper.isPropertyDifferentFromOldObject('filters', this.props, nextProps);
+        const isNewFilters = objectService.isPropertyDifferentFromOldObject('filters', this.props, nextProps);
 
         if (isNewFilters) {
             this.getTimeEntries(isNewFilters);

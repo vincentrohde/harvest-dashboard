@@ -3,7 +3,7 @@ import { Form, Input, Button, Select, Icon } from 'semantic-ui-react';
 import { DateInput } from 'semantic-ui-calendar-react';
 import FormError from './FormError/FormError';
 import _ from 'underscore';
-import { TimeHelper } from '../../helpers';
+import { timeService } from '../../lib/TimeService/TimeService';
 import { connect } from 'react-redux';
 import { addTimeEntry, updateEditEntry, updateTimeEntry } from '../../stores/actions/timeEntries';
 import { editFormOptionsSelector } from '../../stores/selectors/index';
@@ -16,10 +16,15 @@ class EditForm extends Component {
     constructor (props) {
         super(props);
 
+        const defaultSpentDate = this.props.defaults.spent_date;
+        const spent_date = defaultSpentDate.length
+            ? defaultSpentDate : this.getDateFromDateFilter();
+
         this.state = {
             error: [],
             entry: {
-                ...this.props.defaults
+                ...this.props.defaults,
+                spent_date
             }
         };
 
@@ -87,8 +92,8 @@ class EditForm extends Component {
             const inputHours = this.state.entry.hours;
             const inputDate = this.state.entry.spent_date;
 
-            const convertedHours = TimeHelper.hoursAndMinutesToHours(inputHours);
-            const convertedDate = TimeHelper.ddMMYYYYToISO8601(inputDate);
+            const convertedHours = timeService.hoursAndMinutesToHours(inputHours);
+            const convertedDate = timeService.ddMMYYYYToISO8601(inputDate);
 
             return {
                 ...input,
@@ -212,7 +217,7 @@ class EditForm extends Component {
     getDateFromDateFilter () {
         if (this.props.dateRange.length) {
             let dateRange = this.props.dateRange;
-            dateRange = dateRange.map(item => TimeHelper.iso8601ToDDMMYYY(item));
+            dateRange = dateRange.map(item => timeService.iso8601ToDDMMYYY(item));
 
             return `${dateRange[0]}`
         }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form, Grid, Select } from 'semantic-ui-react';
 import moment from 'moment';
-import { TimeHelper } from '../../helpers';
+import { timeService } from '../../lib/TimeService/TimeService';
 import { DatesRangeInput} from 'semantic-ui-calendar-react';
 import { updateDateRange } from '../../stores/actions/filters';
 import { dateRangeFilterSelector } from '../../stores/selectors/filters';
@@ -46,7 +46,7 @@ class DatePickerForm extends Component {
         let stateCallback;
         if (value.length) {
             dates = this.getArrayFromDateRangeInput(value);
-            dates = dates.map(item => TimeHelper.ddMMYYYYToISO8601(item));
+            dates = dates.map(item => timeService.ddMMYYYYToISO8601(item));
             stateCallback = () => {
                 this.props.updateDateRange(this.state.dateRange)
             };
@@ -81,7 +81,7 @@ class DatePickerForm extends Component {
     getDateRangeValue () {
         if (this.state.dateRange.length) {
             let dateRange = this.state.dateRange;
-            dateRange = dateRange.map(item => TimeHelper.iso8601ToDDMMYYY(item));
+            dateRange = dateRange.map(item => timeService.iso8601ToDDMMYYY(item));
 
             if (dateRange.length >= 2) {
                 return `${dateRange[0]} - ${dateRange[1]}`;

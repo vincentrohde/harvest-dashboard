@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Icon } from 'semantic-ui-react';
 import moment from 'moment';
-import { TimeHelper } from '../../helpers';
+import { timeService } from '../../lib/TimeService/TimeService';
 import EditForm from '../EditForm/EditForm';
 import { apiService } from '../../lib/ApiService/ApiService';
 
@@ -26,7 +26,7 @@ class Entry extends Component {
             this.activeInterval = 2000;
 
             this.date = moment(this.information.spent_date).format('DD.MM.YYYY');
-            this.hours = TimeHelper.hoursToHoursAndMinutes(this.information.hours);
+            this.hours = timeService.hoursToHoursAndMinutes(this.information.hours);
 
             this.defaults = this.getObjectForDefaults(this.information);
 
@@ -66,7 +66,7 @@ class Entry extends Component {
                 task_id: information.task.id,
                 project_id: information.project.id,
                 notes: information.notes,
-                hours: TimeHelper.hoursToHoursAndMinutes(information.hours),
+                hours: timeService.hoursToHoursAndMinutes(information.hours),
                 spent_date: moment(information.spent_date).format('DD.MM.YYYY')
             }
         }
@@ -108,7 +108,7 @@ class Entry extends Component {
         const information = this.props.information;
 
         if (!this.isNew) {
-            this.hours = TimeHelper.hoursToHoursAndMinutes(this.props.information.hours);
+            this.hours = timeService.hoursToHoursAndMinutes(this.props.information.hours);
             this.isActive = this.props.information.is_running;
         }
 
