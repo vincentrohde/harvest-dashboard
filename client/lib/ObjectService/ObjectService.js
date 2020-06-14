@@ -1,4 +1,10 @@
 class ObjectService {
+    isEmptyObject (obj) {
+        if (typeof obj === 'undefined') return true;
+
+        return Object.keys(obj).length === 0 && obj.constructor === Object;
+    }
+
     sortObjectsArray (isDescending, list, selector) {
         return list.sort((a, b) => {
             if (isDescending) {
@@ -9,16 +15,13 @@ class ObjectService {
         });
     }
 
-    isPropertyDifferentFromOldObject (selector, oldObject, newObject) {
-        if (newObject[selector]) {
-            const oldProperty = oldObject[selector];
-            const newProperty = newObject[selector];
+    isNewObjectDifferent (oldObject, newObject) {
+        if (newObject) {
+            const oldObjectJSON = JSON.stringify(oldObject);
+            const newObjectJSON = JSON.stringify(newObject);
 
-            const oldPropertyJSON = JSON.stringify(oldProperty);
-            const newPropertyJSON = JSON.stringify(newProperty);
-
-            if (oldPropertyJSON !== newPropertyJSON) {
-                return newProperty;
+            if (oldObjectJSON !== newObjectJSON) {
+                return newObject;
             }
 
             return false;

@@ -1,18 +1,20 @@
-import axios from 'axios';
+require('dotenv').config();
+
+const axios = require('axios');
 
 // Configs
 
 const requestConfig = {
     headers: {
         'Authorization': 'Bearer ' + process.env.ACCESS_TOKEN,
-        'Harvest-Account-ID': process.env.ACCOUNT_ID
+        'Harvest-Account-ID': process.env.ACCOUNT_ID,
     }
 };
 
 const updateConfig = {
     headers: {
         ...requestConfig.headers,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
     }
 };
 
@@ -74,4 +76,4 @@ class ApiService {
     }
 }
 
-export const apiService = new ApiService();
+module.exports = new ApiService();

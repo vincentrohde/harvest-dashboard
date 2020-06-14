@@ -1,18 +1,35 @@
+const webpack = require("webpack");
 const path = require('path');
 const Dotenv = require('dotenv-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
     mode: 'development',
-    devtool: 'source-map',
+    devServer: {
+        historyApiFallback: true,
+        hot: true,
+        inline: true,
+        host: 'localhost',
+        port: 3000,
+        proxy: {
+            '/api/**': {
+                target: 'http://localhost:8080/api/',
+                pathRewrite: { '^/api': '' },
+                secure: false,
+                changeOrigin: true,
+            }
+        }
+    },
+    devtool: 'cheap-module-source-map',
     entry: {
-        main: './src/index.js',
+        main: './client/index.js',
         vendor: ['semantic-ui-react'],
     },
     output:{
-        path: path.join(__dirname, '/dist'),
-        filename: 'bundle.js'
+        path: path.join(__dirname, '/client/dist'),
+        filename: '[name].js'
     },
     module: {
         rules: [
@@ -65,8 +82,16 @@ module.exports = {
         ]
     },
     plugins: [
+        new webpack.HotModuleReplacementPlugin({
+            multiStep: true
+        }),
+        // new BundleAnalyzerPlugin({
+        //     analyzerMode: 'server',
+        //     generateStatsFile: true,
+        //     statsOptions: { source: false }
+        // }),
         new HtmlWebpackPlugin({
-            template: './src/index.html'
+            template: './client/index.html'
         }),
         new Dotenv(),
         new MiniCssExtractPlugin('styles.css')

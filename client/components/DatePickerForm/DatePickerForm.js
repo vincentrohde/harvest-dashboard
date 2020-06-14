@@ -7,6 +7,8 @@ import { DatesRangeInput} from 'semantic-ui-calendar-react';
 import { updateDateRange } from '../../stores/actions/filters';
 import { dateRangeFilterSelector } from '../../stores/selectors/filters';
 
+import style from './DatePickerForm.scss';
+
 class DatePickerForm extends Component {
     constructor (props) {
         super();
@@ -36,7 +38,7 @@ class DatePickerForm extends Component {
         ];
 
         this.state = {
-            dateRange: this.props.dateRange,
+            dateRange: this.props.dateRange || [moment().format('YYYY-MM-DD')],
             preset: ''
         };
     }
