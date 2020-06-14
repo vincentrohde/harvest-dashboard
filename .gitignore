@@ -1,6 +1,6 @@
 node_modules
 .idea
-dist
+client/dist
 
 # API information
 .env
