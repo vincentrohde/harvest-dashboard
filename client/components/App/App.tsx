@@ -3,9 +3,9 @@ import { Provider } from 'react-redux';
 import store from '../../stores/store';
 import Entries from '../Entries/Entries';
 
-import style from './App.scss';
+import './App.scss';
 
-const App = () => {
+export const App = () => {
     return (
         <Provider store={store}>
             <div className="App">
@@ -15,5 +15,3 @@ const App = () => {
         </Provider>
     )
 };
-
-export default App;
