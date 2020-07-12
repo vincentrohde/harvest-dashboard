@@ -31,6 +31,7 @@
         "browserslist": "^4.12.0",
         "caniuse-lite": "^1.0.30001078",
         "chart.js": "^2.9.3",
+        "dotenv": "^8.2.0",
         "express": "^4.17.1",
         "moment": "^2.24.0",
         "node-sass": "^4.14.1",
