@@ -32,14 +32,14 @@ import { usePrevious } from '../../hooks/usePrevious';
 import './EditForm.scss';
 
 interface EntryDataAsProps extends ShallowSubmissionEntryInterface {
-    id: number;
+    id?: number;
     hours: string;
-    project_id: TimeEntrySubmissionInterface['project_id'];
-    task_id: TimeEntrySubmissionInterface['task_id'];
+    project_id: TimeEntrySubmissionInterface['project_id'] | string;
+    task_id: TimeEntrySubmissionInterface['task_id'] | string;
 }
 
 interface EditFormProps {
-    entryData: EntryDataAsProps;
+    entryData?: EntryDataAsProps;
     isNewEntry?: boolean;
     options?: any;
     setIsEdit?: (isEdit: boolean) => void;
@@ -49,7 +49,8 @@ const defaults = {
     notes: '',
     hours: '0:00',
     project_id: '',
-    task_id: ''
+    task_id: '',
+    spent_date: timeService.getCurrentDate()
 }
 
 const EditForm = ({
@@ -63,18 +64,26 @@ const EditForm = ({
     const hoursInputRegex = /(^([1-9]?)([0-9])(:)([0-5])([0-9])$)/;
     const dateInputRegex = /^[0-9]{2}[.]{1}[0-9]{2}[.]{1}[0-9]{4}$/;
 
-    const { id } = entryData;
+    let id: boolean | EntryDataAsProps['id'] = false;
 
-    const date = entryData.spent_date || timeService.getCurrentDate();
+    if (typeof entryData === 'undefined') {
+        entryData = {...defaults};
+    }
+
+    if (typeof entryData.id !== 'undefined') {
+        id = entryData.id;
+    }
+
+    const date = entryData.spent_date;
 
     // State
 
     const [entry, setEntry] = useState({
         spent_date: timeService.iso8601ToDDMMYYY(date),
-        hours: entryData.hours || defaults.hours,
-        notes: entryData.notes || defaults.notes,
-        project_id: entryData.project_id || defaults.project_id,
-        task_id: entryData.task_id || defaults.task_id,
+        hours: entryData.hours,
+        notes: entryData.notes,
+        project_id: entryData.project_id,
+        task_id: entryData.task_id,
     });
 
     const prevEntry = usePrevious({ entry });
@@ -183,6 +192,8 @@ const EditForm = ({
     }
 
     const handleSubmitOfEntryUpdate = (updatedEntry: TimeEntrySubmissionInterface) => {
+        if (typeof id !== "number") { return; }
+
         backendService.updateTimeEntry(updatedEntry, id)
             .then(({ data: timeEntry }) => {
                 // timeEntry = JSON.parse(timeEntry);
