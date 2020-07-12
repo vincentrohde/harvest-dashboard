@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
-const getTimeEntries = (state) => state.timeEntries.timeEntries;
-const getEditEntry = (state) => state.timeEntries.editEntry;
+const getTimeEntries = (state: any) => state.timeEntries.timeEntries;
+const getEditEntry = (state: any) => state.timeEntries.editEntry;
 
 export const timeEntriesSelector = createSelector(
     [ getTimeEntries ],
