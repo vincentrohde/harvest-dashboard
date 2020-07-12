@@ -2,7 +2,7 @@ import {
     ADD_PROJECTS
 } from '../actions/projects';
 
-export const projects = (state = {}, action) => {
+export const projects = (state = {}, action: any) => {
     let projects;
     switch (action.type) {
         case ADD_PROJECTS:
