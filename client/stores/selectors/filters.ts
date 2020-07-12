@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
-const getFilters = (state) => state.filters;
-const dateRangeFilter = (state) => state.filters.dateRange;
+const getFilters = (state: any) => state.filters;
+const dateRangeFilter = (state: any) => state.filters.dateRange;
 
 export const filtersSelector = createSelector(
     [ getFilters ],
