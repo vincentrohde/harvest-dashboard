@@ -1,52 +1,49 @@
+// Typescript
+import { timeEntriesType, TimeEntryInterface, TimeEntrySubmissionInterface } from '../../../interfaces/TimeEntry';
+import { tasksType } from '../../../interfaces/Task';
+import { projectsType } from '../../../interfaces/Project';
+
+// Libs
 import axios from 'axios';
 
 class BackendService {
-    getTimeEntry (entryID) {
+    getTimeEntry (entryID: TimeEntryInterface['id']) {
         return axios.get(`/api/time_entries/${entryID}`);
     }
 
-    getTimeEntries (from, to) {
+    getTimeEntries (from: string, to: string) {
         return axios.get(`/api/time_entries?from=${from}&to=${to}`)
             .then((response) => {
-                const { timeEntries } = response.data;
-                return new Promise ((resolve) => {
-                    resolve(timeEntries);
-                })
-            })
-            .catch((error) => console.log(error));
+                const { timeEntries }: { timeEntries: timeEntriesType } = response.data;
+                return timeEntries;
+            });
     }
 
     getTasks () {
         return axios.get('/api/tasks')
             .then((response) => {
-                const { tasks } = response.data;
-                return new Promise((resolve) => {
-                    resolve(tasks)
-                });
-            })
-            .catch((error) => console.log(error));
+                const { tasks }: { tasks: tasksType } = response.data;
+                return tasks;
+            });
     }
 
     getProjects () {
         return axios.get('/api/projects')
             .then((response) => {
-                const { projects } = response.data;
-                return new Promise((resolve) => {
-                    resolve(projects);
-                });
-            })
-            .catch((error) => console.log(error));
+                const { projects }: { projects: projectsType } = response.data;
+                return projects;
+            });
     }
 
-    addTimeEntry (timeEntry) {
+    addTimeEntry (timeEntry: TimeEntrySubmissionInterface) {
         return axios.post('/api/time_entries', timeEntry);
     }
 
-    updateTimeEntry (timeEntry, entryID) {
+    updateTimeEntry (timeEntry: TimeEntrySubmissionInterface, entryID: TimeEntryInterface['id']) {
         return axios.patch(`/api/time_entries/${entryID}`, timeEntry);
     }
 
-    deleteTimeEntry (entryID) {
+    deleteTimeEntry (entryID: TimeEntryInterface['id']) {
         return axios.delete(`/api/time_entries/${entryID}`);
     }
 }
