@@ -1,4 +1,13 @@
-import React, { Component, useState, useEffect } from 'react';
+// Typescript
+
+import { timeEntriesType } from '../../../interfaces/TimeEntry';
+import { categoriesType } from '../../../interfaces/Category';
+import { projectsType } from '../../../interfaces/Project';
+import { tasksType } from '../../../interfaces/Task';
+import { FiltersInterface } from '../../../interfaces/Filters';
+
+// Libs
+import React, { useState, useEffect } from 'react';
 import { Grid } from 'semantic-ui-react';
 import moment from 'moment';
 
@@ -18,8 +27,9 @@ import { tasksSelector } from '../../stores/selectors/tasks';
 
 // Services
 
-import { objectService } from '../../lib/ObjectService/ObjectService';
 import { backendService } from '../../lib/BackendService/BackendService';
+import { errorService } from '../../lib/ErrorService/ErrorService';
+import { objectService } from '../../lib/ObjectService/ObjectService';
 
 // Components
 
@@ -33,9 +43,22 @@ import EditForm from '../EditForm/EditForm';
 
 import { usePrevious } from '../../hooks/usePrevious';
 
-import style from './Entries.scss';
+// Styles
 
-const NewEntries = ({
+import './Entries.scss';
+
+interface EntriesProps {
+    timeEntries: timeEntriesType;
+    filters: FiltersInterface;
+    projects: projectsType;
+    tasks: tasksType;
+    addTimeEntries: Function;
+    addProjects: Function;
+    addTasks: Function;
+    setFilters: Function;
+}
+
+const Entries = ({
     timeEntries = [],
     filters,
     projects,
@@ -43,22 +66,21 @@ const NewEntries = ({
     addTimeEntries,
     addProjects,
     addTasks,
-    setFilters }) => {
+    setFilters }: EntriesProps) => {
 
     const prevFilters = usePrevious({ filters });
     const [isLoadingMetaData, setIsLoadingMetaData] = useState(true);
 
-    const filterAPIDataForState = (list) => {
+    const filterAPIDataForState = (list: categoriesType) => {
         return list.map(item => {
             return {
                 id: item.id,
-                name: item.name
+                name: item.name,
             }
         });
     }
 
-    const getDateRange = (dateRange) => {
-
+    const getDateRange = (dateRange: FiltersInterface['dateRange']) => {
         if (dateRange && dateRange.length) {
             if (dateRange.length > 1) {
                 return [dateRange[0], dateRange[1]]
@@ -77,32 +99,32 @@ const NewEntries = ({
             const from = dateRange[0];
             const to = dateRange[1];
             backendService.getTimeEntries(from, to)
-                .then((timeEntries) => {
+                .then((timeEntries: timeEntriesType) => {
                     addTimeEntries(timeEntries);
-                });
+                })
+                .catch(errorService.handleBasicApiError);
         }
     }
 
     const getTasks = () => {
         backendService.getTasks()
-            .then((tasks) => {
+            .then((tasks: tasksType) => {
                 const filteredTasksData = filterAPIDataForState(tasks);
-
                 addTasks({
                     tasks: filteredTasksData
                 });
-            });
+            }).catch(errorService.handleBasicApiError);
     }
 
     const getProjects = () => {
         backendService.getProjects()
-            .then((projects) => {
+            .then((projects: projectsType) => {
                 const filteredProjectsData = filterAPIDataForState(projects);
 
                 addProjects({
                     projects: filteredProjectsData
                 });
-            });
+            }).catch(errorService.handleBasicApiError);
     }
 
     useEffect(() => {
@@ -135,8 +157,8 @@ const NewEntries = ({
 
     useEffect(() => {
         if (!objectService.isEmptyObject(filters)) {
-            if (objectService.isNewObjectDifferent(prevFilters.filters, filters)) {
-                getTimeEntries(filters);
+            if (objectService.isNewObjectDifferent(prevFilters, filters)) {
+                getTimeEntries();
             }
         }
     }, [filters]);
@@ -150,8 +172,7 @@ const NewEntries = ({
 
                 <Grid.Column width={16}>
                     <EditForm
-                        isNewEntry={true}
-                        entryData={{ date: getDateRange(filters.dateRange)[0] }} />
+                        isNewEntry={true} />
                 </Grid.Column>
 
                 { (timeEntries.length > 0) && (
@@ -171,9 +192,9 @@ const NewEntries = ({
                                 key={key}
                                 hours={item.hours}
                                 id={item.id}
-                                isRunning={item.is_running}
+                                is_running={item.is_running}
                                 notes={item.notes}
-                                date={item.spent_date}
+                                spent_date={item.spent_date}
                                 task={item.task}
                                 project={item.project} /> )
                     })}
@@ -183,7 +204,7 @@ const NewEntries = ({
     </section>)
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: any) => {
     return {
 
         timeEntries: timeEntriesSelector(state),
@@ -200,4 +221,4 @@ const mapDispatchToProps = {
     setFilters
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewEntries);
+export default connect(mapStateToProps, mapDispatchToProps)(Entries);
