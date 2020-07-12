@@ -1,9 +1,15 @@
+import { timeService } from '../../lib/TimeService/TimeService';
+
 import {
     SET_FILTERS,
     UPDATE_DATE_RANGE
 } from '../actions/filters';
 
-export const filters = (state = {}, action) => {
+const initialState = {
+    dateRange: [timeService.getCurrentDate()]
+};
+
+export const filters = (state = initialState, action: any) => {
     let dateRange;
     switch (action.type) {
         case SET_FILTERS:
