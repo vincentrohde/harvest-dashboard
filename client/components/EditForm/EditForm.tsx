@@ -1,11 +1,17 @@
+// Typescript
+import { TimeEntrySubmissionInterface, ShallowSubmissionEntryInterface } from '../../../interfaces/TimeEntry';
+import { onChangeHandler } from '../../../interfaces/components/SemanticInput';
+
 // Modules
 import React, { useState, useEffect } from 'react';
-import { Button, Form, Icon, Input, Select } from 'semantic-ui-react';
+import { Form, Input } from 'semantic-ui-react';
 import { DateInput } from 'semantic-ui-calendar-react';
 import _ from 'underscore';
 
 // Components
 import FormError from './FormError/FormError';
+import SubmitRow from './SubmitRow/SubmitRow';
+import DropDownInput from './DropDownInput/DropDownInput';
 
 // Redux
 import { connect } from 'react-redux';
@@ -23,8 +29,21 @@ import { timeService } from '../../lib/TimeService/TimeService';
 import { usePrevious } from '../../hooks/usePrevious';
 
 // Styles
+import './EditForm.scss';
 
-import style from './EditForm.scss';
+interface EntryDataAsProps extends ShallowSubmissionEntryInterface {
+    id: number;
+    hours: string;
+    project_id: TimeEntrySubmissionInterface['project_id'];
+    task_id: TimeEntrySubmissionInterface['task_id'];
+}
+
+interface EditFormProps {
+    entryData: EntryDataAsProps;
+    isNewEntry?: boolean;
+    options?: any;
+    setIsEdit?: (isEdit: boolean) => void;
+}
 
 const defaults = {
     notes: '',
@@ -37,22 +56,25 @@ const EditForm = ({
     entryData,
     isNewEntry=false,
     options=null,
-    toggleEditMode=null }) => {
+    setIsEdit }: EditFormProps) => {
 
     // Variables
 
     const hoursInputRegex = /(^([1-9]?)([0-9])(:)([0-5])([0-9])$)/;
     const dateInputRegex = /^[0-9]{2}[.]{1}[0-9]{2}[.]{1}[0-9]{4}$/;
+
     const { id } = entryData;
+
+    const date = entryData.spent_date || timeService.getCurrentDate();
 
     // State
 
     const [entry, setEntry] = useState({
-        spent_date: timeService.iso8601ToDDMMYYY(entryData.date),
+        spent_date: timeService.iso8601ToDDMMYYY(date),
         hours: entryData.hours || defaults.hours,
         notes: entryData.notes || defaults.notes,
-        project_id: entryData.projectId || defaults.project_id,
-        task_id: entryData.taskId || defaults.task_id,
+        project_id: entryData.project_id || defaults.project_id,
+        task_id: entryData.task_id || defaults.task_id,
     });
 
     const prevEntry = usePrevious({ entry });
@@ -78,7 +100,7 @@ const EditForm = ({
 
     // Errors
 
-    const removeErrorFromList = (name) => {
+    const removeErrorFromList = (name: string) => {
         const newErrorList = [...errorList];
 
         newErrorList.forEach((item, index) => {
@@ -90,21 +112,23 @@ const EditForm = ({
         setErrorList(newErrorList);
     }
 
-    const isFieldInErrorList = (name) => {
+    const isFieldInErrorList = (name: string) => {
+        // @ts-ignore
         return errorList.includes(name);
     }
 
     // Input Changes
 
-    const userInputErrorHandler = (inputName, regex) => {
+    const userInputErrorHandler = (inputName: keyof typeof entry, regex: RegExp) => {
         const input = entry[inputName];
-        const isInputValid = input.match(regex);
+        const isInputValid = input.toString().match(regex.toString());
 
         if (isInputValid) {
             removeErrorFromList(inputName);
             return;
         }
 
+        // @ts-ignore
         setErrorList([
             ...errorList,
             inputName
@@ -123,7 +147,7 @@ const EditForm = ({
 
     const debouncedNewUserInputChecker = _.debounce(checkNewUserInput, 2000);
 
-    const handleChange = (event, { name: inputName, value: inputValue }) => {
+    const handleChange: onChangeHandler = (_event: any, { name: inputName, value: inputValue }: { name: string, value: string }) => {
         setLastInputChange(inputName);
 
         setEntry({
@@ -142,12 +166,14 @@ const EditForm = ({
 
         return {
             ...entry,
+            project_id: Number(entry.project_id),
+            task_id: Number(entry.task_id),
             hours: convertedHours,
             spent_date: convertedDate
         };
     };
 
-    const handleSubmitOfNewEntry = (newEntry) => {
+    const handleSubmitOfNewEntry = (newEntry: TimeEntrySubmissionInterface) => {
         backendService.addTimeEntry(newEntry)
             .then(({ data }) => {
                 addTimeEntry(data);
@@ -156,7 +182,7 @@ const EditForm = ({
             .catch((error) => console.log(error));
     }
 
-    const handleSubmitOfEntryUpdate = (updatedEntry) => {
+    const handleSubmitOfEntryUpdate = (updatedEntry: TimeEntrySubmissionInterface) => {
         backendService.updateTimeEntry(updatedEntry, id)
             .then(({ data: timeEntry }) => {
                 // timeEntry = JSON.parse(timeEntry);
@@ -165,7 +191,7 @@ const EditForm = ({
             .catch((error) => console.log(error));
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         const convertedEntry = getApiFormatConvertedEntry();
@@ -181,7 +207,8 @@ const EditForm = ({
     // Cancel
 
     const handleCancel = () => {
-        toggleEditMode()
+        if (typeof setIsEdit === "undefined") return;
+        setIsEdit(false);
     };
 
     // State Listeners
@@ -202,28 +229,24 @@ const EditForm = ({
             >
                 <FormError error={errorList}/>
                 <Form.Group widths="equal">
-                    <Form.Field
-                        control={Select}
+                    <DropDownInput
                         label={{
                             children: "Task",
                             htmlFor: "form-select-control-task"
                         }}
-                        search
-                        searchInput={{ id: "form-select-control-task" }}
+                        searchInputId={"form-select-control-task"}
                         options={tasks}
                         placeholder="Task"
                         name="task_id"
                         onChange={handleChange}
                         value={entry.task_id}
                     />
-                    <Form.Field
-                        control={Select}
+                    <DropDownInput
                         label={{
                             children: "Project",
                             htmlFor: "form-select-control-task"
                         }}
-                        search
-                        searchInput={{ id: "form-select-control-task" }}
+                        searchInputId={"form-select-control-task"}
                         options={projects}
                         placeholder="Project"
                         name="project_id"
@@ -267,41 +290,17 @@ const EditForm = ({
                     />
                 </Form.Group>
 
-                <Form.Group className="submit-row" widths="equal">
-                    { !isNewEntry && (
-                        <Button
-                            className="cancel-button js-cancel"
-                            width={5}
-                            size="medium"
-                            type="button"
-                            onClick={handleCancel}
-                        >
-                            <Icon name="undo" /> Cancel
-                        </Button>
-                    )}
-                    <Button
-                        className="submit-button js-submit"
-                        width={5}
-                        size="medium"
-                        primary
-                        disabled={
-                            errorList.length != '0'
-                            || !entry.hours
-                            || !entry.project_id
-                            || !entry.notes
-                            || !entry.task_id
-                            || !entry.spent_date
-                        }
-                    >
-                        <Icon name="send" /> Submit
-                    </Button>
-                </Form.Group>
+                <SubmitRow
+                    entry={entry}
+                    errorList={errorList}
+                    handleCancel={handleCancel}
+                    isNewEntry={isNewEntry} />
             </Form>
         </div>
     )
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: any): any => ({
     options: editFormOptionsSelector(state)
 });
 

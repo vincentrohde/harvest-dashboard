@@ -1,14 +1,21 @@
 // Typescript
 
 import { FiltersInterface } from '../../../interfaces/Filters';
+import { onChangeHandler } from '../../../interfaces/components/SemanticInput';
+import { setRef } from './CalendarInput/CalendarInput';
 
 // Libs
 
 import React, { useEffect, useState } from 'react';
-import { Form, Grid, Select } from 'semantic-ui-react';
+import { Form, Grid } from 'semantic-ui-react';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { DatesRangeInput} from 'semantic-ui-calendar-react';
+import { DatesRangeInput } from 'semantic-ui-calendar-react';
+
+// Components
+
+import DropDownInput from '../EditForm/DropDownInput/DropDownInput';
+import CalendarInput from './CalendarInput/CalendarInput';
 
 // Services
 
@@ -70,7 +77,7 @@ const DatePickerForm = ({ dateRange, updateDateRange }: DatePickerFormProps) => 
         return cleanDateInputFormat(matches);
     }
 
-    const handleChange = (_event: any, { name, value }: { name: string; value: string; }) => {
+    const handleChange: onChangeHandler = (_event: any, { name, value }: { name: string; value: string; }) => {
         if (name === 'preset') {
             setPreset(value);
             return;
@@ -91,7 +98,7 @@ const DatePickerForm = ({ dateRange, updateDateRange }: DatePickerFormProps) => 
         }
     }
 
-    const setDatePicker = (element: DatesRangeInput) => {
+    const setDatePicker: setRef = (element: DatesRangeInput) => {
         datePicker = element;
     };
 
@@ -152,47 +159,46 @@ const DatePickerForm = ({ dateRange, updateDateRange }: DatePickerFormProps) => 
     };
 
     useEffect(() => {
-        const inputEvent = getEvent('input');
-        // @ts-ignore
-        const input = datePicker.inputNode;
-        const inputValue = getInputFromPreset();
+        if (typeof datePicker !== "undefined") {
+            const inputEvent = getEvent('input');
+            // @ts-ignore
+            const input = datePicker.inputNode;
+            const inputValue = getInputFromPreset();
 
-        setNativeValue(input, inputValue);
-        dispatchCustomEvent(input, inputEvent);
+            setNativeValue(input, inputValue);
+            dispatchCustomEvent(input, inputEvent);
+        }
     }, [preset]);
 
     return (
         <Form className="DatePickerForm">
             <Grid>
                 <Grid.Column width={10}>
-                    <DatesRangeInput
-                        className="date-picker"
-                        name="dateRange"
+                    <CalendarInput
                         label={{
                             children: "Date Range",
                             htmlFor: "form-select-control-task" }}
-                        placeholder="From - To"
-                        value={getDateRangeValue()}
-                        iconPosition="left"
+                        name={"dateRange"}
                         onChange={handleChange}
-                        ref={setDatePicker}
+                        placeholder="From - To"
+                        setRef={setDatePicker}
+                        value={getDateRangeValue()}
                     />
                 </Grid.Column>
                 <Grid.Column width={6}>
-                    <Form.Field
-                        control={Select}
+                    <DropDownInput
                         label={{
                             children: "Preset",
-                            htmlFor: "form-select-control-task" }}
-                        search
-                        searchInput={{ id: "form-select-control-task" }}
+                            htmlFor: "form-select-control-task",
+                        }}
+                        searchInputId={"form-select-control-task"}
+                        clearable={true}
                         options={ranges}
-                        placeholder="Preset"
-                        name="preset"
-                        clearable
+                        placeholder={"Preset"}
+                        name={"preset"}
                         onChange={handleChange}
                         value={preset}
-                    />
+                        />
                 </Grid.Column>
             </Grid>
         </Form>
