@@ -36,7 +36,7 @@ interface HoursByCategoryItemInterface {
 }
 
 interface CategoriesOverviewProps {
-    timeEntries: timeEntriesType;
+    timeEntries?: timeEntriesType;
 }
 
 const CategoriesOverview = ({ timeEntries }: CategoriesOverviewProps) => {
@@ -173,7 +173,9 @@ const CategoriesOverview = ({ timeEntries }: CategoriesOverviewProps) => {
 
     // if timeentries different from old, then new hoursByCategory
     useEffect(() => {
-        setHoursByCategory(getHoursByCategory(timeEntries));
+        if (typeof timeEntries !== "undefined") {
+            setHoursByCategory(getHoursByCategory(timeEntries));
+        }
     }, [timeEntries]);
 
     // if hoursByCategory different then new setchart
