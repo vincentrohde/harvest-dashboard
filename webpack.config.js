@@ -1,6 +1,6 @@
 const webpack = require("webpack");
 const path = require('path');
-const Dotenv = require('dotenv-webpack');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -23,18 +23,25 @@ module.exports = {
         }
     },
     devtool: 'cheap-module-source-map',
+
     entry: {
-        main: './client/index.js',
+        main: './client/index.tsx',
         vendor: ['semantic-ui-react'],
     },
+
     output:{
         path: path.join(__dirname, '/client/dist'),
         filename: '[name].js'
     },
+
+    resolve: {
+        extensions: ['.ts', '.tsx', '.js', '.json']
+    },
+
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.(ts|js)x?$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader'
@@ -85,6 +92,7 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin({
             multiStep: true
         }),
+        new ForkTsCheckerWebpackPlugin(),
         // new BundleAnalyzerPlugin({
         //     analyzerMode: 'server',
         //     generateStatsFile: true,
@@ -93,7 +101,6 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './client/index.html'
         }),
-        new Dotenv(),
         new MiniCssExtractPlugin('styles.css')
     ]
 };
