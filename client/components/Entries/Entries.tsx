@@ -33,9 +33,9 @@ import { objectService } from '../../lib/ObjectService/ObjectService';
 
 // Components
 
-import CategoriesOverview from '../CategoriesOverview/CategoriesOverview';
+// import CategoriesOverview from '../CategoriesOverview/CategoriesOverview';
 import DatePickerForm from '../DatePickerForm/DatePickerForm';
-import DataOverview from '../DataOverview/DataOverview';
+// import DataOverview from '../DataOverview/DataOverview';
 import TimeEntry from '../TimeEntry/TimeEntry';
 import EditForm from '../EditForm/EditForm';
 
@@ -175,15 +175,15 @@ const Entries = ({
                         isNewEntry={true} />
                 </Grid.Column>
 
-                { (timeEntries.length > 0) && (
-                    <Grid.Column mobile={16} tablet={8} computer={8}>
-                        <CategoriesOverview />
-                    </Grid.Column>
-                ) }
+                {/*{ (timeEntries.length > 0) && (*/}
+                {/*    <Grid.Column mobile={16} tablet={8} computer={8}>*/}
+                {/*        <CategoriesOverview />*/}
+                {/*    </Grid.Column>*/}
+                {/*) }*/}
 
-                <Grid.Column mobile={16} tablet={16} computer={16}>
-                    <DataOverview/>
-                </Grid.Column>
+                {/*<Grid.Column mobile={16} tablet={16} computer={16}>*/}
+                {/*    <DataOverview/>*/}
+                {/*</Grid.Column>*/}
 
                 <Grid.Column width={16}>
                     { timeEntries.map((item, key) => {

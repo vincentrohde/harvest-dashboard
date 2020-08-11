@@ -182,6 +182,11 @@ const EditForm = ({
         };
     };
 
+    const closeForm = () => {
+        if (typeof setIsEdit === "undefined") return;
+        setIsEdit(false);
+    }
+
     const handleSubmitOfNewEntry = (newEntry: TimeEntrySubmissionInterface) => {
         backendService.addTimeEntry(newEntry)
             .then(({ data }) => {
@@ -198,6 +203,7 @@ const EditForm = ({
             .then(({ data: timeEntry }) => {
                 // timeEntry = JSON.parse(timeEntry);
                 updateTimeEntry(timeEntry);
+                closeForm();
             })
             .catch((error) => console.log(error));
     };
@@ -218,8 +224,7 @@ const EditForm = ({
     // Cancel
 
     const handleCancel = () => {
-        if (typeof setIsEdit === "undefined") return;
-        setIsEdit(false);
+        closeForm();
     };
 
     // State Listeners
