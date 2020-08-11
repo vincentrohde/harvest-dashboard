@@ -49,8 +49,7 @@ class ApiService {
                 return new Promise ((resolve) => {
                     resolve(time_entries);
                 })
-            })
-            .catch((error) => console.log(error));
+            });
     }
 
     getTasks () {
@@ -60,8 +59,7 @@ class ApiService {
                 return new Promise((resolve) => {
                     resolve(tasks)
                 });
-            })
-            .catch((error) => console.log(error));
+            });
     }
 
     getProjects () {
@@ -71,8 +69,7 @@ class ApiService {
                 return new Promise((resolve) => {
                     resolve(projects);
                 });
-            })
-            .catch((error) => console.log(error));
+            });
     }
 }
 
