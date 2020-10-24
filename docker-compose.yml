@@ -1,0 +1,23 @@
+version: '3.7'
+services:
+  dashboard:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    depends_on:
+      - api-server
+    ports:
+      - 80:80
+    restart: always
+  # harvest dashboard
+  api-server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    # container_name: node-api-server
+    # image: api-server:1.0
+    ports:
+      - "8000:8080"
+    restart: always
+# volumes defined by user
+# volumes:
