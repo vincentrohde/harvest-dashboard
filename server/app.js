@@ -7,7 +7,6 @@ const app = express();
 const port = 8080;
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // Get Time Entries
 app.get('/api/time_entries', (req, res) => {
@@ -55,12 +54,6 @@ app.delete('/api/time_entries/:entryId', ({ params }, res) => {
     apiService.deleteTimeEntry(entryId)
         .then(() => res.sendStatus(200))
         .catch((error) => expressErrorService.sendErrorResponse(error, res));
-});
-
-// production only
-
-app.get('/*', function(req, res){
-    res.sendFile("index.html", {root: path.join(__dirname, '../client/dist')});
 });
 
 app.listen(port, () => console.log(`App listening on port ${port}`));

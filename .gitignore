@@ -3,4 +3,4 @@ node_modules
 client/dist
 
 # API information
-.env
+server/.env
