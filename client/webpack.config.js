@@ -24,12 +24,12 @@ module.exports = {
     devtool: 'cheap-module-source-map',
 
     entry: {
-        main: './client/index.tsx',
+        main: './src/index.tsx',
         vendor: ['semantic-ui-react'],
     },
 
     output:{
-        path: path.join(__dirname, '/client/dist'),
+        path: path.join(__dirname, '/dist'),
         filename: '[name].js'
     },
 
@@ -91,7 +91,7 @@ module.exports = {
         }),
         new ForkTsCheckerWebpackPlugin(),
         new HtmlWebpackPlugin({
-            template: './client/index.html'
+            template: './src/index.html'
         }),
         new MiniCssExtractPlugin('styles.css')
     ]

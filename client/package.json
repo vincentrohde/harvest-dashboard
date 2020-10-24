@@ -4,7 +4,6 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "server": "node server/app.js",
         "dev-client": "webpack-dev-server --mode development --open --port 3000",
         "bundle-report": "webpack-bundle-analyzer --port 4200 dist/stats.json",
         "test": "jest \\\"client/.*\\\\.test\\\\.js\\\"",
@@ -12,7 +11,7 @@
         "type-check": "tsc --noEmit",
         "type-check:watch": "npm run type-check -- --watch",
         "build": "webpack --progress --colors --config ./webpack.production.config.js",
-        "start": "webpack-dev-server --config webpack.config.js --progress --colors --open --mode=development --port 3000"
+        "start": "webpack-dev-server --config ./webpack.config.js --progress --colors --open --mode=development --port 3000"
     },
     "keywords": [],
     "author": "",
@@ -32,7 +31,6 @@
         "caniuse-lite": "^1.0.30001078",
         "chart.js": "^2.9.3",
         "dotenv": "^8.2.0",
-        "express": "^4.17.1",
         "moment": "^2.24.0",
         "node-sass": "^4.14.1",
         "react": "^16.12.0",

@@ -14,11 +14,11 @@
         "jsx": "react"
     },
     "include": [
-        "client/**/*"
+        "./**/*"
     ],
     "exclude": [
-        "node_modules",
-        "server",
-        "client/dist"
+        "./node_modules",
+        "../server",
+        "./dist"
     ]
 }

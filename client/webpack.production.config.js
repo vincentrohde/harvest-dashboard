@@ -8,11 +8,11 @@ const CompressionPlugin = require('compression-webpack-plugin');
 module.exports = {
     mode: 'production',
     entry: {
-        main: './client/index.tsx',
+        main: './src/index.tsx',
         vendor: ['semantic-ui-react'],
     },
     output:{
-        path: path.join(__dirname, '/client/dist'),
+        path: path.join(__dirname, '/dist'),
         filename: '[name].js'
     },
     resolve: {
@@ -69,7 +69,7 @@ module.exports = {
     plugins: [
         new ForkTsCheckerWebpackPlugin(),
         new HtmlWebpackPlugin({
-            template: './client/index.html'
+            template: './src/index.html'
         }),
         new MiniCssExtractPlugin('styles.css'),
         new webpack.optimize.AggressiveMergingPlugin(),
