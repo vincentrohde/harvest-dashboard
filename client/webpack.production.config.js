@@ -12,7 +12,7 @@ module.exports = {
         vendor: ['semantic-ui-react'],
     },
     output:{
-        path: path.join(__dirname, '/dist'),
+        path: path.join(__dirname, './dist'),
         filename: '[name].js'
     },
     resolve: {
