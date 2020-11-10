@@ -2,14 +2,16 @@ const path = require('path');
 const express = require('express');
 const apiService = require('./lib/ApiService/ApiService');
 const expressErrorService = require('./lib/ExpressErrorService/ExpressErrorService');
+require('dotenv').config();
 
 const app = express();
 const port = 8080;
+const apiUrl = process.env.API_URL || '';
 
 app.use(express.json());
 
 // Get Time Entries
-app.get('/api/time_entries', (req, res) => {
+app.get(apiUrl + '/api/time_entries', (req, res) => {
     const from = req.query.from || false;
     const to = req.query.to || false;
 
@@ -19,27 +21,31 @@ app.get('/api/time_entries', (req, res) => {
 });
 
 // Get Tasks
-app.get('/api/tasks', (req, res) => {
+app.get(apiUrl + '/api/tasks', (req, res) => {
     apiService.getTasks()
         .then((tasks) => res.json({ tasks }))
         .catch((error) => expressErrorService.sendErrorResponse(error, res));
 });
 
 // Get Projects
-app.get('/api/projects', (req, res) => {
+// app.get('/projects', (req, res) => {
+app.get(apiUrl + '/api/projects', (req, res) => {
     apiService.getProjects()
         .then((projects) => res.json({ projects }))
-        .catch((error) => expressErrorService.sendErrorResponse(error, res));
+        .catch((error) => {
+            console.log('### error: ', error);
+            expressErrorService.sendErrorResponse(error, res)
+        });
 });
 
 // Add Time Entry
-app.post('/api/time_entries', (req, res) => {
+app.post(apiUrl + '/api/time_entries', (req, res) => {
     console.log('### ', req.body);
     res.json('success');
 });
 
 // Update Time Entry
-app.patch('/api/time_entries/:entryId', ({ params, body: timeEntry }, res) => {
+app.patch(apiUrl + '/api/time_entries/:entryId', ({ params, body: timeEntry }, res) => {
     const { entryId } = params;
 
     apiService.updateTimeEntry(timeEntry, entryId)
@@ -48,7 +54,7 @@ app.patch('/api/time_entries/:entryId', ({ params, body: timeEntry }, res) => {
 });
 
 // Remove Time Entry
-app.delete('/api/time_entries/:entryId', ({ params }, res) => {
+app.delete(apiUrl + '/api/time_entries/:entryId', ({ params }, res) => {
     const { entryId } = params;
 
     apiService.deleteTimeEntry(entryId)

@@ -20,10 +20,10 @@ const updateConfig = {
 
 // URLs for different requests
 
-const V2_API_URL = process.env.API_URL + '/v2';
-const TIME_ENTRIES_URL = V2_API_URL + '/time_entries';
-const TASKS_URL = V2_API_URL + '/tasks';
-const PROJECTS_URL = V2_API_URL + '/projects';
+const V2_HARVEST_API_URL = process.env.HARVEST_API_URL + '/v2';
+const TIME_ENTRIES_URL = V2_HARVEST_API_URL + '/time_entries';
+const TASKS_URL = V2_HARVEST_API_URL + '/tasks';
+const PROJECTS_URL = V2_HARVEST_API_URL + '/projects';
 
 class ApiService {
     addTimeEntry (timeEntry) {
@@ -63,6 +63,8 @@ class ApiService {
     }
 
     getProjects () {
+        console.log('### PROJECTS_URL: ', PROJECTS_URL);
+        console.log('### requestConfig: ', requestConfig);
         return axios.get(PROJECTS_URL, requestConfig)
             .then((response) => {
                 const { projects } = response.data;

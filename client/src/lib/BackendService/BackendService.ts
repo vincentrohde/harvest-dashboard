@@ -8,7 +8,7 @@ import axios from 'axios';
 
 class BackendService {
     getTimeEntry (entryID: TimeEntryInterface['id']) {
-        return axios.get(`/api/time_entries/${entryID}`);
+        return axios.get(`./api/time_entries/${entryID}`);
     }
 
     getTimeEntries (from: string, to: string) {
