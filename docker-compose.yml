@@ -6,8 +6,6 @@ services:
     container_name: dashboard
     depends_on:
       - api-server
-    ports:
-      - "3000:80"
     restart: always
   api-server:
     build: ./server
@@ -15,8 +13,4 @@ services:
     container_name: api-server
     volumes:
       - ./server:/app
-    ports:
-      - "8000:8080"
     restart: always
-# volumes defined by user
-# volumes:
