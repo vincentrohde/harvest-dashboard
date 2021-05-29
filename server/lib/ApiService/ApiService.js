@@ -63,8 +63,6 @@ class ApiService {
     }
 
     getProjects () {
-        console.log('### PROJECTS_URL: ', PROJECTS_URL);
-        console.log('### requestConfig: ', requestConfig);
         return axios.get(PROJECTS_URL, requestConfig)
             .then((response) => {
                 const { projects } = response.data;
