@@ -8,11 +8,11 @@ import axios from 'axios';
 
 class BackendService {
     getTimeEntry (entryID: TimeEntryInterface['id']) {
-        return axios.get(`/api/time_entries/${entryID}`);
+        return axios.get(`./api/time_entries/${entryID}`);
     }
 
     getTimeEntries (from: string, to: string) {
-        return axios.get(`/api/time_entries?from=${from}&to=${to}`)
+        return axios.get(`./api/time_entries?from=${from}&to=${to}`)
             .then((response) => {
                 const { timeEntries }: { timeEntries: timeEntriesType } = response.data;
                 return timeEntries;
@@ -20,7 +20,7 @@ class BackendService {
     }
 
     getTasks () {
-        return axios.get('/api/tasks')
+        return axios.get('./api/tasks')
             .then((response) => {
                 const { tasks }: { tasks: tasksType } = response.data;
                 return tasks;
@@ -28,7 +28,7 @@ class BackendService {
     }
 
     getProjects () {
-        return axios.get('/api/projects')
+        return axios.get('./api/projects')
             .then((response) => {
                 const { projects }: { projects: projectsType } = response.data;
                 return projects;
@@ -36,15 +36,15 @@ class BackendService {
     }
 
     addTimeEntry (timeEntry: TimeEntrySubmissionInterface) {
-        return axios.post('/api/time_entries', timeEntry);
+        return axios.post('./api/time_entries', timeEntry);
     }
 
     updateTimeEntry (timeEntry: TimeEntrySubmissionInterface, entryID: TimeEntryInterface['id']) {
-        return axios.patch(`/api/time_entries/${entryID}`, timeEntry);
+        return axios.patch(`./api/time_entries/${entryID}`, timeEntry);
     }
 
     deleteTimeEntry (entryID: TimeEntryInterface['id']) {
-        return axios.delete(`/api/time_entries/${entryID}`);
+        return axios.delete(`./api/time_entries/${entryID}`);
     }
 }
 

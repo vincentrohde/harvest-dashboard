@@ -3,40 +3,21 @@ const path = require('path');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
-    mode: 'development',
-    devServer: {
-        historyApiFallback: true,
-        hot: true,
-        inline: true,
-        host: 'localhost',
-        port: 3000,
-        proxy: {
-            '/api/**': {
-                target: 'http://localhost:8080/api/',
-                pathRewrite: { '^/api': '' },
-                secure: false,
-                changeOrigin: true,
-            }
-        }
-    },
-    devtool: 'cheap-module-source-map',
-
+    mode: 'production',
     entry: {
-        main: './client/index.tsx',
+        main: './src/index.tsx',
         vendor: ['semantic-ui-react'],
     },
-
     output:{
-        path: path.join(__dirname, '/client/dist'),
+        path: path.join(__dirname, './dist'),
         filename: '[name].js'
     },
-
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.json']
     },
-
     module: {
         rules: [
             {
@@ -86,13 +67,12 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin({
-            multiStep: true
-        }),
         new ForkTsCheckerWebpackPlugin(),
         new HtmlWebpackPlugin({
-            template: './client/index.html'
+            template: './src/index.html'
         }),
-        new MiniCssExtractPlugin('styles.css')
+        new MiniCssExtractPlugin('styles.css'),
+        new webpack.optimize.AggressiveMergingPlugin(),
+        new CompressionPlugin(),
     ]
 };

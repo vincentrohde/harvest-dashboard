@@ -1,4 +1,5 @@
-const path = require('path');
+require('dotenv').config();
+
 const express = require('express');
 const apiService = require('./lib/ApiService/ApiService');
 const expressErrorService = require('./lib/ExpressErrorService/ExpressErrorService');
@@ -7,10 +8,9 @@ const app = express();
 const port = 8080;
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // Get Time Entries
-app.get('/api/time_entries', (req, res) => {
+app.get('/time_entries', (req, res) => {
     const from = req.query.from || false;
     const to = req.query.to || false;
 
@@ -20,27 +20,31 @@ app.get('/api/time_entries', (req, res) => {
 });
 
 // Get Tasks
-app.get('/api/tasks', (req, res) => {
+app.get('/tasks', (req, res) => {
     apiService.getTasks()
         .then((tasks) => res.json({ tasks }))
         .catch((error) => expressErrorService.sendErrorResponse(error, res));
 });
 
 // Get Projects
-app.get('/api/projects', (req, res) => {
+// app.get('/projects', (req, res) => {
+app.get('/projects', (req, res) => {
     apiService.getProjects()
         .then((projects) => res.json({ projects }))
-        .catch((error) => expressErrorService.sendErrorResponse(error, res));
+        .catch((error) => {
+            console.log('### error: ', error);
+            expressErrorService.sendErrorResponse(error, res)
+        });
 });
 
 // Add Time Entry
-app.post('/api/time_entries', (req, res) => {
+app.post('/time_entries', (req, res) => {
     console.log('### ', req.body);
     res.json('success');
 });
 
 // Update Time Entry
-app.patch('/api/time_entries/:entryId', ({ params, body: timeEntry }, res) => {
+app.patch('/time_entries/:entryId', ({ params, body: timeEntry }, res) => {
     const { entryId } = params;
 
     apiService.updateTimeEntry(timeEntry, entryId)
@@ -49,18 +53,12 @@ app.patch('/api/time_entries/:entryId', ({ params, body: timeEntry }, res) => {
 });
 
 // Remove Time Entry
-app.delete('/api/time_entries/:entryId', ({ params }, res) => {
+app.delete('/time_entries/:entryId', ({ params }, res) => {
     const { entryId } = params;
 
     apiService.deleteTimeEntry(entryId)
         .then(() => res.sendStatus(200))
         .catch((error) => expressErrorService.sendErrorResponse(error, res));
-});
-
-// production only
-
-app.get('/*', function(req, res){
-    res.sendFile("index.html", {root: path.join(__dirname, '../client/dist')});
 });
 
 app.listen(port, () => console.log(`App listening on port ${port}`));

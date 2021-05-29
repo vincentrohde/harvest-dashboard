@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  dashboard:
+    networks:
+      - nginx.docker
+  api-server:
+    networks:
+      - nginx.docker
+
+networks:
+  nginx.docker:
+    name: nginx.docker
+    external: true
