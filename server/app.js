@@ -1,8 +1,7 @@
-require('dotenv').config();
-
 const express = require('express');
 const apiService = require('./lib/ApiService/ApiService');
 const expressErrorService = require('./lib/ExpressErrorService/ExpressErrorService');
+const permissionService = require('./lib/PermissionService/PermissionService');
 
 const app = express();
 const port = 8080;
@@ -27,7 +26,6 @@ app.get('/tasks', (req, res) => {
 });
 
 // Get Projects
-// app.get('/projects', (req, res) => {
 app.get('/projects', (req, res) => {
     apiService.getProjects()
         .then((projects) => res.json({ projects }))
@@ -39,26 +37,30 @@ app.get('/projects', (req, res) => {
 
 // Add Time Entry
 app.post('/time_entries', (req, res) => {
-    console.log('### ', req.body);
-    res.json('success');
+    permissionService.handleDataUpdate(() => {
+        res.json('success');
+    }, res);
 });
 
 // Update Time Entry
 app.patch('/time_entries/:entryId', ({ params, body: timeEntry }, res) => {
-    const { entryId } = params;
-
-    apiService.updateTimeEntry(timeEntry, entryId)
-        .then(({ data }) => res.json(data))
-        .catch((error) => expressErrorService.sendErrorResponse(error, res));
+    permissionService.handleDataUpdate(() => {
+        const { entryId } = params;
+        apiService.updateTimeEntry(timeEntry, entryId)
+            .then(({ data }) => res.json(data))
+            .catch((error) => expressErrorService.sendErrorResponse(error, res));
+    }, res);
 });
 
 // Remove Time Entry
 app.delete('/time_entries/:entryId', ({ params }, res) => {
-    const { entryId } = params;
+    permissionService.handleDataUpdate(() => {
+        const { entryId } = params;
 
-    apiService.deleteTimeEntry(entryId)
-        .then(() => res.sendStatus(200))
-        .catch((error) => expressErrorService.sendErrorResponse(error, res));
+        apiService.deleteTimeEntry(entryId)
+            .then(() => res.sendStatus(200))
+            .catch((error) => expressErrorService.sendErrorResponse(error, res));
+    }, res);
 });
 
 app.listen(port, () => console.log(`App listening on port ${port}`));
