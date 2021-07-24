@@ -2,12 +2,12 @@
 import React from 'react';
 
 // Components
-import DropDownInput from '../../../DropDownInput/DropDownInput';
+import DropDown from '../DropDown/DropDown';
 
 // Types
-import { TaskProps } from './TaskProps';
+import { TaskProps } from './Task.props';
 
-const Task = ({taskId, tasks, handleChange}: TaskProps) => (<DropDownInput
+const Task = ({taskId, tasks, handleChange}: TaskProps) => (<DropDown
     label={{
         children: "Task",
         htmlFor: "form-select-control-task"
