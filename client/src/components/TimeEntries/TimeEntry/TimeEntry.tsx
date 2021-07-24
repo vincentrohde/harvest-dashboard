@@ -1,19 +1,19 @@
 // Typescript
-import { TimeEntryInterface } from '../../../interfaces/TimeEntry';
+import { TimeEntryInterface } from '../../../../interfaces/TimeEntry';
 
 // Libs
 import React, { useState } from 'react';
 import { Icon } from 'semantic-ui-react';
 import moment from 'moment';
-import EditForm from '../EditForm/EditForm';
+import EditForm from '../../EditForm/EditForm';
 
 // Redux
 import { connect } from 'react-redux';
-import { deleteTimeEntry } from '../../stores/actions/timeEntries';
+import { deleteTimeEntry } from '../../../stores/actions/timeEntries';
 
 // Services
-import { backendService } from '../../lib/BackendService/BackendService';
-import { timeService } from '../../lib/TimeService/TimeService';
+import { backendService } from '../../../lib/BackendService/BackendService';
+import { timeService } from '../../../lib/TimeService/TimeService';
 
 // Stylings
 import './TimeEntry.scss';
