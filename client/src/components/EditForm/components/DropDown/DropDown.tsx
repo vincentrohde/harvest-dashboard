@@ -1,19 +1,11 @@
-// Typescript
-
-import { SemanticInputProps } from '../../../../interfaces/components/SemanticInput';
-
 // Libs
-
 import React from 'react';
 import { Form, Select } from 'semantic-ui-react';
 
-interface DropDownInputProps extends SemanticInputProps {
-    clearable?: boolean;
-    options: any;
-    searchInputId: string;
-}
+// Types
+import { DropDownProps } from './DropDown.props';
 
-const DropDownInput = ({ clearable = false, label, name, onChange, options, placeholder, searchInputId, value }: DropDownInputProps) => {
+const DropDown = ({ clearable = false, label, name, onChange, options, placeholder, searchInputId, value }: DropDownProps) => {
     return (
         <Form.Field
             control={Select}
@@ -30,4 +22,4 @@ const DropDownInput = ({ clearable = false, label, name, onChange, options, plac
     );
 }
 
-export default DropDownInput;
+export default DropDown;
