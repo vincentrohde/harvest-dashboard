@@ -3,10 +3,10 @@ import { useState, useEffect } from 'react';
 import _ from 'underscore';
 
 // Hooks
-import { usePrevious } from '../../../hooks/usePrevious';
+import { usePrevious } from '../../../../hooks/usePrevious';
 
 // Services
-import { objectService } from '../../../lib/ObjectService/ObjectService';
+import { objectService } from '../../../../lib/ObjectService/ObjectService';
 
 // Types
 import { useErrorCheckProps } from './useErrorCheck.props'
