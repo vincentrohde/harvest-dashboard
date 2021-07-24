@@ -1,18 +1,19 @@
+// Libs
 import React from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 
-const CancelButton = ({ handleCancel }: { handleCancel: () => void }) => {
+const Cancel = ({ onCancel }: { onCancel: () => void }) => {
     return (
         <Button
             className="cancel-button js-cancel"
             width={5}
             size="medium"
             type="button"
-            onClick={handleCancel}
+            onClick={onCancel}
         >
-            <Icon name="undo" /> Cancel
+            <Icon name="cancel" /> Cancel
         </Button>
     );
 }
 
-export default CancelButton;
+export default Cancel;
