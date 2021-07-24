@@ -3,7 +3,7 @@ import React from 'react';
 import { Form, Input } from 'semantic-ui-react';
 
 // Types
-import { NotesProps } from './NotesProps';
+import { NotesProps } from './Notes.props';
 
 const Notes = ({notes, handleChange}: NotesProps) => (<Form.Field
     className="form-input"
