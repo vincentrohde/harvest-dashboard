@@ -3,7 +3,7 @@ import React from 'react';
 import { Form, Input } from 'semantic-ui-react';
 
 // Types
-import { HoursProps } from './HoursProps';
+import { HoursProps } from './Hours.props';
 
 const Hours = ({hours, isError, handleChange}: HoursProps) => (<Form.Field
     className="form-input"
