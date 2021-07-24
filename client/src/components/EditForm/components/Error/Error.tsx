@@ -1,19 +1,14 @@
 // Libs
-
 import React from 'react';
 import { Message } from "semantic-ui-react";
 
+// Types
+import { ErrorProps } from './Error.props';
+
 // Styling
+import './Error.scss';
 
-import './FormError.scss';
-
-type errorList = string[];
-
-interface FormErrorProps {
-    error: errorList;
-}
-
-const FormError = ({ error }: FormErrorProps) => {
+const Error = ({ error }: ErrorProps) => {
     let errorContent: string;
     switch (error[0]) {
         case 'hours':
@@ -26,7 +21,7 @@ const FormError = ({ error }: FormErrorProps) => {
             errorContent = 'There is something wrong with your inputs';
     }
     return (
-        <div className="FormError">
+        <div className="Error">
             { error && (
                 <Message
                     error
@@ -38,4 +33,4 @@ const FormError = ({ error }: FormErrorProps) => {
     );
 }
 
-export default FormError;
+export default Error;
