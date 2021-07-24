@@ -1,124 +1,70 @@
-// Typescript
-import { TimeEntrySubmissionInterface, ShallowSubmissionEntryInterface } from '../../../interfaces/TimeEntry';
-import { onChangeHandler } from '../../../interfaces/components/SemanticInput';
-
-// Modules
-import React, { useState, useEffect } from 'react';
-import { Form, Input } from 'semantic-ui-react';
-import { DateInput } from 'semantic-ui-calendar-react';
-import _ from 'underscore';
+// Libs
+import React, { useState } from 'react';
 
 // Components
-import FormError from './FormError/FormError';
-import SubmitRow from './SubmitRow/SubmitRow';
-import DropDownInput from './DropDownInput/DropDownInput';
+import Form from './components/Form/Form';
 
 // Redux
 import { connect } from 'react-redux';
 import { editFormOptionsSelector } from '../../stores/selectors';
 import { addTimeEntry, updateTimeEntry } from '../../stores/actions/timeEntries';
 
-// Custom Services
+// Services
 import { semanticUiService } from '../../lib/SemanticUiService/SemanticUiService';
-import { objectService } from '../../lib/ObjectService/ObjectService';
 import { backendService } from '../../lib/BackendService/BackendService';
 import { timeService } from '../../lib/TimeService/TimeService';
 
+// Data
+import { defaultData } from './defaultData';
+
 // Hooks
+import { useErrorCheck } from './hooks/useErrorCheck/useErrorCheck';
 
-import { usePrevious } from '../../hooks/usePrevious';
-
-// Styles
-import './EditForm.scss';
-
-interface EntryDataAsProps extends ShallowSubmissionEntryInterface {
-    id?: number;
-    hours: string;
-    project_id: TimeEntrySubmissionInterface['project_id'] | string;
-    task_id: TimeEntrySubmissionInterface['task_id'] | string;
-}
-
-interface EditFormProps {
-    entryData?: EntryDataAsProps;
-    isNewEntry?: boolean;
-    options?: any;
-    setIsEdit?: (isEdit: boolean) => void;
-}
-
-const defaults = {
-    notes: '',
-    hours: '0:00',
-    project_id: '',
-    task_id: '',
-    spent_date: timeService.getCurrentDate()
-}
+// Types
+import { EditFormProps, EntryDataAsProps } from './EditForm.props';
+import { TimeEntrySubmissionInterface } from '../../../interfaces/TimeEntry';
+import { onChangeHandler } from '../../../interfaces/components/SemanticInput';
 
 const EditForm = ({
     entryData,
-    isNewEntry=false,
     options=null,
-    setIsEdit }: EditFormProps) => {
+    onSuccess = () => {},
+    onCancel = () => {}
+}: EditFormProps) => {
 
-    // Variables
-
-    const hoursInputRegex = /(^([1-9]?)([0-9])(:)([0-5])([0-9])$)/;
-    const dateInputRegex = /^[0-9]{2}[.]{1}[0-9]{2}[.]{1}[0-9]{4}$/;
-
-    let id: boolean | EntryDataAsProps['id'] = false;
+    let id: undefined | EntryDataAsProps['id'];
 
     if (typeof entryData === 'undefined') {
-        entryData = {...defaults};
+        entryData = {...defaultData};
     }
 
     if (typeof entryData.id !== 'undefined') {
         id = entryData.id;
     }
 
-    const date = entryData.spent_date;
-
-    // State
-
+    const isNewEntry = typeof id === 'undefined';
     const [entry, setEntry] = useState({
-        spent_date: timeService.iso8601ToDDMMYYY(date),
+        spent_date: timeService.iso8601ToDDMMYYY(entryData.spent_date),
         hours: entryData.hours,
         notes: entryData.notes,
         project_id: entryData.project_id,
         task_id: entryData.task_id,
     });
-
-    const prevEntry = usePrevious({ entry });
-
     const [lastInputChange, setLastInputChange] = useState('');
+    const [tasks] = useState(semanticUiService.convertDataToSelectOptions(
+        options.tasksSelector
+    ));
+    const [projects] = useState(semanticUiService.convertDataToSelectOptions(
+        options.projectsSelector
+    ));
 
-    const [errorList, setErrorList] = useState([]);
-
-    const [tasks] = useState(
-        semanticUiService.convertDataToSelectOptions(options.tasksSelector)
-    );
-
-    const [projects] = useState(
-        semanticUiService.convertDataToSelectOptions(options.projectsSelector)
-    );
+    const errorList = useErrorCheck({ entry, lastInputChange });
 
     const resetStateToDefault = () => {
         setEntry({
             ...entry,
-            ...defaults
+            ...defaultData
         })
-    }
-
-    // Errors
-
-    const removeErrorFromList = (name: string) => {
-        const newErrorList = [...errorList];
-
-        newErrorList.forEach((item, index) => {
-            if (item === name) {
-                newErrorList.splice(index, 1);
-            }
-        });
-
-        setErrorList(newErrorList);
     }
 
     const isFieldInErrorList = (name: string) => {
@@ -126,37 +72,7 @@ const EditForm = ({
         return errorList.includes(name);
     }
 
-    // Input Changes
-
-    const userInputErrorHandler = (inputName: keyof typeof entry, regex: RegExp) => {
-        const input = entry[inputName];
-        const isInputValid = input.toString().match(regex.toString());
-
-        if (isInputValid) {
-            removeErrorFromList(inputName);
-            return;
-        }
-
-        // @ts-ignore
-        setErrorList([
-            ...errorList,
-            inputName
-        ]);
-    }
-
-    const checkNewUserInput = () => {
-        if (lastInputChange === 'hours') {
-            userInputErrorHandler('hours', hoursInputRegex);
-        }
-
-        if (lastInputChange === 'spent_date') {
-            userInputErrorHandler('spent_date', dateInputRegex);
-        }
-    }
-
-    const debouncedNewUserInputChecker = _.debounce(checkNewUserInput, 2000);
-
-    const handleChange: onChangeHandler = (_event: any, { name: inputName, value: inputValue }: { name: string, value: string }) => {
+    const onChange: onChangeHandler = (_event: any, { name: inputName, value: inputValue }: { name: string, value: string }) => {
         setLastInputChange(inputName);
 
         setEntry({
@@ -165,9 +81,7 @@ const EditForm = ({
         });
     }
 
-    // Submit
-
-    const getApiFormatConvertedEntry = () => {
+    const convertEntryToApiFormat = () => {
         const { hours: inputHours, spent_date: inputDate } = entry;
 
         const convertedHours = timeService.hoursAndMinutesToHours(inputHours);
@@ -182,137 +96,51 @@ const EditForm = ({
         };
     };
 
-    const closeForm = () => {
-        if (typeof setIsEdit === "undefined") return;
-        setIsEdit(false);
-    }
-
-    const handleSubmitOfNewEntry = (newEntry: TimeEntrySubmissionInterface) => {
+    const submitNewEntry = (newEntry: TimeEntrySubmissionInterface) => {
         backendService.addTimeEntry(newEntry)
             .then(({ data }) => {
                 addTimeEntry(data);
                 resetStateToDefault();
+                onSuccess();
             })
             .catch((error) => console.log(error));
     }
 
-    const handleSubmitOfEntryUpdate = (updatedEntry: TimeEntrySubmissionInterface) => {
+    const submitUpdatedEntry = (updatedEntry: TimeEntrySubmissionInterface) => {
         if (typeof id !== "number") { return; }
 
         backendService.updateTimeEntry(updatedEntry, id)
             .then(({ data: timeEntry }) => {
-                // timeEntry = JSON.parse(timeEntry);
                 updateTimeEntry(timeEntry);
-                closeForm();
+                onSuccess();
             })
             .catch((error) => console.log(error));
     };
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const convertedEntry = getApiFormatConvertedEntry();
+        const convertedEntry = convertEntryToApiFormat();
 
         if (isNewEntry) {
-            handleSubmitOfNewEntry(convertedEntry);
+            submitNewEntry(convertedEntry)
             return;
         }
 
-        handleSubmitOfEntryUpdate(convertedEntry);
+        submitUpdatedEntry(convertedEntry);
     };
-
-    // Cancel
-
-    const handleCancel = () => {
-        closeForm();
-    };
-
-    // State Listeners
-
-    useEffect(() => {
-        const isSameEntry = !objectService.isNewObjectDifferent(prevEntry, entry);
-        if (isSameEntry) return;
-
-        debouncedNewUserInputChecker();
-    }, [entry]);
 
     return (
-        <div className={`EditForm full ${isNewEntry ? 'tab-container' : ''}`}>
-            <Form
-                onSubmit={handleSubmit}
-                error={errorList.length !== 0}
-                autoComplete="off"
-            >
-                <FormError error={errorList}/>
-                <Form.Group widths="equal">
-                    <DropDownInput
-                        label={{
-                            children: "Task",
-                            htmlFor: "form-select-control-task"
-                        }}
-                        searchInputId={"form-select-control-task"}
-                        options={tasks}
-                        placeholder="Task"
-                        name="task_id"
-                        onChange={handleChange}
-                        value={entry.task_id}
-                    />
-                    <DropDownInput
-                        label={{
-                            children: "Project",
-                            htmlFor: "form-select-control-task"
-                        }}
-                        searchInputId={"form-select-control-task"}
-                        options={projects}
-                        placeholder="Project"
-                        name="project_id"
-                        onChange={handleChange}
-                        value={entry.project_id}
-                    />
-                    <DateInput
-                        className="submit-btn"
-                        name="spent_date"
-                        placeholder="Date"
-                        label="Date"
-                        inlineLabel={false}
-                        dateFormat={"DD.MM.YYYY"}
-                        value={entry.spent_date}
-                        error={isFieldInErrorList('spent_date')}
-                        onChange={handleChange}
-                    />
-                </Form.Group>
-
-                <Form.Group>
-                    <Form.Field
-                        className="form-input"
-                        control={Input}
-                        label="Notes"
-                        placeholder="Notes"
-                        name="notes"
-                        onChange={handleChange}
-                        value={entry.notes}
-                        width={12}
-                    />
-                    <Form.Field
-                        className="form-input"
-                        control={Input}
-                        label="Hours"
-                        placeholder="Hours"
-                        name="hours"
-                        error={isFieldInErrorList('hours')}
-                        onChange={handleChange}
-                        value={entry.hours}
-                        width={4}
-                    />
-                </Form.Group>
-
-                <SubmitRow
-                    entry={entry}
-                    errorList={errorList}
-                    handleCancel={handleCancel}
-                    isNewEntry={isNewEntry} />
-            </Form>
-        </div>
+        <Form
+            entry={entry}
+            errorList={errorList}
+            projects={projects}
+            tasks={tasks}
+            isFieldInErrorList={isFieldInErrorList}
+            isNewEntry={isNewEntry}
+            onCancel={onCancel}
+            onChange={onChange}
+            onSubmit={onSubmit} />
     )
 }
 
