@@ -11,9 +11,10 @@ interface SelectOption {
     key: string;
 }
 
+export type SelectOptionsList = SelectOption[];
+
 class SemanticUiService {
-    // conversion for Select options format
-    convertDataToSelectOptions (data: ApiData[]): SelectOption[] {
+    convertDataToSelectOptions(data: ApiData[]): SelectOption[] {
         return data.map((item) => {
             return {
                 value: item.id,
