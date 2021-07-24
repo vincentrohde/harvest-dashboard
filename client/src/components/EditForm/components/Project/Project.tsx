@@ -2,12 +2,12 @@
 import React from 'react';
 
 // Components
-import DropDownInput from '../../../DropDownInput/DropDownInput';
+import DropDown from '../DropDown/DropDown';
 
 // Types
-import { ProjectProps } from './ProjectProps';
+import { ProjectProps } from './Project.props';
 
-const Project = ({projectId, projects, handleChange}: ProjectProps) => (<DropDownInput
+const Project = ({projectId, projects, handleChange}: ProjectProps) => (<DropDown
     label={{
         children: "Project",
         htmlFor: "form-select-control-task"
