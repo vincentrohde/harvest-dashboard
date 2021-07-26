@@ -1,5 +1,8 @@
-// Typescript
-import { timeEntriesType, TimeEntryInterface } from '../../../interfaces/TimeEntry';
+// Services
+import { objectService } from '../../lib/ObjectService/ObjectService';
+
+// Types
+import { TimeEntryInterface } from '../../../interfaces/TimeEntry';
 
 // Action Types
 import {
@@ -9,17 +12,6 @@ import {
     UPDATE_TIME_ENTRY,
     DELETE_TIME_ENTRY
 } from '../actions/timeEntries';
-
-const updateObjectInArray = (array: timeEntriesType, object: TimeEntryInterface) => {
-    return array.map((item: TimeEntryInterface) => {
-        if (item.id !== object.id) return item;
-
-        return {
-            ...item,
-            ...object
-        }
-    })
-};
 
 export const timeEntries = (state: any = {}, action: any) => {
     let timeEntry: TimeEntryInterface;
@@ -46,8 +38,7 @@ export const timeEntries = (state: any = {}, action: any) => {
             };
         case UPDATE_TIME_ENTRY:
             timeEntry = action.payload;
-            // TODO: refactor method
-            const updatedEntries = updateObjectInArray(state.timeEntries, timeEntry);
+            const updatedEntries = objectService.updateObjectInArray(state.timeEntries, timeEntry);
             return {
                 ...state,
                 timeEntries: [...updatedEntries]
