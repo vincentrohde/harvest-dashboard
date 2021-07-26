@@ -1,32 +1,24 @@
 // Libs
 import React from 'react';
-import { Grid } from 'semantic-ui-react';
-
-// Types
-import { timeEntriesType } from '../../../interfaces/TimeEntry';
 
 // Components
-import TimeEntry from './TimeEntry/TimeEntry';
+import TimeEntry from '../TimeEntry/TimeEntry';
 
-interface TimeEntriesProps {
-    timeEntries: timeEntriesType;
-}
+// Redux
+import { connect } from 'react-redux';
+import { deleteTimeEntry } from '../../stores/actions/timeEntries';
 
-const TimeEntries = ({ timeEntries }: TimeEntriesProps) => {
-    return (<Grid.Column width={16}>
-        { timeEntries.map((item, key) => {
-            return (
-                <TimeEntry
-                    key={key}
-                    hours={item.hours}
-                    id={item.id}
-                    is_running={item.is_running}
-                    notes={item.notes}
-                    spent_date={item.spent_date}
-                    task={item.task}
-                    project={item.project} /> )
-        })}
-    </Grid.Column>)
+// Types
+import { TimeEntriesProps } from './TimeEntries.types';
+
+const TimeEntries = ({ timeEntries, deleteTimeEntry }: TimeEntriesProps) => {
+    return (<>
+        { timeEntries.map((item, key) => (
+            <TimeEntry key={key} data={item} deleteTimeEntry={deleteTimeEntry} />))
+        }
+    </>);
 };
 
-export default TimeEntries;
+const mapDispatchToProps = { deleteTimeEntry };
+
+export default connect(null, mapDispatchToProps)(TimeEntries);
