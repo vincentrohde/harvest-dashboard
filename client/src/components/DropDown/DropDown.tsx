@@ -3,9 +3,9 @@ import React from 'react';
 import { Form, Select } from 'semantic-ui-react';
 
 // Types
-import { DropDownProps } from './DropDown.props';
+import { DropDownTypes } from './DropDown.types';
 
-const DropDown = ({ clearable = false, label, name, onChange, options, placeholder, searchInputId, value }: DropDownProps) => {
+const DropDown = ({ clearable = false, label, name, onChange, options, placeholder, searchInputId, value }: DropDownTypes) => {
     return (
         <Form.Field
             control={Select}
