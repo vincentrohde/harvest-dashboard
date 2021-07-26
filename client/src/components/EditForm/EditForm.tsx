@@ -13,6 +13,7 @@ import { addTimeEntry, updateTimeEntry } from '../../stores/actions/timeEntries'
 import { semanticUiService } from '../../lib/SemanticUiService/SemanticUiService';
 import { backendService } from '../../lib/BackendService/BackendService';
 import { timeService } from '../../lib/TimeService/TimeService';
+import { apiFormatService } from '../../lib/ApiFormatService/ApiFormatService';
 
 // Data
 import { defaultData } from './defaultData';
@@ -21,7 +22,7 @@ import { defaultData } from './defaultData';
 import { useErrorCheck } from './hooks/useErrorCheck/useErrorCheck';
 
 // Types
-import { EditFormProps, EntryDataAsProps } from './EditForm.props';
+import { EditFormProps, EditFormEntry } from './EditForm.props';
 import { TimeEntrySubmissionInterface } from '../../../interfaces/TimeEntry';
 import { onChangeHandler } from '../../../interfaces/components/SemanticInput';
 
@@ -32,7 +33,7 @@ const EditForm = ({
     onCancel = () => {}
 }: EditFormProps) => {
 
-    let id: undefined | EntryDataAsProps['id'];
+    let id: undefined | EditFormEntry['id'];
 
     if (typeof entryData === 'undefined') {
         entryData = {...defaultData};
@@ -68,33 +69,8 @@ const EditForm = ({
     }
 
     const isFieldInErrorList = (name: string) => {
-        // @ts-ignore
         return errorList.includes(name);
     }
-
-    const onChange: onChangeHandler = (_event: any, { name: inputName, value: inputValue }: { name: string, value: string }) => {
-        setLastInputChange(inputName);
-
-        setEntry({
-            ...entry,
-            [inputName]: inputValue
-        });
-    }
-
-    const convertEntryToApiFormat = () => {
-        const { hours: inputHours, spent_date: inputDate } = entry;
-
-        const convertedHours = timeService.hoursAndMinutesToHours(inputHours);
-        const convertedDate = timeService.ddMMYYYYToISO8601(inputDate);
-
-        return {
-            ...entry,
-            project_id: Number(entry.project_id),
-            task_id: Number(entry.task_id),
-            hours: convertedHours,
-            spent_date: convertedDate
-        };
-    };
 
     const submitNewEntry = (newEntry: TimeEntrySubmissionInterface) => {
         backendService.addTimeEntry(newEntry)
@@ -117,10 +93,19 @@ const EditForm = ({
             .catch((error) => console.log(error));
     };
 
+    const onChange: onChangeHandler = (_event: any, { name: inputName, value: inputValue }: { name: string, value: string }) => {
+        setLastInputChange(inputName);
+
+        setEntry({
+            ...entry,
+            [inputName]: inputValue
+        });
+    };
+
     const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const convertedEntry = convertEntryToApiFormat();
+        const convertedEntry = apiFormatService.getTimeEntryInSubmitFormat(entry);
 
         if (isNewEntry) {
             submitNewEntry(convertedEntry)
