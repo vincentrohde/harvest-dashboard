@@ -15,7 +15,7 @@ import { useErrorCheckProps } from './useErrorCheck.props'
 import { hoursInputRegex, dateInputRegex } from './useErrorCheck.regex';
 
 export const useErrorCheck = ({ entry, lastInputChange }: useErrorCheckProps) => {
-    const [errorList, setErrorList] = useState([]);
+    const [errorList, setErrorList] = useState<string[]>([]);
     const prevEntry = usePrevious({ entry });
 
     const removeErrorFromList = (inputName: string) => {
