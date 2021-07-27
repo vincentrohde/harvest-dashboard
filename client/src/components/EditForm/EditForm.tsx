@@ -22,12 +22,12 @@ import { defaultData } from './defaultData';
 import { useErrorCheck } from './hooks/useErrorCheck/useErrorCheck';
 
 // Types
-import { EditFormProps, EditFormEntry } from './EditForm.props';
+import { EditFormProps, EditFormEntry } from './EditForm.types';
 import { TimeEntrySubmissionInterface } from '../../../interfaces/TimeEntry';
 import { onChangeHandler } from '../../../interfaces/components/SemanticInput';
 
 const EditForm = ({
-    entryData,
+    data,
     options=null,
     onSuccess = () => {},
     onCancel = () => {}
@@ -35,21 +35,21 @@ const EditForm = ({
 
     let id: undefined | EditFormEntry['id'];
 
-    if (typeof entryData === 'undefined') {
-        entryData = {...defaultData};
+    if (typeof data === 'undefined') {
+        data = {...defaultData};
     }
 
-    if (typeof entryData.id !== 'undefined') {
-        id = entryData.id;
+    if (typeof data.id !== 'undefined') {
+        id = data.id;
     }
 
     const isNewEntry = typeof id === 'undefined';
     const [entry, setEntry] = useState({
-        spent_date: timeService.iso8601ToDDMMYYY(entryData.spent_date),
-        hours: entryData.hours,
-        notes: entryData.notes,
-        project_id: entryData.project_id,
-        task_id: entryData.task_id,
+        spent_date: timeService.iso8601ToDDMMYYY(data.spent_date),
+        hours: data.hours,
+        notes: data.notes,
+        project_id: data.project_id,
+        task_id: data.task_id,
     });
     const [lastInputChange, setLastInputChange] = useState('');
     const [tasks] = useState(semanticUiService.convertDataToSelectOptions(

@@ -8,7 +8,7 @@ export interface EditFormEntry extends ShallowSubmissionEntryInterface {
 }
 
 export interface EditFormProps {
-    entryData?: EditFormEntry;
+    data?: EditFormEntry;
     options?: any;
     setIsEdit?: (isEdit: boolean) => void;
     onSuccess?: () => void;
