@@ -8,17 +8,12 @@ import { FiltersInterface } from '../../../interfaces/Filters';
 // Libs
 import React, { useState, useEffect } from 'react';
 import { Grid } from 'semantic-ui-react';
-import moment from 'moment';
 
 // Redux
-
 import { connect } from 'react-redux';
-
-import { setFilters } from '../../stores/actions/filters';
 import { addTimeEntries } from '../../stores/actions/timeEntries';
 import { addProjects } from '../../stores/actions/projects';
 import { addTasks } from '../../stores/actions/tasks';
-
 import { timeEntriesSelector } from '../../stores/selectors/timeEntries';
 import { filtersSelector } from '../../stores/selectors/filters';
 import { projectsSelector } from '../../stores/selectors/projects';
@@ -34,7 +29,6 @@ import { objectService } from '../../lib/ObjectService/ObjectService';
 
 // import CategoriesOverview from '../CategoriesOverview/CategoriesOverview';
 import DatePicker from '../DatePicker/DatePicker';
-import DataOverviewContainer from '../DataOverview/DataOverviewContainer';
 import TimeEntries from '../TimeEntries/TimeEntries';
 import EditForm from '../EditForm/EditForm';
 
@@ -54,7 +48,6 @@ interface EntriesProps {
     addTimeEntries: Function;
     addProjects: Function;
     addTasks: Function;
-    setFilters: Function;
 }
 
 const Entries = ({
@@ -64,10 +57,9 @@ const Entries = ({
     tasks,
     addTimeEntries,
     addProjects,
-    addTasks,
-    setFilters }: EntriesProps) => {
+    addTasks }: EntriesProps) => {
 
-    const prevFilters = usePrevious({ filters });
+    const prevFilters = usePrevious(filters);
     const [isLoadingMetaData, setIsLoadingMetaData] = useState(true);
 
     const filterAPIDataForState = (list: categoriesType) => {
@@ -127,14 +119,6 @@ const Entries = ({
     }
 
     useEffect(() => {
-        if (objectService.isEmptyObject(filters)) {
-            setFilters({
-                dateRange: [moment().format('YYYY-MM-DD')]
-            });
-        }
-    });
-
-    useEffect(() => {
         if (!isLoadingMetaData) return;
 
         getProjects();
@@ -142,8 +126,7 @@ const Entries = ({
     }, [isLoadingMetaData])
 
     useEffect(() => {
-        const isDoneLoading = !isLoadingMetaData;
-        if (isDoneLoading) return;
+        if (!isLoadingMetaData) return;
 
         const isProjectsEmpty = objectService.isEmptyObject(projects);
         const isTasksEmpty = objectService.isEmptyObject(tasks);
@@ -204,8 +187,7 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = {
     addTimeEntries,
     addProjects,
-    addTasks,
-    setFilters
+    addTasks
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Entries);
