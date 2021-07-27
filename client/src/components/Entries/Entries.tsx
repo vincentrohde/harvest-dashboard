@@ -1,5 +1,4 @@
-// Typescript
-
+// Types
 import { timeEntriesType } from '../../../interfaces/TimeEntry';
 import { categoriesType } from '../../../interfaces/Category';
 import { projectsType } from '../../../interfaces/Project';
@@ -34,9 +33,9 @@ import { objectService } from '../../lib/ObjectService/ObjectService';
 // Components
 
 // import CategoriesOverview from '../CategoriesOverview/CategoriesOverview';
-import DatePickerForm from '../DatePickerForm/DatePickerForm';
-// import DataOverview from '../DataOverview/DataOverview';
-import TimeEntry from '../TimeEntry/TimeEntry';
+import DatePicker from '../DatePicker/DatePicker';
+import DataOverviewContainer from '../DataOverview/DataOverviewContainer';
+import TimeEntries from '../TimeEntries/TimeEntries';
 import EditForm from '../EditForm/EditForm';
 
 // Hooks
@@ -167,12 +166,11 @@ const Entries = ({
         { !isLoadingMetaData && (
             <Grid>
                 <Grid.Column width={16}>
-                    <DatePickerForm />
+                    <DatePicker />
                 </Grid.Column>
 
                 <Grid.Column width={16}>
-                    <EditForm
-                        isNewEntry={true} />
+                    <EditForm />
                 </Grid.Column>
 
                 {/*{ (timeEntries.length > 0) && (*/}
@@ -181,24 +179,14 @@ const Entries = ({
                 {/*    </Grid.Column>*/}
                 {/*) }*/}
 
-                {/*<Grid.Column mobile={16} tablet={16} computer={16}>*/}
-                {/*    <DataOverview/>*/}
-                {/*</Grid.Column>*/}
+                <Grid.Column mobile={16} tablet={16} computer={16}>
+                    <DataOverviewContainer timeEntries={timeEntries}/>
+                </Grid.Column>
 
                 <Grid.Column width={16}>
-                    { timeEntries.map((item, key) => {
-                        return (
-                            <TimeEntry
-                                key={key}
-                                hours={item.hours}
-                                id={item.id}
-                                is_running={item.is_running}
-                                notes={item.notes}
-                                spent_date={item.spent_date}
-                                task={item.task}
-                                project={item.project} /> )
-                    })}
+                    <TimeEntries timeEntries={timeEntries} />
                 </Grid.Column>
+
             </Grid>
         ) }
     </section>)
@@ -206,7 +194,6 @@ const Entries = ({
 
 const mapStateToProps = (state: any) => {
     return {
-
         timeEntries: timeEntriesSelector(state),
         filters: filtersSelector(state),
         tasks: tasksSelector(state),

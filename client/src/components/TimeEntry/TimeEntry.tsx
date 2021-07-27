@@ -22,8 +22,8 @@ const TimeEntry = ({
     data,
     deleteTimeEntry
 }: TimeEntryProps) => {
-    const [ isActive, setIsActive ] = useState(data.is_running);
-    const [ isEdit, setIsEdit ] = useState(false);
+    const [isActive, setIsActive] = useState(data.is_running);
+    const [isEdit, setIsEdit] = useState(false);
     let { spent_date } = data;
     const { task, project, id, notes, hours } = data;
     const { name: taskName, id: task_id } = task;
@@ -50,7 +50,7 @@ const TimeEntry = ({
                 ? <EditForm
                     onCancel={() => setIsEdit(false)}
                     onSuccess={() => setIsEdit(false)}
-                    entryData={{
+                    data={{
                         id,
                         hours: hoursAndMinutes,
                         notes,
