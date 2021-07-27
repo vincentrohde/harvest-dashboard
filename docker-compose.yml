@@ -1,9 +1,6 @@
 version: '3.7'
 services:
   dashboard:
-    build: ./client
-    image: dashboard
-    container_name: dashboard
     depends_on:
       - api-server
     restart: always

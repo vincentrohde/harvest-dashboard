@@ -1,6 +1,9 @@
 version: '3.7'
 services:
   dashboard:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
     networks:
       - nginx.docker
   api-server:
