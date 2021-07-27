@@ -14,7 +14,7 @@ module.exports = {
         port: 3000,
         proxy: {
             '/api/**': {
-                target: 'http://localhost:8080/api/',
+                target: 'http://localhost:8080/',
                 pathRewrite: { '^/api': '' },
                 secure: false,
                 changeOrigin: true,
@@ -86,9 +86,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin({
-            multiStep: true
-        }),
+        new webpack.HotModuleReplacementPlugin(),
         new ForkTsCheckerWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: './src/index.html'
