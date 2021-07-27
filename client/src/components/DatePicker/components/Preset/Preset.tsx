@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Components
-import DropDown from '../../../EditForm/components/DropDown/DropDown';
+import DropDown from '../../../DropDown/DropDown';
 
 // Data
 import { dateRanges } from './dateRanges';
@@ -22,6 +22,6 @@ const Preset = ({ onChange, preset }: PresetProps) => <DropDown
     name={"preset"}
     onChange={onChange}
     value={preset}
-/>
+/>;
 
 export default Preset;
