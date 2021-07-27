@@ -6,7 +6,7 @@ import { tasksType } from '../../../interfaces/Task';
 import { FiltersInterface } from '../../../interfaces/Filters';
 
 // Libs
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Grid } from 'semantic-ui-react';
 
 // Redux
@@ -19,25 +19,18 @@ import { filtersSelector } from '../../stores/selectors/filters';
 import { projectsSelector } from '../../stores/selectors/projects';
 import { tasksSelector } from '../../stores/selectors/tasks';
 
-// Services
-
-import { backendService } from '../../lib/BackendService/BackendService';
-import { errorService } from '../../lib/ErrorService/ErrorService';
-import { objectService } from '../../lib/ObjectService/ObjectService';
-
 // Components
-
-// import CategoriesOverview from '../CategoriesOverview/CategoriesOverview';
+import DataOverviewContainer from '../DataOverview/DataOverviewContainer';
 import DatePicker from '../DatePicker/DatePicker';
 import TimeEntries from '../TimeEntries/TimeEntries';
 import EditForm from '../EditForm/EditForm';
 
 // Hooks
-
-import { usePrevious } from '../../hooks/usePrevious';
+import { useGetTimeEntries } from './hooks/useGetTimeEntries/useGetTimeEntries';
+import { useGetProjects } from './hooks/useGetProjects/useGetProjects';
+import { useGetTasks } from './hooks/useGetTasks/useGetTasks';
 
 // Styles
-
 import './Entries.scss';
 
 interface EntriesProps {
@@ -59,9 +52,6 @@ const Entries = ({
     addProjects,
     addTasks }: EntriesProps) => {
 
-    const prevFilters = usePrevious(filters);
-    const [isLoadingMetaData, setIsLoadingMetaData] = useState(true);
-
     const filterAPIDataForState = (list: categoriesType) => {
         return list.map(item => {
             return {
@@ -69,84 +59,16 @@ const Entries = ({
                 name: item.name,
             }
         });
-    }
-
-    const getDateRange = (dateRange: FiltersInterface['dateRange']) => {
-        if (dateRange && dateRange.length) {
-            if (dateRange.length > 1) {
-                return [dateRange[0], dateRange[1]]
-            } else {
-                return [dateRange[0], dateRange[0]]
-            }
-        }
-
-        return false;
     };
 
-    const getTimeEntries = () => {
-        const dateRange = getDateRange(filters.dateRange);
+    useGetTasks(filterAPIDataForState, addTasks);
+    useGetProjects(filterAPIDataForState, addProjects);
+    useGetTimeEntries(filters, addTimeEntries);
 
-        if (dateRange) {
-            const from = dateRange[0];
-            const to = dateRange[1];
-            backendService.getTimeEntries(from, to)
-                .then((timeEntries: timeEntriesType) => {
-                    addTimeEntries(timeEntries);
-                })
-                .catch(errorService.handleBasicApiError);
-        }
-    }
-
-    const getTasks = () => {
-        backendService.getTasks()
-            .then((tasks: tasksType) => {
-                const filteredTasksData = filterAPIDataForState(tasks);
-                addTasks({
-                    tasks: filteredTasksData
-                });
-            }).catch(errorService.handleBasicApiError);
-    }
-
-    const getProjects = () => {
-        backendService.getProjects()
-            .then((projects: projectsType) => {
-                const filteredProjectsData = filterAPIDataForState(projects);
-
-                addProjects({
-                    projects: filteredProjectsData
-                });
-            }).catch(errorService.handleBasicApiError);
-    }
-
-    useEffect(() => {
-        if (!isLoadingMetaData) return;
-
-        getProjects();
-        getTasks();
-    }, [isLoadingMetaData])
-
-    useEffect(() => {
-        if (!isLoadingMetaData) return;
-
-        const isProjectsEmpty = objectService.isEmptyObject(projects);
-        const isTasksEmpty = objectService.isEmptyObject(tasks);
-        const isInLoadingState = isProjectsEmpty || isTasksEmpty;
-        if (isInLoadingState) return;
-
-        setIsLoadingMetaData(false);
-
-    }, [projects, tasks]);
-
-    useEffect(() => {
-        if (!objectService.isEmptyObject(filters)) {
-            if (objectService.isNewObjectDifferent(prevFilters, filters)) {
-                getTimeEntries();
-            }
-        }
-    }, [filters]);
+    const isMetaDataLoaded = projects && projects.length > 0 && tasks && tasks.length > 0;
 
     return (<section className='Entries'>
-        { !isLoadingMetaData && (
+        { isMetaDataLoaded && (
             <Grid>
                 <Grid.Column width={16}>
                     <DatePicker />
