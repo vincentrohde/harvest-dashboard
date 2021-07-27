@@ -9,7 +9,7 @@ export const App = () => {
     return (
         <Provider store={store}>
             <div className="App">
-                <h1 className="app-title">Harvest Dashboard</h1>
+                <h1 className="app-title">Harvest V2 API Client</h1>
                 <Entries />
             </div>
         </Provider>

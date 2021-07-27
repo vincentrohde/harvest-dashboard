@@ -36,8 +36,6 @@ const options = {
     }
 }
 
-const DataOverview = () => (<div className="tab-container">
-    <Bar data={data} options={options}/>
-</div>);
+const DataOverview = () => <Bar data={data} options={options}/>;
 
 export default DataOverview;

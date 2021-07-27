@@ -1,3 +1,5 @@
+import { idObject } from './ObjectService.types';
+
 class ObjectService {
     isEmptyObject (obj: Object) {
         if (typeof obj === 'undefined') return true;
@@ -29,6 +31,17 @@ class ObjectService {
 
         return false;
     }
+
+    updateObjectInArray(array: idObject[], object: idObject) {
+        return array.map((item) => {
+            if (item.id !== object.id) return item;
+
+            return {
+                ...item,
+                ...object
+            }
+        });
+    };
 }
 
 export const objectService = new ObjectService();

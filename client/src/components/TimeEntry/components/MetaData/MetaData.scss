@@ -1,0 +1,27 @@
+.meta-data-container {
+    position: relative;
+    flex: 1;
+
+    .title {
+        position: absolute;
+        bottom: 0;
+        font-weight: 400;
+        font-size: 18px;
+        margin: 10px 0 0;
+
+        @media (max-width:600px)  {
+            position: relative;
+            bottom: unset;
+        }
+    }
+
+    .meta-data {
+        font-size: 14px;
+
+        span {
+            &.category {
+                color: dodgerblue;
+            }
+        }
+    }
+}

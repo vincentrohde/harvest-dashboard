@@ -11,7 +11,7 @@
         "type-check": "tsc --noEmit",
         "type-check:watch": "npm run type-check -- --watch",
         "build": "webpack --progress --colors --config ./webpack.production.config.js",
-        "start": "webpack-dev-server --config ./webpack.config.js --progress --colors --open --mode=development --port 3000"
+        "start": "webpack-dev-server --config ./webpack.config.js --watch --progress --colors --open --mode=development --port 3000"
     },
     "keywords": [],
     "author": "",
@@ -73,6 +73,7 @@
         "typescript": "^3.9.5",
         "url-loader": "^3.0.0",
         "webpack-bundle-analyzer": "^3.8.0",
-        "webpack-dev-server": "^3.11.0"
+        "webpack-dev-server": "^3.11.0",
+        "webpack-mild-compile": "^3.4.0"
     }
 }
