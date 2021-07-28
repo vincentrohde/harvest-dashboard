@@ -52,12 +52,20 @@ const EditForm = ({
         task_id: data.task_id,
     });
     const [lastInputChange, setLastInputChange] = useState('');
-    const [tasks] = useState(semanticUiService.convertDataToSelectOptions(
-        options.tasksSelector
-    ));
-    const [projects] = useState(semanticUiService.convertDataToSelectOptions(
-        options.projectsSelector
-    ));
+
+    let tasks;
+    if (options && options.tasksSelector) {
+        tasks = semanticUiService.convertDataToSelectOptions(
+            options.tasksSelector
+        );
+    }
+
+    let projects;
+    if (options && options.projectsSelector) {
+        projects = semanticUiService.convertDataToSelectOptions(
+            options.projectsSelector
+        );
+    }
 
     const errorList = useErrorCheck({ entry, lastInputChange });
 
@@ -115,18 +123,17 @@ const EditForm = ({
         submitUpdatedEntry(convertedEntry);
     };
 
-    return (
-        <Form
-            entry={entry}
-            errorList={errorList}
-            projects={projects}
-            tasks={tasks}
-            isFieldInErrorList={isFieldInErrorList}
-            isNewEntry={isNewEntry}
-            onCancel={onCancel}
-            onChange={onChange}
-            onSubmit={onSubmit} />
-    )
+    return (<> {projects && tasks && <Form
+        entry={entry}
+        errorList={errorList}
+        projects={projects}
+        tasks={tasks}
+        isFieldInErrorList={isFieldInErrorList}
+        isNewEntry={isNewEntry}
+        onCancel={onCancel}
+        onChange={onChange}
+        onSubmit={onSubmit} />}
+    </>)
 }
 
 const mapStateToProps = (state: any): any => ({
