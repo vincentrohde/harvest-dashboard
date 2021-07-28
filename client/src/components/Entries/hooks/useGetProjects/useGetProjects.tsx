@@ -16,9 +16,7 @@ export const useGetProjects = (filterApiData: Function, addProjects: Function) =
             .then((projects: projectsType) => {
                 setIsProjectsLoaded(true);
                 const filteredProjectsData = filterApiData(projects);
-                addProjects({
-                    projects: filteredProjectsData
-                });
+                addProjects(filteredProjectsData);
             }).catch(errorService.handleBasicApiError);
     };
 

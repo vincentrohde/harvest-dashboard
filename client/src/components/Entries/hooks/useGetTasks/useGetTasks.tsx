@@ -16,9 +16,7 @@ export const useGetTasks = (filterApiData: Function, addTasks: Function) => {
             .then((tasks: tasksType) => {
                 setIsTasksLoaded(true);
                 const filteredTasksData = filterApiData(tasks);
-                addTasks({
-                    tasks: filteredTasksData
-                });
+                addTasks(filteredTasksData);
             }).catch(errorService.handleBasicApiError);
     };
 
