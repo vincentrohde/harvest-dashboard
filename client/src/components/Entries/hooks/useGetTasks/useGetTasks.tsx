@@ -24,5 +24,5 @@ export const useGetTasks = (filterApiData: Function, addTasks: Function) => {
         if (!isTasksLoaded) {
             getTasks();
         }
-    });
+    }, [isTasksLoaded]);
 };

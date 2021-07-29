@@ -24,5 +24,5 @@ export const useGetProjects = (filterApiData: Function, addProjects: Function) =
         if (!isProjectsLoaded) {
             getProjects();
         }
-    });
+    }, [isProjectsLoaded]);
 };
