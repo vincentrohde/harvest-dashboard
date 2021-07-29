@@ -38,7 +38,10 @@ app.get('/projects', (req, res) => {
 // Add Time Entry
 app.post('/time_entries', (req, res) => {
     permissionService.handleDataUpdate(() => {
-        res.json('success');
+        const { body: entry } = req;
+        apiService.addTimeEntry(entry)
+            .then(({ data }) => res.json(data))
+            .catch((error) => expressErrorService.sendErrorResponse(error, res));
     }, res);
 });
 
