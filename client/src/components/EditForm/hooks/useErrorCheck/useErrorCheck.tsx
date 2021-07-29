@@ -4,6 +4,7 @@ import _ from 'underscore';
 
 // Hooks
 import { usePrevious } from '../../../../hooks/usePrevious';
+import { useDebounce } from '../../../../hooks/useDebounce';
 
 // Services
 import { objectService } from '../../../../lib/ObjectService/ObjectService';
@@ -16,7 +17,8 @@ import { hoursInputRegex, dateInputRegex } from './useErrorCheck.regex';
 
 export const useErrorCheck = ({ entry, lastInputChange }: useErrorCheckProps) => {
     const [errorList, setErrorList] = useState<string[]>([]);
-    const prevEntry = usePrevious({ entry });
+    const debouncedEntry = useDebounce(entry, 2000);
+    const prevDebouncedEntry = usePrevious(debouncedEntry);
 
     const removeErrorFromList = (inputName: string) => {
         const newErrorList = [...errorList];
@@ -31,8 +33,8 @@ export const useErrorCheck = ({ entry, lastInputChange }: useErrorCheckProps) =>
     };
 
     const userInputErrorHandler = (inputName: keyof typeof entry, regex: RegExp) => {
-        const input = entry[inputName];
-        const isInputValid = input.toString().match(regex.toString());
+        const input = debouncedEntry[inputName];
+        const isInputValid = input.toString().match(regex);
 
         if (isInputValid) {
             removeErrorFromList(inputName);
@@ -56,14 +58,12 @@ export const useErrorCheck = ({ entry, lastInputChange }: useErrorCheckProps) =>
         }
     }
 
-    const debouncedCheckFormInput = _.debounce(checkFormInput, 2000);
-
     useEffect(() => {
-        const isSameEntry = !objectService.isNewObjectDifferent(prevEntry, entry);
+        const isSameEntry = !objectService.isNewObjectDifferent(prevDebouncedEntry, debouncedEntry);
         if (isSameEntry) return;
 
-        debouncedCheckFormInput();
-    });
+        checkFormInput();
+    }, [debouncedEntry]);
 
     return errorList;
 }
