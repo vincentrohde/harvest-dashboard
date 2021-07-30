@@ -1,11 +1,13 @@
 import moment from 'moment';
 
 class TimeService {
-    hoursToHoursAndMinutes (hours: number | string): string {
-        const totalMinutes = Number(hours) * 60;
+    hoursToMinutes(hours: number | string): number {
+        return Math.round(Number(hours) * 60);
+    }
 
-        const convertedHours = String(Math.floor(totalMinutes / 60));
-        let convertedMinutes = String(Math.round(totalMinutes % 60));
+    minutesToHoursAndMinutes(minutes: number): string {
+        const convertedHours = String(Math.floor(minutes / 60));
+        let convertedMinutes = String(Math.round(minutes % 60));
 
         if (convertedMinutes.toString().length == 1) {
             convertedMinutes = '0' + convertedMinutes.toString();
@@ -14,7 +16,12 @@ class TimeService {
         return `${convertedHours}:${convertedMinutes}`;
     }
 
-    hoursAndMinutesToHours (time: string): number {
+    hoursToHoursAndMinutes(hours: number | string): string {
+        const totalMinutes = this.hoursToMinutes(hours);
+        return this.minutesToHoursAndMinutes(totalMinutes);
+    }
+
+    hoursAndMinutesToHours(time: string): number {
         const timeComponents = time.split(':').map(i=>Number(i));
         const dec = parseInt(String((timeComponents[1] / 6) * 10), 10);
 
@@ -24,7 +31,7 @@ class TimeService {
         return Number(hours);
     }
 
-    iso8601ToDDMMYYY (date: string): string {
+    iso8601ToDDMMYYY(date: string): string {
         const isDDMMYYYY = moment(date, 'DD.MM.YYYY').format('DD.MM.YYYY') === date;
 
         if (isDDMMYYYY) {
@@ -34,7 +41,7 @@ class TimeService {
         return moment(date).format('DD.MM.YYYY');
     }
 
-    ddMMYYYYToISO8601 (date: string): string {
+    ddMMYYYYToISO8601(date: string): string {
         const isISO8601 = moment(date, 'YYYY-MM-DD').format('YYYY-MM-DD') === date;
 
         if (isISO8601) {
@@ -44,11 +51,11 @@ class TimeService {
         return moment(date, 'DD.MM.YYYY').format('YYYY-MM-DD');
     }
 
-    getDateFromDaysAgo (days: number, format: string = 'DD-MM-YYYY') {
+    getDateFromDaysAgo(days: number, format: string = 'DD-MM-YYYY') {
         return moment().subtract(days,'days').format(format);
     }
 
-    getCurrentDate (format: string = 'YYYY-MM-DD') {
+    getCurrentDate(format: string = 'YYYY-MM-DD') {
         return moment().format(format);
     }
 }
