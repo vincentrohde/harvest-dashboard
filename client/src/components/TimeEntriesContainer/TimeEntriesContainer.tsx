@@ -13,7 +13,7 @@ import { useTotalHoursAndMinutes } from './hooks/useTotalHoursAndMinutes/useTota
 
 // Types
 import { TimeEntriesContainerProps } from './TimeEntriesContainer.types';
-import MetaDataHeader from '../MetaDataHeader/MetaDataHeader';
+import MetaDataHeader from './components/MetaDataHeader/MetaDataHeader';
 
 const TimeEntriesContainer = ({ timeEntries }: TimeEntriesContainerProps) => {
     let totalHoursAndMinutes = '0:00';
