@@ -11,8 +11,8 @@ import { ChartContainerProps } from './ChartContainer.types';
 import './ChartContainer.scss';
 
 const ChartContainer = ({ data }: ChartContainerProps) => (<div className="ChartContainer tab-container">
-    <h2 className="title">Categories</h2>
-    <p className="caption">by hours</p>
+    <h2 className="title">Tasks</h2>
+    <p className="caption">by total hours</p>
     <div className="chart-container">
         <Chart data={data} />
     </div>
