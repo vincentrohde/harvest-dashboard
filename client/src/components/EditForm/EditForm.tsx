@@ -30,7 +30,9 @@ const EditForm = ({
     data,
     options=null,
     onSuccess = () => {},
-    onCancel = () => {}
+    onCancel = () => {},
+    addTimeEntry,
+    updateTimeEntry
 }: EditFormProps) => {
 
     let id: undefined | EditFormEntry['id'];
@@ -82,8 +84,10 @@ const EditForm = ({
 
     const submitNewEntry = (newEntry: TimeEntrySubmissionInterface) => {
         backendService.addTimeEntry(newEntry)
-            .then(({ data }) => {
-                addTimeEntry(data);
+            .then(({ data: timeEntry }) => {
+                if (typeof addTimeEntry !== 'undefined') {
+                    addTimeEntry(timeEntry);
+                }
                 resetStateToDefault();
                 onSuccess();
             })
@@ -95,7 +99,9 @@ const EditForm = ({
 
         backendService.updateTimeEntry(updatedEntry, id)
             .then(({ data: timeEntry }) => {
-                updateTimeEntry(timeEntry);
+                if (typeof updateTimeEntry !== 'undefined') {
+                    updateTimeEntry(timeEntry);
+                }
                 onSuccess();
             })
             .catch((error) => console.log(error));

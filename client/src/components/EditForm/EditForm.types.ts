@@ -13,4 +13,6 @@ export interface EditFormProps {
     setIsEdit?: (isEdit: boolean) => void;
     onSuccess?: () => void;
     onCancel?: () => void;
+    addTimeEntry?: Function;
+    updateTimeEntry?: Function;
 }
