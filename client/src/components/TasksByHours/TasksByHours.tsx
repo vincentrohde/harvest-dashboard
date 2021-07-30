@@ -5,7 +5,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 // Hooks
-import { useCategoriesByHours } from './hooks/useCategoriesByHours/useCategoriesByHours';
+import { useTasksByHours } from './hooks/useTasksByHours/useTasksByHours';
 
 // Services
 import { objectService } from '../../lib/ObjectService/ObjectService';
@@ -18,20 +18,20 @@ import { dataColors } from '../../variables/colors';
 import ChartContainer from './components/ChartContainer/ChartContainer';
 
 // Types
-import { categoriesByHours, CategoriesOverviewProps } from './CategoriesOverview.types';
+import { tasksByHours, TasksByHoursProps } from './TasksByHours.types';
 
-const CategoriesOverview = ({ timeEntries }: CategoriesOverviewProps) => {
+const TasksByHours = ({ timeEntries }: TasksByHoursProps) => {
     let data = {};
-    const categoriesByHours = useCategoriesByHours(timeEntries);
+    const tasksByHours = useTasksByHours(timeEntries);
 
-    const getHoursByTwoDecimals = (entries: categoriesByHours) => {
+    const getHoursByTwoDecimals = (entries: tasksByHours) => {
         return entries.map((entry) =>
             Math.round(entry.hours * 100) / 100);
     }
 
-    const getCategoriesFromEntries = (entries: categoriesByHours) => entries.map(entry => entry.category);
+    const getCategoriesFromEntries = (entries: tasksByHours) => entries.map(entry => entry.category);
 
-    const convertRawDataForChart = (entries: categoriesByHours) => {
+    const convertRawDataForChart = (entries: tasksByHours) => {
         entries = objectService.sortObjectsArray(true, entries, 'hours');
         const categories = getCategoriesFromEntries(entries);
         const hours = getHoursByTwoDecimals(entries);
@@ -53,8 +53,8 @@ const CategoriesOverview = ({ timeEntries }: CategoriesOverviewProps) => {
         };
     }
 
-    if (categoriesByHours.length) {
-        const { hours, categories } = convertRawDataForChart(categoriesByHours);
+    if (tasksByHours.length) {
+        const { hours, categories } = convertRawDataForChart(tasksByHours);
         data = getChartData(hours, categories);
     }
 
@@ -72,5 +72,5 @@ const mapStateToProps = (state: any): any => {
 };
 
 export default connect(mapStateToProps, null)(
-    React.memo(CategoriesOverview)
+    React.memo(TasksByHours)
 );

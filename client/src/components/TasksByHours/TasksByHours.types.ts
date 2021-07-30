@@ -1,13 +1,13 @@
 // Types
 import { timeEntriesType } from '../../../interfaces/TimeEntry';
 
-export type categoriesByHours = CategoryByHours[];
+export type tasksByHours = TaskByHours[];
 
-export interface CategoryByHours {
+export interface TaskByHours {
     category: string;
     hours: number;
 }
 
-export interface CategoriesOverviewProps {
+export interface TasksByHoursProps {
     timeEntries?: timeEntriesType;
 }
