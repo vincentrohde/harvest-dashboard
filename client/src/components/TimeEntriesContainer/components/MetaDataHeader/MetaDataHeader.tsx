@@ -10,8 +10,8 @@ import './MetaDataHeader.scss';
 const MetaDataHeader = ({ entriesAmount, totalHoursAndMinutes }: MetaDataHeaderProps) => (
     <div className="MetaDataHeader tab-container">
         <p className="meta-data pipes">
-            <span>{ entriesAmount } Entries</span>
-            <span>{ totalHoursAndMinutes }</span>
+            <span>{ entriesAmount } { entriesAmount > 1 ? 'Entries': 'Entry'}</span>
+            <span>Total Time: { totalHoursAndMinutes }</span>
         </p>
     </div>
 );
