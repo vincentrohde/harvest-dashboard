@@ -1,5 +1,7 @@
 import moment from 'moment';
 
+import { timeUnit } from './TimeService.types';
+
 class TimeService {
     hoursToMinutes(hours: number | string): number {
         return Math.round(Number(hours) * 60);
@@ -57,6 +59,21 @@ class TimeService {
 
     getCurrentDate(format: string = 'YYYY-MM-DD') {
         return moment().format(format);
+    }
+
+    compareByTimeUnit(aDay: string, bDay: string, timeUnit: timeUnit) {
+        const isBefore = moment(aDay).isBefore(bDay, timeUnit);
+        const isAfter = moment(aDay).isAfter(bDay, timeUnit);
+
+        if (isBefore) {
+            return -1;
+        }
+
+        if (isAfter) {
+            return 1;
+        }
+
+        return 0;
     }
 }
 
