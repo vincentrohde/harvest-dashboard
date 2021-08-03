@@ -27,8 +27,8 @@ export const timeEntries = (state: any = {}, action: any) => {
             return {
                 ...state,
                 timeEntries: [
-                    timeEntry,
-                    ...state.timeEntries
+                    ...state.timeEntries,
+                    timeEntry
                 ]
             };
         case UPDATE_EDIT_ENTRY:
