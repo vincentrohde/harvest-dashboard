@@ -76,8 +76,31 @@ class TimeService {
         return 0;
     }
 
-    isSameDate(aDay: string, bDay: string) {
-        return this.compareByTimeUnit(aDay, bDay, 'day') === 0;
+    isSameDateRange(aDay: string, bDay: string, timeUnit: timeUnit = 'day') {
+        return this.compareByTimeUnit(aDay, bDay, timeUnit) === 0;
+    }
+
+    getDateRangeByTimeUnit(aDay: string, timeUnit: timeUnit = 'week') {
+        let dateRange = '';
+
+        switch (timeUnit) {
+            case 'day':
+                dateRange = moment(aDay, 'YYYY-MM-DD').format('DD.MM.YYYY');
+                break;
+            case 'week':
+                dateRange = moment(aDay, 'YYYY-MM-DD').week().toString();
+                break;
+            case 'month':
+                dateRange = moment(aDay, 'YYYY-MM-DD').format('MMMM, YYYY');
+                break;
+            case 'year':
+                dateRange = moment(aDay, 'YYYY-MM-DD').format('YYYY');
+                break;
+            default:
+                break;
+        }
+
+        return dateRange;
     }
 }
 
