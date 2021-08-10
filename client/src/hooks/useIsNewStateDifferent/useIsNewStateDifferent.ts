@@ -6,15 +6,11 @@ export const useIsNewStateDifferent = <T>(state: T) => {
     const prevState = usePrevious(state);
 
     useEffect(() => {
-        let isDifferent = false;
+        const isFirstState = typeof prevState === 'undefined' && typeof state !== 'undefined';
+        const isDifferentState = (typeof prevState !== 'undefined' && typeof state !== 'undefined') &&
+            (JSON.stringify(prevState) !== JSON.stringify(state));
 
-        if ((typeof prevState === 'undefined' && typeof state !== 'undefined') ||
-            ((typeof prevState !== 'undefined' && typeof state !== 'undefined') &&
-                (JSON.stringify(prevState) !== JSON.stringify(state)))) {
-            isDifferent = true;
-        }
-
-        setIsNewStateDifferent(isDifferent);
+        setIsNewStateDifferent(isFirstState || isDifferentState);
     }, [state]);
 
     return isNewStateDifferent;
