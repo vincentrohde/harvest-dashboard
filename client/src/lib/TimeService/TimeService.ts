@@ -75,6 +75,10 @@ class TimeService {
 
         return 0;
     }
+
+    isSameDate(aDay: string, bDay: string) {
+        return this.compareByTimeUnit(aDay, bDay, 'day') === 0;
+    }
 }
 
 export const timeService = new TimeService();
