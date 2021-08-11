@@ -2,7 +2,7 @@
 import { timeEntriesType } from '../../../interfaces/TimeEntry';
 
 // Types
-import { tasksByHours } from './TasksSortService.types';
+import { tasksByHours } from '../../../interfaces/Task';
 
 class TasksSortService {
     getEntriesWithTask(entries: timeEntriesType): tasksByHours {
