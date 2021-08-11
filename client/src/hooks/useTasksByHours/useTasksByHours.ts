@@ -8,7 +8,7 @@ import { useIsNewStateDifferent } from '../useIsNewStateDifferent/useIsNewStateD
 
 // Types
 import { timeEntriesType } from '../../../interfaces/TimeEntry';
-import { tasksByHours } from './useTasksByHours.types';
+import { tasksByHours } from '../../../interfaces/Task';
 
 export const useTasksByHours = (timeEntries: timeEntriesType | undefined) => {
     const [tasksByHours, setTasksByHours] = useState<tasksByHours>([]);
