@@ -1,19 +1,18 @@
 // Libs
 import React from 'react';
-import { Bar } from 'react-chartjs-2';
 
-const options = {
-    responsive: true,
-    scales: {
-        xAxes: [{
-            stacked: true,
-        }],
-        yAxes: [{
-            stacked: true
-        }]
-    }
-}
+// Components
+import Chart from '../Chart/Chart';
+import Form from '../Form/Form';
 
-const DataOverview = ({ data }: { data: Chart.ChartData }) => <Bar data={data} options={options}/>;
+// Types
+import { DataOverviewProps } from './DataOverview.types';
+
+const DataOverview = ({ data, onChange, selectedTimeUnit }: DataOverviewProps) => {
+    return <div className="tab-container">
+        <Form onChange={onChange} selectedTimeUnit={selectedTimeUnit}/>
+        <Chart data={data} />
+    </div>
+};
 
 export default DataOverview;
