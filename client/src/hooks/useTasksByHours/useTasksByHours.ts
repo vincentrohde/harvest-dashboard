@@ -19,7 +19,7 @@ export const useTasksByHours = (timeEntries: timeEntriesType | undefined) => {
             // @ts-ignore
             setTasksByHours(tasksSortService.getTasksByHours(timeEntries));
         }
-    }, [isNewStateDifferent]);
+    }, [timeEntries]);
 
     return tasksByHours;
 }
