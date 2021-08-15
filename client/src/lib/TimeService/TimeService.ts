@@ -3,6 +3,8 @@ import moment from 'moment';
 import { timeUnit } from './TimeService.types';
 
 class TimeService {
+    timeUnits: timeUnit[] = ['day', 'week', 'month', 'year'];
+
     hoursToMinutes(hours: number | string): number {
         return Math.round(Number(hours) * 60);
     }
@@ -88,7 +90,7 @@ class TimeService {
                 dateRange = moment(aDay, 'YYYY-MM-DD').format('DD.MM.YYYY');
                 break;
             case 'week':
-                dateRange = moment(aDay, 'YYYY-MM-DD').week().toString();
+                dateRange = `Week ${moment(aDay, 'YYYY-MM-DD').week()}, ${moment(aDay, 'YYYY-MM-DD').format('YYYY')}`;
                 break;
             case 'month':
                 dateRange = moment(aDay, 'YYYY-MM-DD').format('MMMM, YYYY');
