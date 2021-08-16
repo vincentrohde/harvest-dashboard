@@ -2,19 +2,20 @@
 import { useState, useEffect } from 'react';
 
 // Hooks
-import { usePrevious } from '../../../../hooks/usePrevious';
+import { useIsNewStateDifferent } from '../useIsNewStateDifferent/useIsNewStateDifferent';
 
 // Services
-import { timeService } from '../../../../lib/TimeService/TimeService';
+import { timeService } from '../../lib/TimeService/TimeService';
 
 // Types
-import { timeEntriesType } from '../../../../../interfaces/TimeEntry';
-import { timeUnit } from '../../../../lib/TimeService/TimeService.types';
+import { timeEntriesType } from '../../../interfaces/TimeEntry';
+import { timeUnit } from '../../lib/TimeService/TimeService.types';
 
 export const useTimeEntriesByTimeUnit = (timeEntries: timeEntriesType | undefined, timeUnit: timeUnit) => {
     const [sortedTimeEntries, setSortedTimeEntries] = useState<timeEntriesType[]>([]);
-    const prevTimeEntries = usePrevious(timeEntries);
+    const isTimeEntriesDifferent = useIsNewStateDifferent(timeEntries);
 
+    // Sorts time entries by day (oldest to newest)
     const getSortedTimeEntries = (timeEntries: timeEntriesType) => {
         let sortedEntries: timeEntriesType = [...timeEntries];
 
@@ -29,9 +30,7 @@ export const useTimeEntriesByTimeUnit = (timeEntries: timeEntriesType | undefine
         if (typeof timeEntries === 'undefined') { return; }
 
         const newSortedTimeEntries = getSortedTimeEntries(timeEntries);
-
         let timeEntriesGrouped: timeEntriesType[] = [];
-
 
         newSortedTimeEntries.forEach((entry) => {
             let isAdded = false;
@@ -45,16 +44,16 @@ export const useTimeEntriesByTimeUnit = (timeEntries: timeEntriesType | undefine
             for (let i = 0; i < timeEntriesGrouped.length; i++) {
                 if (!isAdded) {
                     const firstGroupedEntry = timeEntriesGrouped[i][0];
-                    const isSameDate = timeService.compareByTimeUnit(entry.spent_date, firstGroupedEntry.spent_date, timeUnit) === 0;
+                    const isSameDateRange = timeService.isSameDateRange(entry.spent_date, firstGroupedEntry.spent_date, timeUnit);
                     const isLastGroup = i === timeEntriesGrouped.length - 1;
 
-                    if (isSameDate) {
+                    if (isSameDateRange) {
                         timeEntriesGrouped[i].push(entry);
                         isAdded = true;
                         return;
                     }
 
-                    if (isLastGroup && !isSameDate) {
+                    if (isLastGroup && !isSameDateRange) {
                         timeEntriesGrouped.push([entry]);
                         isAdded = true;
                     }
@@ -66,11 +65,9 @@ export const useTimeEntriesByTimeUnit = (timeEntries: timeEntriesType | undefine
     }
 
     useEffect(() => {
-        if ((typeof prevTimeEntries === 'undefined' && typeof timeEntries !== 'undefined') ||
-            ((typeof prevTimeEntries !== 'undefined' && typeof timeEntries !== 'undefined') &&
-                (JSON.stringify(prevTimeEntries) !== JSON.stringify(timeEntries)))) {
+        if (isTimeEntriesDifferent) {
             sortTimeEntriesByTimeUnit();
-        };
+        }
     }, [timeEntries, timeUnit]);
 
     return sortedTimeEntries;
