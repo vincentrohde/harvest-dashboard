@@ -5,7 +5,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 // Hooks
-import { useTasksByHours } from './hooks/useTasksByHours/useTasksByHours';
+import { useTasksByHours } from '../../hooks/useTasksByHours/useTasksByHours';
 
 // Services
 import { objectService } from '../../lib/ObjectService/ObjectService';
@@ -18,7 +18,8 @@ import { dataColors } from '../../variables/colors';
 import ChartContainer from './components/ChartContainer/ChartContainer';
 
 // Types
-import { tasksByHours, TasksByHoursProps } from './TasksByHours.types';
+import { TasksByHoursProps } from './TasksByHours.types';
+import { tasksByHours } from '../../../interfaces/Task';
 
 const TasksByHours = ({ timeEntries }: TasksByHoursProps) => {
     let data = {};
@@ -27,16 +28,16 @@ const TasksByHours = ({ timeEntries }: TasksByHoursProps) => {
     const getHoursByTwoDecimals = (entries: tasksByHours) => {
         return entries.map((entry) =>
             Math.round(entry.hours * 100) / 100);
-    }
+    };
 
-    const getCategoriesFromEntries = (entries: tasksByHours) => entries.map(entry => entry.category);
+    const getTasksFromEntries = (entries: tasksByHours) => entries.map(entry => entry.task);
 
     const convertRawDataForChart = (entries: tasksByHours) => {
         entries = objectService.sortObjectsArray(true, entries, 'hours');
-        const categories = getCategoriesFromEntries(entries);
+        const tasks = getTasksFromEntries(entries);
         const hours = getHoursByTwoDecimals(entries);
         return {
-            categories,
+            tasks,
             hours
         }
     }
@@ -54,8 +55,8 @@ const TasksByHours = ({ timeEntries }: TasksByHoursProps) => {
     }
 
     if (tasksByHours.length) {
-        const { hours, categories } = convertRawDataForChart(tasksByHours);
-        data = getChartData(hours, categories);
+        const { hours, tasks } = convertRawDataForChart(tasksByHours);
+        data = getChartData(hours, tasks);
     }
 
     return (
