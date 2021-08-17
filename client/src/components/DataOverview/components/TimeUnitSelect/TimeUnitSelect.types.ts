@@ -2,6 +2,6 @@
 import { SemanticInputBasic } from '../../../../../interfaces/components/SemanticInput';
 import { timeUnit } from '../../../../lib/TimeService/TimeService.types';
 
-export interface TimeUnitProps extends SemanticInputBasic {
+export interface TimeUnitSelectProps extends SemanticInputBasic {
     selectedTimeUnit: timeUnit;
 }

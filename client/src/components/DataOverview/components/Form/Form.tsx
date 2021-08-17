@@ -3,7 +3,7 @@ import React from 'react';
 import { Form as SemanticUiForm } from 'semantic-ui-react';
 
 // Components
-import TimeUnit from '../TimeUnit/TimeUnit';
+import TimeUnitSelect from '../TimeUnitSelect/TimeUnitSelect';
 import GroupSelect from '../GroupSelect/GroupSelect';
 
 // Types
@@ -13,7 +13,7 @@ const Form = ({ selectedTimeUnit, selectedGroup, handleTimeUnitSelect, handleGro
     return <SemanticUiForm>
         <h2>Time Summary</h2>
         <SemanticUiForm.Group widths={'equal'}>
-            <TimeUnit onChange={handleTimeUnitSelect} selectedTimeUnit={selectedTimeUnit} />
+            <TimeUnitSelect onChange={handleTimeUnitSelect} selectedTimeUnit={selectedTimeUnit} />
             <GroupSelect onChange={handleGroupSelect} selectedGroup={selectedGroup} groups={['tasks']} />
         </SemanticUiForm.Group>
     </SemanticUiForm>;
