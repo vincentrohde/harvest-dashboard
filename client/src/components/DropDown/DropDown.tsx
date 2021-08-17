@@ -5,7 +5,7 @@ import { Form, Select } from 'semantic-ui-react';
 // Types
 import { DropDownTypes } from './DropDown.types';
 
-const DropDown = ({ clearable = false, label, name, onChange, options, placeholder, searchInputId, value }: DropDownTypes) => {
+const DropDown = ({ clearable = false, label, name, onChange, options, placeholder, searchInputId, value, width = 16 }: DropDownTypes) => {
     return (
         <Form.Field
             control={Select}
@@ -18,6 +18,7 @@ const DropDown = ({ clearable = false, label, name, onChange, options, placehold
             onChange={onChange}
             value={value}
             clearable={clearable}
+            width={width}
         />
     );
 }
