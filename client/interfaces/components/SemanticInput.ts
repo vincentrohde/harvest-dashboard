@@ -6,10 +6,13 @@ export interface Label {
     htmlFor: string;
 }
 
-export interface SemanticInputProps {
+export interface SemanticInputBasic {
+    onChange: onChangeHandler;
+}
+
+export interface SemanticInputProps extends SemanticInputBasic {
     label: Label;
     name: string;
-    onChange: onChangeHandler;
     placeholder: string;
     value: string | number;
 }
