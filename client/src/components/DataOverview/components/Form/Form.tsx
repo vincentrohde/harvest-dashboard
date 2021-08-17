@@ -4,13 +4,18 @@ import { Form as SemanticUiForm } from 'semantic-ui-react';
 
 // Components
 import TimeUnit from '../TimeUnit/TimeUnit';
+import GroupSelect from '../GroupSelect/GroupSelect';
 
 // Types
 import { FormProps } from './Form.types';
 
-const Form = ({ onChange, selectedTimeUnit }: FormProps) => {
+const Form = ({ selectedTimeUnit, selectedGroup, handleTimeUnitSelect, handleGroupSelect }: FormProps) => {
     return <SemanticUiForm>
-        <TimeUnit onChange={onChange} selectedTimeUnit={selectedTimeUnit}/>
+        <h2>Time Summary</h2>
+        <SemanticUiForm.Group widths={'equal'}>
+            <TimeUnit onChange={handleTimeUnitSelect} selectedTimeUnit={selectedTimeUnit} />
+            <GroupSelect onChange={handleGroupSelect} selectedGroup={selectedGroup} groups={['tasks']} />
+        </SemanticUiForm.Group>
     </SemanticUiForm>;
 };
 
