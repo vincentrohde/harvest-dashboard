@@ -8,9 +8,12 @@ import Form from '../Form/Form';
 // Types
 import { DataOverviewProps } from './DataOverview.types';
 
-const DataOverview = ({ data, onChange, selectedTimeUnit }: DataOverviewProps) => {
+const DataOverview = ({ data, handleTimeUnitSelect, handleGroupSelect, selectedTimeUnit, selectedGroup }: DataOverviewProps) => {
     return <div className="tab-container">
-        <Form onChange={onChange} selectedTimeUnit={selectedTimeUnit}/>
+        <Form handleTimeUnitSelect={handleTimeUnitSelect}
+              handleGroupSelect={handleGroupSelect}
+              selectedGroup={selectedGroup}
+              selectedTimeUnit={selectedTimeUnit} />
         <Chart data={data} />
     </div>
 };
