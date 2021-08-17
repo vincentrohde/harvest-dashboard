@@ -14,7 +14,17 @@ interface SelectOption {
 export type SelectOptionsList = SelectOption[];
 
 class SemanticUiService {
-    convertDataToSelectOptions(data: ApiData[]): SelectOption[] {
+    getSelectOptionsFromArray(items: string[], isFirstCharUpperCase = true): SelectOptionsList {
+        return items.map((item, index) => {
+            return {
+                value: item,
+                text: isFirstCharUpperCase ? item[0].toUpperCase() + item.slice(1) : item,
+                key: index.toString()
+            }
+        })
+    }
+
+    convertDataToSelectOptions(data: ApiData[]): SelectOptionsList {
         return data.map((item) => {
             return {
                 value: item.id,
