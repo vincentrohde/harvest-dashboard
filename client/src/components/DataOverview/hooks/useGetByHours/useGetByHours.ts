@@ -1,17 +1,12 @@
-// Libs
-import { useState, useEffect } from 'react';
-
 // Services
 import { tasksSortService } from '../../../../lib/TasksSortService/TasksSortService';
 import { projectsSortService } from '../../../../lib/ProjectsSortService/ProjectsSortService';
 
 // Types
 import { getByHours } from './useGetByHours.types';
-import { group } from '../../DataOverviewContainer.types';
+import { group } from '../../DataOverview.types';
 
 export const useGetByHours = (group: group) => {
-    const [getByHours, setGetByHours] = useState<getByHours>();
-
     const getGetByHours = () => {
         let getByHours: getByHours;
 
@@ -30,9 +25,5 @@ export const useGetByHours = (group: group) => {
         return getByHours;
     }
 
-    useEffect(() => {
-        setGetByHours(getGetByHours())
-    }, [group]);
-
-    return getByHours;
+    return getGetByHours();
 };
