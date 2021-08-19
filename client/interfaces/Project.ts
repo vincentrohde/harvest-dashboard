@@ -7,6 +7,6 @@ export interface ProjectInterface extends CategoryInterface {}
 export type projectsByHours = ProjectByHours[];
 
 export interface ProjectByHours {
-    task: string;
+    project: string;
     hours: number;
 }
