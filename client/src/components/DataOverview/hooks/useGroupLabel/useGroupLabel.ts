@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 // Types
 import { groupLabel } from './useGroupLabel.types';
-import { group } from '../../DataOverviewContainer.types';
+import { group } from '../../DataOverview.types';
 
 export const useGroupLabel = (group: group) => {
     const [groupLabel, setGroupLabel] = useState<groupLabel>('task');
@@ -26,7 +26,9 @@ export const useGroupLabel = (group: group) => {
     }
 
     useEffect(() => {
-        setGroupLabel(getGroupLabel())
+        if (typeof group !== 'undefined') {
+            setGroupLabel(getGroupLabel());
+        }
     }, [group]);
 
     return groupLabel;
