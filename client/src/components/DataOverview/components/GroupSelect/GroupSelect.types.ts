@@ -1,8 +1,8 @@
 // Types
 import { SemanticInputBasic } from '../../../../../interfaces/components/SemanticInput';
-import { group } from '../../DataOverviewContainer.types';
+import { groups } from '../../DataOverview.types';
 
 export interface GroupSelectProps extends SemanticInputBasic {
     selectedGroup: string;
-    groups: group[];
+    groups: groups;
 }
