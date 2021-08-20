@@ -17,13 +17,14 @@ import { timeEntriesSelector } from '../../stores/selectors/timeEntries';
 
 // Types
 import { timeUnit } from '../../lib/TimeService/TimeService.types';
-import { DataOverviewProps, group } from './DataOverview.types';
+import { DataOverviewProps, group, groups } from './DataOverview.types';
 import { onChangeHandler } from '../../../interfaces/components/SemanticInput';
 
 const DataOverview = ({ timeEntries }: DataOverviewProps) => {
     const { timeUnits } = timeService;
-    const [timeUnit, setTimeUnit] = useState<timeUnit>(timeUnits[2]);
-    const [group, setGroup] = useState<group>('tasks');
+    const groups: groups = ['tasks', 'projects'];
+    const [timeUnit, setTimeUnit] = useState<timeUnit>(timeUnits[0]);
+    const [group, setGroup] = useState<group>(groups[0]);
     const chartData = useChartData(timeEntries, group, timeUnit);
 
     const handleTimeUnitSelect: onChangeHandler = (_event, { value }) => {
@@ -39,10 +40,11 @@ const DataOverview = ({ timeEntries }: DataOverviewProps) => {
     return (<>
         { typeof timeEntries !== 'undefined' && timeEntries.length > 0 &&
         <div className="tab-container">
-            <Form handleTimeUnitSelect={handleTimeUnitSelect}
-                  handleGroupSelect={handleGroupSelect}
+            <Form groups={groups}
                   selectedGroup={group}
-                  selectedTimeUnit={timeUnit} />
+                  selectedTimeUnit={timeUnit}
+                  handleTimeUnitSelect={handleTimeUnitSelect}
+                  handleGroupSelect={handleGroupSelect} />
             <Chart data={chartData} />
         </div> }
     </>);
