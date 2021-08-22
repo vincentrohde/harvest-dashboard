@@ -1,5 +1,6 @@
 // Libs
 import React from 'react';
+import { Grid } from 'semantic-ui-react';
 
 // Components
 import TimeEntries from '../TimeEntries/TimeEntries';
@@ -21,10 +22,10 @@ const TimeEntriesContainer = ({ timeEntries }: TimeEntriesContainerProps) => {
         totalHoursAndMinutes = useTotalHoursAndMinutes(timeEntries);
     }
     return (<>
-        { typeof timeEntries !== 'undefined' && <>
+        { typeof timeEntries !== 'undefined' && <Grid.Column width={16}>
             <MetaDataHeader totalHoursAndMinutes={totalHoursAndMinutes} entriesAmount={timeEntries.length}/>
             <TimeEntries />
-        </> }
+        </Grid.Column> }
     </>);
 };
 
