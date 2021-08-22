@@ -30,7 +30,6 @@ app.get('/projects', (req, res) => {
     apiService.getProjects()
         .then((projects) => res.json({ projects }))
         .catch((error) => {
-            console.log('### error: ', error);
             expressErrorService.sendErrorResponse(error, res)
         });
 });
