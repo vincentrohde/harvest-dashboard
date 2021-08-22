@@ -1,9 +1,11 @@
 // Libs
 import React, { useState } from 'react';
+import { Grid } from 'semantic-ui-react';
 
 // Components
 import Form from './components/Form/Form';
 import Chart from './components/Chart/Chart';
+import ChartContainer from '../ChartContainer/ChartContainer';
 
 // Services
 import { timeService } from '../../lib/TimeService/TimeService';
@@ -39,14 +41,16 @@ const DataOverview = ({ timeEntries }: DataOverviewProps) => {
 
     return (<>
         { typeof timeEntries !== 'undefined' && timeEntries.length > 0 &&
-        <div className="tab-container">
-            <Form groups={groups}
-                  selectedGroup={group}
-                  selectedTimeUnit={timeUnit}
-                  handleTimeUnitSelect={handleTimeUnitSelect}
-                  handleGroupSelect={handleGroupSelect} />
-            <Chart data={chartData} />
-        </div> }
+        (<Grid.Column mobile={16} tablet={16} computer={16}>
+            <ChartContainer title={'Entry Summary'} caption={'by hours'}>
+                <Form groups={groups}
+                      selectedGroup={group}
+                      selectedTimeUnit={timeUnit}
+                      handleTimeUnitSelect={handleTimeUnitSelect}
+                      handleGroupSelect={handleGroupSelect} />
+                <Chart data={chartData} />
+            </ChartContainer>
+        </Grid.Column>) }
     </>);
 };
 
