@@ -15,7 +15,7 @@ const TimeUnitSelect = ({ onChange, selectedTimeUnit }: TimeUnitSelectProps) => 
     const { timeUnits } = timeService;
     return (<DropDown
         label={{
-            children: "Time",
+            children: "Time Unit",
             htmlFor: "form-select-control-time-unit"
         }}
         searchInputId={"form-select-control-time-unit"}
