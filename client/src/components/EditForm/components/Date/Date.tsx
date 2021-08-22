@@ -3,7 +3,7 @@ import React from 'react';
 import { DateInput } from 'semantic-ui-calendar-react';
 
 // Types
-import { DateProps } from './Date.props';
+import { DateProps } from './Date.types';
 
 const Date = ({date, isError, handleChange}: DateProps) => (<DateInput
     className="submit-btn"
