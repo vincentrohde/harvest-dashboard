@@ -17,11 +17,9 @@ import { DataSet, byHoursList, byHours, byHoursItem } from './useChartData.types
 import { group } from '../../DataOverview.types';
 import { timeEntriesType } from '../../../../../interfaces/TimeEntry';
 import { timeUnit } from '../../../../lib/TimeService/TimeService.types';
-import { useIsNewStateDifferent } from '../../../../hooks/useIsNewStateDifferent/useIsNewStateDifferent';
 
 export const useChartData = (timeEntries: timeEntriesType | undefined, group: group, timeUnit: timeUnit) => {
     const [chartData, setChartData] = useState<Chart.ChartData>({});
-    const isNewStateDifferent = useIsNewStateDifferent(timeEntries);
     const sortedTimeEntries = useTimeEntriesByTimeUnit(timeEntries, timeUnit);
     const groupLabel = useGroupLabel(group);
     const getByHours = useGetByHours(group);
@@ -110,9 +108,7 @@ export const useChartData = (timeEntries: timeEntriesType | undefined, group: gr
     }
 
     useEffect(() => {
-        if (isNewStateDifferent) {
-            updateChartData();
-        }
+        updateChartData();
     }, [sortedTimeEntries, group]);
 
     return chartData;

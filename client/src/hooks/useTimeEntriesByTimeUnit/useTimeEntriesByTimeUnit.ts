@@ -1,9 +1,6 @@
 // Libs
 import { useState, useEffect } from 'react';
 
-// Hooks
-import { useIsNewStateDifferent } from '../useIsNewStateDifferent/useIsNewStateDifferent';
-
 // Services
 import { timeService } from '../../lib/TimeService/TimeService';
 
@@ -13,7 +10,6 @@ import { timeUnit } from '../../lib/TimeService/TimeService.types';
 
 export const useTimeEntriesByTimeUnit = (timeEntries: timeEntriesType | undefined, timeUnit: timeUnit) => {
     const [sortedTimeEntries, setSortedTimeEntries] = useState<timeEntriesType[]>([]);
-    const isTimeEntriesDifferent = useIsNewStateDifferent(timeEntries);
 
     // Sorts time entries by day (oldest to newest)
     const getSortedTimeEntries = (timeEntries: timeEntriesType) => {
@@ -65,9 +61,7 @@ export const useTimeEntriesByTimeUnit = (timeEntries: timeEntriesType | undefine
     }
 
     useEffect(() => {
-        if (isTimeEntriesDifferent) {
-            sortTimeEntriesByTimeUnit();
-        }
+        sortTimeEntriesByTimeUnit();
     }, [timeEntries, timeUnit]);
 
     return sortedTimeEntries;
