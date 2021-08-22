@@ -1,5 +1,6 @@
 // Libs
 import React from 'react';
+import { Grid } from 'semantic-ui-react';
 
 // Redux
 import { connect } from 'react-redux';
@@ -15,7 +16,8 @@ import { timeEntriesSelector } from '../../stores/selectors/timeEntries';
 import { dataColors } from '../../variables/colors';
 
 // Components
-import ChartContainer from './components/ChartContainer/ChartContainer';
+import ChartContainer from '../ChartContainer/ChartContainer';
+import Chart from './components/Chart/Chart';
 
 // Types
 import { TasksByHoursProps } from './TasksByHours.types';
@@ -33,7 +35,7 @@ const TasksByHours = ({ timeEntries }: TasksByHoursProps) => {
     const getTasksFromEntries = (entries: tasksByHours) => entries.map(entry => entry.task);
 
     const convertRawDataForChart = (entries: tasksByHours) => {
-        entries = objectService.sortObjectsArray(true, entries, 'hours');
+        entries = objectService.sortObjectsArray(false, entries, 'hours');
         const tasks = getTasksFromEntries(entries);
         const hours = getHoursByTwoDecimals(entries);
         return {
@@ -61,7 +63,11 @@ const TasksByHours = ({ timeEntries }: TasksByHoursProps) => {
 
     return (
         <>
-            { !objectService.isEmptyObject(data) && <ChartContainer data={data} />}
+            { !objectService.isEmptyObject(data) && (<Grid.Column width={16}>
+                <ChartContainer title={'Tasks'} caption={'by total hours'}>
+                    <Chart data={data}/>
+                </ChartContainer>
+            </Grid.Column>)}
         </>
     );
 };
