@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-import { timeUnit } from './TimeService.types';
+import { timeUnit, dateRange } from './TimeService.types';
 
 class TimeService {
     timeUnits: timeUnit[] = ['day', 'week', 'month', 'year'];
@@ -104,6 +104,14 @@ class TimeService {
 
         return dateRange;
     }
+
+    convertDateRangeToISO8601(dateRange: dateRange) {
+        return dateRange.map(item => timeService.ddMMYYYYToISO8601(item));
+    }
+
+    convertDateRangeToDDMMYYY (dateRange: dateRange) {
+        return dateRange.map(item => timeService.iso8601ToDDMMYYY(item));
+    };
 }
 
 export const timeService = new TimeService();
