@@ -3,8 +3,7 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 
 // Redux
-import { Provider, connect } from 'react-redux';
-import store from '../../stores/store';
+import { connect } from 'react-redux';
 
 // Actions
 import { addTimeEntries } from '../../stores/actions/timeEntries';
@@ -31,7 +30,7 @@ import { categoriesType } from '../../../interfaces/Category';
 import { AppProps } from './App.types';
 
 // Styles
-import './Entries.scss';
+import './App.scss';
 
 const App = ({
     filters,
@@ -52,8 +51,7 @@ const App = ({
     useGetProjects(filterAPIDataForState, addProjects);
     useGetTimeEntries(filters, addTimeEntries);
 
-    return (<Provider store={store}>
-        <section className="App">
+    return (<section className="App">
             <h1 className="app-title">Harvest V2 API Client</h1>
             <Grid>
                 <Grid.Column width={16}>
@@ -71,8 +69,7 @@ const App = ({
                 <TimeEntriesContainer />
 
             </Grid>
-        </section>
-    </Provider>)
+        </section>)
 }
 
 const mapStateToProps = (state: any) => {
