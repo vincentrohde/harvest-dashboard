@@ -19,6 +19,10 @@ export const useGetTimeEntries = (filters: FiltersInterface, addTimeEntries: Fun
     const getDateRange = () => {
         const { dateRange } = filters;
 
+        if (dateRange === 1) {
+            return [];
+        }
+
         if (dateRange && dateRange.length) {
             if (dateRange.length > 1) {
                 return dateRange;

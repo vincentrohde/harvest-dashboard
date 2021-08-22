@@ -1,7 +1,11 @@
+// Libs
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { App } from './components/App/App';
 
+// Components
+import App from './components/App/App';
+
+// Styles
 import 'semantic-ui-css/semantic.min.css';
 import './index.scss';
 
