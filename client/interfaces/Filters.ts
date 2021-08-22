@@ -1,3 +1,3 @@
 export interface FiltersInterface {
-    dateRange: string[];
+    dateRange: string[] | 1;
 }

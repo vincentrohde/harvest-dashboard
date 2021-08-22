@@ -25,7 +25,7 @@ import { DatePickerProps } from './DatePicker.types';
 import './DatePicker.scss';
 
 const DatePicker = ({ dateRange, updateDateRange }: DatePickerProps) => {
-    const [preset, setPreset] = useState('');
+    const [preset, setPreset] = useState('today');
 
     const cleanDateInputFormat = (dateList: RegExpMatchArray): string[] => {
         const hyphenRegex = /-/g;
@@ -41,10 +41,6 @@ const DatePicker = ({ dateRange, updateDateRange }: DatePickerProps) => {
         return cleanDateInputFormat(matches);
     }
 
-    const convertDateRangeToISO8601 = (dateRange: string[]) => {
-        return dateRange.map((item) => timeService.ddMMYYYYToISO8601(item));
-    };
-
     const convertDateRangeToDDMMYYY = (dateRange: string[]) => {
         return dateRange.map((item) => timeService.iso8601ToDDMMYYY(item));
     };
@@ -58,7 +54,7 @@ const DatePicker = ({ dateRange, updateDateRange }: DatePickerProps) => {
 
         if (value.length > 0) {
             newDateRange = getArrayFromDateRangeInput(value);
-            newDateRange = convertDateRangeToISO8601(newDateRange);
+            newDateRange = timeService.convertDateRangeToISO8601(newDateRange);
         } else {
             newDateRange = value;
         }
@@ -68,7 +64,7 @@ const DatePicker = ({ dateRange, updateDateRange }: DatePickerProps) => {
 
     // For the User
     const getDateRangeValue = () => {
-        if (dateRange.length < 1) return '';
+        if (dateRange === 1 || dateRange.length < 1) return '';
 
         const convertedDateRange = convertDateRangeToDDMMYYY(dateRange);
 
@@ -79,8 +75,13 @@ const DatePicker = ({ dateRange, updateDateRange }: DatePickerProps) => {
         return `${convertedDateRange[0]}`;
     };
 
-    usePresetDateRange(preset, (presetDateRange: string[]) => {
-        const convertedDateRange = convertDateRangeToISO8601(presetDateRange);
+    usePresetDateRange(preset, (presetDateRange: FiltersInterface['dateRange']) => {
+        let convertedDateRange: FiltersInterface['dateRange'] = presetDateRange;
+
+        if (presetDateRange !== 1) {
+            convertedDateRange = timeService.convertDateRangeToISO8601(presetDateRange);
+        }
+
         updateDateRange(convertedDateRange);
     });
 

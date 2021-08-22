@@ -18,5 +18,10 @@ export const dateRanges = [
         key: '4',
         value: 'one-year',
         text: 'Last Year',
+    },
+    {
+        key: '5',
+        value: 'all',
+        text: 'Show All',
     }
 ];

@@ -7,6 +7,9 @@ import { usePrevious } from '../../../../hooks/usePrevious';
 // Services
 import { timeService } from '../../../../lib/TimeService/TimeService';
 
+// Types
+import { FiltersInterface } from '../../../../../interfaces/Filters';
+
 export const usePresetDateRange = (preset: string, action: Function) => {
     const currentDay = moment().format('DD-MM-YYYY');
     const prevPreset = usePrevious(preset);
@@ -21,13 +24,19 @@ export const usePresetDateRange = (preset: string, action: Function) => {
                 return timeService.getDateFromDaysAgo(29);
             case 'one-year':
                 return timeService.getDateFromDaysAgo(364);
+            case 'all':
+                return 'all';
             default:
                 return '';
         }
     };
 
-    const getPresetDateRange = () => {
+    const getPresetDateRange: () => FiltersInterface['dateRange'] = () => {
         const startDate = getPresetStartDate();
+
+        if (startDate === 'all') {
+            return 1;
+        }
 
         if (startDate !== currentDay && startDate.length > 0) {
             return [startDate, currentDay];

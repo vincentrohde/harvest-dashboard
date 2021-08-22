@@ -43,7 +43,10 @@ class ApiService {
     }
 
     getTimeEntries (from, to) {
-        return axios.get(TIME_ENTRIES_URL + `?from=${from}&to=${to}`, requestConfig)
+        const isParams = typeof from !== 'undefined' && from && typeof to !== 'undefined' && to;
+        const queryString = isParams ? `?from=${from}&to=${to}` : '';
+
+        return axios.get(TIME_ENTRIES_URL + queryString, requestConfig)
             .then((response) => {
                 const { time_entries } = response.data;
                 return new Promise ((resolve) => {

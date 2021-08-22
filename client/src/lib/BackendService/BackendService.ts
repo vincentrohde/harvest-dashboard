@@ -11,8 +11,11 @@ class BackendService {
         return axios.get(`./api/time_entries/${entryID}`);
     }
 
-    getTimeEntries (from: string, to: string) {
-        return axios.get(`./api/time_entries?from=${from}&to=${to}`)
+    getTimeEntries (from: string | undefined, to: string | undefined) {
+        const isParams = typeof from !== 'undefined' && typeof to !== 'undefined';
+        const queryString = isParams ? `?from=${from}&to=${to}` : '';
+
+        return axios.get('./api/time_entries' + queryString)
             .then((response) => {
                 const { timeEntries }: { timeEntries: timeEntriesType } = response.data;
                 return timeEntries;

@@ -1,11 +1,16 @@
+// Services
 import { timeService } from '../../lib/TimeService/TimeService';
 
+// Actions
 import {
     SET_FILTERS,
     UPDATE_DATE_RANGE
 } from '../actions/filters';
 
-const initialState = {
+// Types
+import { FiltersInterface } from '../../../interfaces/Filters';
+
+const initialState: FiltersInterface = {
     dateRange: [timeService.getCurrentDate()]
 };
 
@@ -21,7 +26,7 @@ export const filters = (state = initialState, action: any) => {
             dateRange = action.payload;
             return {
                 ...state,
-                dateRange: [...dateRange]
+                dateRange: dateRange !== 1 ? [...dateRange] : dateRange,
             };
         default:
             return {
