@@ -2,7 +2,8 @@
 import { useEffect } from 'react';
 import moment from 'moment';
 
-import { usePrevious } from '../../../../hooks/usePrevious';
+// Hooks
+import { usePrevious } from '../../../../hooks/utils/usePrevious/usePrevious';
 
 // Services
 import { timeService } from '../../../../lib/TimeService/TimeService';

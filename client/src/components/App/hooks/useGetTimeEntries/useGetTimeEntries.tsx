@@ -7,7 +7,7 @@ import { backendService } from '../../../../lib/BackendService/BackendService';
 import { errorService } from '../../../../lib/ErrorService/ErrorService';
 
 // Hooks
-import { usePrevious } from '../../../../hooks/usePrevious';
+import { usePrevious } from '../../../../hooks/utils/usePrevious/usePrevious';
 
 // Types
 import { FiltersInterface } from '../../../../types/Filters';

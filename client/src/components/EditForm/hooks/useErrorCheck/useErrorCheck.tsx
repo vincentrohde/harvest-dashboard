@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import _ from 'underscore';
 
 // Hooks
-import { usePrevious } from '../../../../hooks/usePrevious';
-import { useDebounce } from '../../../../hooks/useDebounce';
+import { usePrevious } from '../../../../hooks/utils/usePrevious/usePrevious';
+import { useDebounce } from '../../../../hooks/utils/useDebounce/useDebounce';
 
 // Services
 import { objectService } from '../../../../lib/ObjectService/ObjectService';

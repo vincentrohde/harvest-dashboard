@@ -1,5 +1,8 @@
+// Libs
 import { useState, useEffect } from 'react';
-import { usePrevious } from '../usePrevious';
+
+// Hooks
+import { usePrevious } from '../utils/usePrevious/usePrevious';
 
 export const useIsNewStateDifferent = <T>(state: T) => {
     const [isNewStateDifferent, setIsNewStateDifferent] = useState(false);
