@@ -3,7 +3,7 @@ import React from 'react';
 import { Message } from "semantic-ui-react";
 
 // Types
-import { ErrorProps } from './Error.props';
+import { ErrorProps } from './Error.types';
 
 // Styling
 import './Error.scss';

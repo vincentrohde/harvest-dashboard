@@ -10,7 +10,7 @@ import { useDebounce } from '../../../../hooks/useDebounce';
 import { objectService } from '../../../../lib/ObjectService/ObjectService';
 
 // Types
-import { useErrorCheckProps } from './useErrorCheck.props'
+import { useErrorCheckProps } from './useErrorCheck.types'
 
 // Regex
 import { hoursInputRegex, dateInputRegex } from './useErrorCheck.regex';

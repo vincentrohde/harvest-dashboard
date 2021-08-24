@@ -2,7 +2,10 @@
 import React from 'react';
 import { Button, Icon } from 'semantic-ui-react';
 
-const Cancel = ({ onCancel }: { onCancel: () => void }) => {
+// Types
+import { CancelProps } from './Cancel.types';
+
+const Cancel = ({ onCancel }: CancelProps) => {
     return (
         <Button
             className="cancel-button js-cancel"

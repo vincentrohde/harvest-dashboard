@@ -13,7 +13,7 @@ import Submit from '../Submit/Submit';
 import Cancel from '../Cancel/Cancel';
 
 // Types
-import { FormProps } from './Form.props';
+import { FormProps } from './Form.types';
 
 // Styles
 import './Form.scss';

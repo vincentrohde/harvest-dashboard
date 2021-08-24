@@ -5,7 +5,7 @@ import React from 'react';
 import DropDown from '../../../DropDown/DropDown';
 
 // Types
-import { ProjectProps } from './Project.props';
+import { ProjectProps } from './Project.types';
 
 const Project = ({projectId, projects, handleChange}: ProjectProps) => (<DropDown
     label={{

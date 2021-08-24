@@ -5,7 +5,7 @@ import React from 'react';
 import DropDown from '../../../DropDown/DropDown';
 
 // Types
-import { TaskProps } from './Task.props';
+import { TaskProps } from './Task.types';
 
 const Task = ({taskId, tasks, handleChange}: TaskProps) => (<DropDown
     label={{

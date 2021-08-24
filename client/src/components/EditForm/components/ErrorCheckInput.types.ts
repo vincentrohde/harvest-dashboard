@@ -1,4 +1,4 @@
-import { FormInputProps } from './FormInput.props';
+import { FormInputProps } from './FormInput.types';
 
 export interface ErrorCheckInputProps extends FormInputProps {
     isError: boolean;

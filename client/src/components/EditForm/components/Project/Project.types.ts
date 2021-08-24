@@ -1,5 +1,5 @@
 // Types
-import { FormInputProps } from '../FormInput.props';
+import { FormInputProps } from '../FormInput.types';
 import { ShallowSubmissionEntryInterface } from '../../../../../interfaces/TimeEntry';
 import { SelectOptionsList } from '../../../../lib/SemanticUiService/SemanticUiService';
 

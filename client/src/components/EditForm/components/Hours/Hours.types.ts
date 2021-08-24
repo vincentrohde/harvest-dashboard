@@ -1,5 +1,5 @@
 // Types
-import { ErrorCheckInputProps } from '../ErrorCheckInput.props';
+import { ErrorCheckInputProps } from '../ErrorCheckInput.types';
 import { ShallowSubmissionEntryInterface } from '../../../../../interfaces/TimeEntry';
 
 export interface HoursProps extends ErrorCheckInputProps {
