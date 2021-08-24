@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
-export interface ChartContainerProps {
+export interface TabContainerProps {
     children?: ReactNode;
-    title: string;
+    title?: string;
     caption?: string;
 }
