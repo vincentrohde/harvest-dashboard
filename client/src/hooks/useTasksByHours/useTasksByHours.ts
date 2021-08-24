@@ -7,8 +7,8 @@ import { tasksSortService } from '../../lib/TasksSortService/TasksSortService';
 import { useIsNewStateDifferent } from '../useIsNewStateDifferent/useIsNewStateDifferent';
 
 // Types
-import { timeEntriesType } from '../../../interfaces/TimeEntry';
-import { tasksByHours } from '../../../interfaces/Task';
+import { timeEntriesType } from '../../types/TimeEntry';
+import { tasksByHours } from '../../types/Task';
 
 export const useTasksByHours = (timeEntries: timeEntriesType | undefined) => {
     const [tasksByHours, setTasksByHours] = useState<tasksByHours>([]);

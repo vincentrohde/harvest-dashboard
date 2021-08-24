@@ -1,8 +1,8 @@
 // Libs
-import { timeEntriesType } from '../../../interfaces/TimeEntry';
+import { timeEntriesType } from '../../types/TimeEntry';
 
 // Types
-import { tasksByHours } from '../../../interfaces/Task';
+import { tasksByHours } from '../../types/Task';
 
 class TasksSortService {
     getEntriesWithTask(entries: timeEntriesType): tasksByHours {

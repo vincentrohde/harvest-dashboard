@@ -1,8 +1,8 @@
 // Libs
-import { timeEntriesType } from '../../../interfaces/TimeEntry';
+import { timeEntriesType } from '../../types/TimeEntry';
 
 // Types
-import { projectsByHours } from '../../../interfaces/Project';
+import { projectsByHours } from '../../types/Project';
 
 class ProjectsSortService {
     getEntriesWithProject(entries: timeEntriesType): projectsByHours {

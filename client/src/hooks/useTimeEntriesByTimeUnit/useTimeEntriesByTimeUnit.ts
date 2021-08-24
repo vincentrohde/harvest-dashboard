@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { timeService } from '../../lib/TimeService/TimeService';
 
 // Types
-import { timeEntriesType } from '../../../interfaces/TimeEntry';
+import { timeEntriesType } from '../../types/TimeEntry';
 import { timeUnit } from '../../lib/TimeService/TimeService.types';
 
 export const useTimeEntriesByTimeUnit = (timeEntries: timeEntriesType | undefined, timeUnit: timeUnit) => {

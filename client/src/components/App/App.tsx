@@ -26,7 +26,7 @@ import { useGetProjects } from './hooks/useGetProjects/useGetProjects';
 import { useGetTasks } from './hooks/useGetTasks/useGetTasks';
 
 // Types
-import { categoriesType } from '../../../interfaces/Category';
+import { categoriesType } from '../../types/Category';
 import { AppProps } from './App.types';
 
 // Styles

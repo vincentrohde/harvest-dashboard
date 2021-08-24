@@ -2,9 +2,9 @@
 import React from 'react';
 
 // Types
-import { ShallowSubmissionEntryInterface } from '../../../../../interfaces/TimeEntry';
+import { ShallowSubmissionEntryInterface } from '../../../../types/TimeEntry';
 import { SelectOptionsList } from '../../../../lib/SemanticUiService/SemanticUiService';
-import { onChangeHandler } from '../../../../../interfaces/components/SemanticInput';
+import { onChangeHandler } from '../../../../types/components/SemanticInput';
 
 export interface FormProps {
     entry: ShallowSubmissionEntryInterface;

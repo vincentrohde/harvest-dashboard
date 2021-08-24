@@ -2,7 +2,7 @@
 import { timeService } from '../TimeService/TimeService';
 
 // Types
-import { TimeEntrySubmissionInterface } from '../../../interfaces/TimeEntry';
+import { TimeEntrySubmissionInterface } from '../../types/TimeEntry';
 import { EditFormEntry } from '../../components/EditForm/EditForm.types';
 
 class ApiFormatService {

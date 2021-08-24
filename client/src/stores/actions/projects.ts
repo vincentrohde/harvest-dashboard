@@ -1,5 +1,5 @@
 // Typescript
-import { projectsType } from '../../../interfaces/Project';
+import { projectsType } from '../../types/Project';
 
 // Action Types
 export const ADD_PROJECTS = 'ADD_PROJECTS';

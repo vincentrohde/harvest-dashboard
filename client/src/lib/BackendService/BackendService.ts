@@ -1,7 +1,7 @@
 // Typescript
-import { timeEntriesType, TimeEntryInterface, TimeEntrySubmissionInterface } from '../../../interfaces/TimeEntry';
-import { tasksType } from '../../../interfaces/Task';
-import { projectsType } from '../../../interfaces/Project';
+import { timeEntriesType, TimeEntryInterface, TimeEntrySubmissionInterface } from '../../types/TimeEntry';
+import { tasksType } from '../../types/Task';
+import { projectsType } from '../../types/Project';
 
 // Libs
 import axios from 'axios';

@@ -10,8 +10,8 @@ import { errorService } from '../../../../lib/ErrorService/ErrorService';
 import { usePrevious } from '../../../../hooks/usePrevious';
 
 // Types
-import { FiltersInterface } from '../../../../../interfaces/Filters';
-import { timeEntriesType } from '../../../../../interfaces/TimeEntry';
+import { FiltersInterface } from '../../../../types/Filters';
+import { timeEntriesType } from '../../../../types/TimeEntry';
 
 export const useGetTimeEntries = (filters: FiltersInterface, addTimeEntries: Function) => {
     const prevFilters = usePrevious(filters);

@@ -8,7 +8,7 @@ import { usePrevious } from '../../../../hooks/usePrevious';
 import { timeService } from '../../../../lib/TimeService/TimeService';
 
 // Types
-import { FiltersInterface } from '../../../../../interfaces/Filters';
+import { FiltersInterface } from '../../../../types/Filters';
 
 export const usePresetDateRange = (preset: string, action: Function) => {
     const currentDay = moment().format('DD-MM-YYYY');

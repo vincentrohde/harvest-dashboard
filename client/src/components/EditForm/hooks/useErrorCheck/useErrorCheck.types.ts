@@ -1,4 +1,4 @@
-import { ShallowSubmissionEntryInterface } from '../../../../../interfaces/TimeEntry';
+import { ShallowSubmissionEntryInterface } from '../../../../types/TimeEntry';
 
 export interface useErrorCheckProps {
     entry: ShallowSubmissionEntryInterface;

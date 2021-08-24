@@ -20,7 +20,7 @@ import { timeEntriesSelector } from '../../stores/selectors/timeEntries';
 // Types
 import { timeUnit } from '../../lib/TimeService/TimeService.types';
 import { DataOverviewProps, group, groups } from './DataOverview.types';
-import { onChangeHandler } from '../../../interfaces/components/SemanticInput';
+import { onChangeHandler } from '../../types/components/SemanticInput';
 
 const DataOverview = ({ timeEntries }: DataOverviewProps) => {
     const { timeUnits } = timeService;

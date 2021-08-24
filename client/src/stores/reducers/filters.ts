@@ -8,7 +8,7 @@ import {
 } from '../actions/filters';
 
 // Types
-import { FiltersInterface } from '../../../interfaces/Filters';
+import { FiltersInterface } from '../../types/Filters';
 
 const initialState: FiltersInterface = {
     dateRange: [timeService.getCurrentDate()]

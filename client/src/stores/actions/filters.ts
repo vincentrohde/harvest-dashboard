@@ -1,5 +1,5 @@
 // Typescript
-import { FiltersInterface } from '../../../interfaces/Filters';
+import { FiltersInterface } from '../../types/Filters';
 
 // Action Types
 export const SET_FILTERS = 'SET_FILTERS';

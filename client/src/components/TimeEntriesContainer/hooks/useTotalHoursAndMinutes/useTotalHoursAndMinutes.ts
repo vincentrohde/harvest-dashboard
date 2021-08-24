@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import { timeService } from '../../../../lib/TimeService/TimeService';
 
 // Types
-import { timeEntriesType } from '../../../../../interfaces/TimeEntry';
+import { timeEntriesType } from '../../../../types/TimeEntry';
 
 export const useTotalHoursAndMinutes = (timeEntries: timeEntriesType) => {
     const [totalHoursAndMinutes, setTotalHoursAndMinutes] = useState('0:00');

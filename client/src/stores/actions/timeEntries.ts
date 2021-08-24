@@ -1,5 +1,5 @@
 // Typescript
-import { timeEntriesType, TimeEntryInterface } from '../../../interfaces/TimeEntry';
+import { timeEntriesType, TimeEntryInterface } from '../../types/TimeEntry';
 
 // Action Types
 export const ADD_TIME_ENTRIES = 'ADD_TIME_ENTRIES';

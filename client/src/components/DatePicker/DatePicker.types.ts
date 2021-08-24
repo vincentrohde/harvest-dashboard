@@ -1,4 +1,4 @@
-import { FiltersInterface } from '../../../interfaces/Filters';
+import { FiltersInterface } from '../../types/Filters';
 
 export interface DatePickerProps {
     dateRange: FiltersInterface['dateRange'];
