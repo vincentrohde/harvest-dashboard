@@ -16,7 +16,7 @@ import { timeEntriesSelector } from '../../stores/selectors/timeEntries';
 import { dataColors } from '../../variables/colors';
 
 // Components
-import ChartContainer from '../ChartContainer/ChartContainer';
+import TabContainer from '../presentation/TabContainer/TabContainer';
 import Chart from './components/Chart/Chart';
 
 // Types
@@ -64,9 +64,9 @@ const TasksByHours = ({ timeEntries }: TasksByHoursProps) => {
     return (
         <>
             { !objectService.isEmptyObject(data) && (<Grid.Column width={16}>
-                <ChartContainer title={'Tasks'} caption={'by total hours'}>
+                <TabContainer title={'Tasks'} caption={'by total hours'}>
                     <Chart data={data}/>
-                </ChartContainer>
+                </TabContainer>
             </Grid.Column>)}
         </>
     );

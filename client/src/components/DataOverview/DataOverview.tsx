@@ -5,7 +5,7 @@ import { Grid } from 'semantic-ui-react';
 // Components
 import Form from './components/Form/Form';
 import Chart from './components/Chart/Chart';
-import ChartContainer from '../ChartContainer/ChartContainer';
+import TabContainer from '../presentation/TabContainer/TabContainer';
 
 // Services
 import { timeService } from '../../lib/TimeService/TimeService';
@@ -42,14 +42,14 @@ const DataOverview = ({ timeEntries }: DataOverviewProps) => {
     return (<>
         { typeof timeEntries !== 'undefined' && timeEntries.length > 0 &&
         (<Grid.Column mobile={16} tablet={16} computer={16}>
-            <ChartContainer title={'Entry Summary'} caption={'by hours'}>
+            <TabContainer title={'Entry Summary'} caption={'by hours'}>
                 <Form groups={groups}
                       selectedGroup={group}
                       selectedTimeUnit={timeUnit}
                       handleTimeUnitSelect={handleTimeUnitSelect}
                       handleGroupSelect={handleGroupSelect} />
                 <Chart data={chartData} />
-            </ChartContainer>
+            </TabContainer>
         </Grid.Column>) }
     </>);
 };
