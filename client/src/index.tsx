@@ -4,12 +4,12 @@ import ReactDOM from 'react-dom';
 
 // Components
 import App from './components/App/App';
-import ReduxProvider from './components/ReduxProvider/ReduxProvider';
+import Provider from './components/Provider/Provider';
 
 // Styles
 import 'semantic-ui-css/semantic.min.css';
 import './index.scss';
 
-ReactDOM.render((<ReduxProvider>
+ReactDOM.render((<Provider>
     <App />
-</ReduxProvider>), document.querySelector('.app-container'));
+</Provider>), document.querySelector('.app-container'));
