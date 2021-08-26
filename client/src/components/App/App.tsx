@@ -6,19 +6,19 @@ import { Grid } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 
 // Actions
-import { addTimeEntries } from '../../stores/actions/timeEntries';
-import { addProjects } from '../../stores/actions/projects';
-import { addTasks } from '../../stores/actions/tasks';
+import { addTimeEntries } from '@/stores/actions/timeEntries';
+import { addProjects } from '@/stores/actions/projects';
+import { addTasks } from '@/stores/actions/tasks';
 
 // Selectors
-import { filtersSelector } from '../../stores/selectors/filters';
+import { filtersSelector } from '@/stores/selectors/filters';
 
 // Components
-import TasksByHours from '../TasksByHours/TasksByHours';
-import DatePicker from '../DatePicker/DatePicker';
-import EditForm from '../EditForm/EditForm';
-import TimeEntriesContainer from '../TimeEntriesContainer/TimeEntriesContainer';
-import DataOverview from '../DataOverview/DataOverview';
+import TasksByHours from '@/components/TasksByHours/TasksByHours';
+import DatePicker from '@/components/DatePicker/DatePicker';
+import EditForm from '@/components/EditForm/EditForm';
+import TimeEntriesContainer from '@/components/TimeEntriesContainer/TimeEntriesContainer';
+import DataOverview from '@/components/DataOverview/DataOverview';
 
 // Hooks
 import { useGetTimeEntries } from './hooks/useGetTimeEntries/useGetTimeEntries';
@@ -26,7 +26,7 @@ import { useGetProjects } from './hooks/useGetProjects/useGetProjects';
 import { useGetTasks } from './hooks/useGetTasks/useGetTasks';
 
 // Types
-import { categoriesType } from '../../types/Category';
+import { categoriesType } from '@/types/Category';
 import { AppProps } from './App.types';
 
 // Styles

@@ -1,14 +1,14 @@
 // Services
-import { timeService } from '../../lib/TimeService/TimeService';
+import { timeService } from '@/services/TimeService/TimeService';
 
 // Actions
 import {
     SET_FILTERS,
     UPDATE_DATE_RANGE
-} from '../actions/filters';
+} from '@/stores/actions/filters';
 
 // Types
-import { FiltersInterface } from '../../types/Filters';
+import { FiltersInterface } from '@/types/Filters';
 
 const initialState: FiltersInterface = {
     dateRange: [timeService.getCurrentDate()]

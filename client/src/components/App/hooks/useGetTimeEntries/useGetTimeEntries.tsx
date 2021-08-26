@@ -1,17 +1,17 @@
 // Libs
 import { useEffect } from 'react';
 
-// Service
-import { objectService } from '../../../../lib/ObjectService/ObjectService';
-import { backendService } from '../../../../lib/BackendService/BackendService';
-import { errorService } from '../../../../lib/ErrorService/ErrorService';
+// Services
+import { objectService } from '@/services/ObjectService/ObjectService';
+import { backendService } from '@/services/BackendService/BackendService';
+import { errorService } from '@/services/ErrorService/ErrorService';
 
 // Hooks
-import { usePrevious } from '../../../../hooks/utils/usePrevious/usePrevious';
+import { usePrevious } from '@/hooks/utils/usePrevious/usePrevious';
 
 // Types
-import { FiltersInterface } from '../../../../types/Filters';
-import { timeEntriesType } from '../../../../types/TimeEntry';
+import { FiltersInterface } from '@/types/Filters';
+import { timeEntriesType } from '@/types/TimeEntry';
 
 export const useGetTimeEntries = (filters: FiltersInterface, addTimeEntries: Function) => {
     const prevFilters = usePrevious(filters);

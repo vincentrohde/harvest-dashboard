@@ -2,11 +2,11 @@
 import React from 'react';
 
 // Components
-import DropDown from '../../../DropDown/DropDown';
+import DropDown from '@/components/DropDown/DropDown';
 
 // Services
-import { timeService } from '../../../../lib/TimeService/TimeService';
-import { semanticUiService } from '../../../../lib/SemanticUiService/SemanticUiService';
+import { timeService } from '@/services/TimeService/TimeService';
+import { semanticUiService } from '@/services/SemanticUiService/SemanticUiService';
 
 // Types
 import { TimeUnitSelectProps } from './TimeUnitSelect.types';

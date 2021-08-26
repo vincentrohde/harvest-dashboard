@@ -1,9 +1,9 @@
 // Libs
-import { timeService } from '../TimeService/TimeService';
+import { timeService } from '@/services/TimeService/TimeService';
 
 // Types
-import { TimeEntrySubmissionInterface } from '../../types/TimeEntry';
-import { EditFormEntry } from '../../components/EditForm/EditForm.types';
+import { TimeEntrySubmissionInterface } from '@/types/TimeEntry';
+import { EditFormEntry } from '@/components/EditForm/EditForm.types';
 
 class ApiFormatService {
     getTimeEntryInSubmitFormat(entry: EditFormEntry): TimeEntrySubmissionInterface {

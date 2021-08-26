@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Components
-import DropDown from '../../../DropDown/DropDown';
+import DropDown from '@/components/DropDown/DropDown';
 
 // Types
 import { TaskProps } from './Task.types';

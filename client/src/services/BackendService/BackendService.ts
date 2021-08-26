@@ -1,10 +1,10 @@
-// Typescript
-import { timeEntriesType, TimeEntryInterface, TimeEntrySubmissionInterface } from '../../types/TimeEntry';
-import { tasksType } from '../../types/Task';
-import { projectsType } from '../../types/Project';
-
 // Libs
 import axios from 'axios';
+
+// Types
+import { timeEntriesType, TimeEntryInterface, TimeEntrySubmissionInterface } from '@/types/TimeEntry';
+import { tasksType } from '@/types/Task';
+import { projectsType } from '@/types/Project';
 
 class BackendService {
     getTimeEntry (entryID: TimeEntryInterface['id']) {

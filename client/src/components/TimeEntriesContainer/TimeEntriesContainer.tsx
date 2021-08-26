@@ -1,13 +1,13 @@
 // Libs
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
+import { connect } from 'react-redux';
 
 // Components
 import TimeEntries from '../TimeEntries/TimeEntries';
 
 // Redux
-import { connect } from 'react-redux';
-import { timeEntriesSelector } from '../../stores/selectors/timeEntries';
+import { timeEntriesSelector } from '@/stores/selectors/timeEntries';
 
 // Hooks
 import { useTotalHoursAndMinutes } from './hooks/useTotalHoursAndMinutes/useTotalHoursAndMinutes';

@@ -1,4 +1,4 @@
-import { TimeEntryInterface } from '../../types/TimeEntry';
+import { TimeEntryInterface } from '@/types/TimeEntry';
 
 export interface TimeEntryProps {
     data: TimeEntryInterface;

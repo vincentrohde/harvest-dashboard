@@ -3,13 +3,13 @@ import { useEffect } from 'react';
 import moment from 'moment';
 
 // Hooks
-import { usePrevious } from '../../../../hooks/utils/usePrevious/usePrevious';
+import { usePrevious } from '@/hooks/utils/usePrevious/usePrevious';
 
 // Services
-import { timeService } from '../../../../lib/TimeService/TimeService';
+import { timeService } from '@/services/TimeService/TimeService';
 
 // Types
-import { FiltersInterface } from '../../../../types/Filters';
+import { FiltersInterface } from '@/types/Filters';
 
 export const usePresetDateRange = (preset: string, action: Function) => {
     const currentDay = moment().format('DD-MM-YYYY');

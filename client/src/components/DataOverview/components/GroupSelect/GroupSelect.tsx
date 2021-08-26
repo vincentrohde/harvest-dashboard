@@ -2,10 +2,10 @@
 import React from 'react';
 
 // Components
-import DropDown from '../../../DropDown/DropDown';
+import DropDown from '@/components/DropDown/DropDown';
 
 // Services
-import { semanticUiService } from '../../../../lib/SemanticUiService/SemanticUiService';
+import { semanticUiService } from '@/services/SemanticUiService/SemanticUiService';
 
 // Types
 import { GroupSelectProps } from './GroupSelect.types';
