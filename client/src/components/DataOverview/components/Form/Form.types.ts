@@ -1,4 +1,4 @@
-import { onChangeHandler } from '../../../../types/components/SemanticInput';
+import { onChangeHandler } from '@/types/components/SemanticInput';
 import { timeUnit } from '@/services/TimeService/TimeService.types';
 import { group, groups } from '../../DataOverview.types';
 

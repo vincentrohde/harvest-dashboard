@@ -1,6 +1,6 @@
 // Types
 import { FormInputProps } from '../FormInput.types';
-import { ShallowSubmissionEntryInterface } from '../../../../types/TimeEntry';
+import { ShallowSubmissionEntryInterface } from '@/types/TimeEntry';
 import { SelectOptionsList } from '@/services/SemanticUiService/SemanticUiService';
 
 export interface ProjectProps extends FormInputProps {

@@ -23,8 +23,8 @@ import { useErrorCheck } from './hooks/useErrorCheck/useErrorCheck';
 
 // Types
 import { EditFormProps, EditFormEntry } from './EditForm.types';
-import { TimeEntrySubmissionInterface } from '../../types/TimeEntry';
-import { onChangeHandler } from '../../types/components/SemanticInput';
+import { TimeEntrySubmissionInterface } from '@/types/TimeEntry';
+import { onChangeHandler } from '@/types/components/SemanticInput';
 
 const EditForm = ({
     data,

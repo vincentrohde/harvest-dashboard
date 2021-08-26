@@ -6,7 +6,7 @@ import { backendService } from '@/services/BackendService/BackendService';
 import { errorService } from '@/services/ErrorService/ErrorService';
 
 // Types
-import { projectsType } from '../../../../types/Project';
+import { projectsType } from '@/types/Project';
 
 export const useGetProjects = (filterApiData: Function, addProjects: Function) => {
     const [isProjectsLoaded, setIsProjectsLoaded] = useState(false);

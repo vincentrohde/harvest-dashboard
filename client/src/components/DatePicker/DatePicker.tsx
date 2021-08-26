@@ -17,8 +17,8 @@ import { updateDateRange } from '@/stores/actions/filters';
 import { dateRangeFilterSelector } from '@/stores/selectors/filters';
 
 // Types
-import { FiltersInterface } from '../../types/Filters';
-import { onChangeHandler } from '../../types/components/SemanticInput';
+import { FiltersInterface } from '@/types/Filters';
+import { onChangeHandler } from '@/types/components/SemanticInput';
 import { DatePickerProps } from './DatePicker.types';
 
 // Stylings

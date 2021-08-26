@@ -1,4 +1,4 @@
-import { ShallowSubmissionEntryInterface, TimeEntrySubmissionInterface } from '../../types/TimeEntry';
+import { ShallowSubmissionEntryInterface, TimeEntrySubmissionInterface } from '@/types/TimeEntry';
 
 export interface EditFormEntry extends ShallowSubmissionEntryInterface {
     id?: number;

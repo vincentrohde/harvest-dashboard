@@ -21,7 +21,7 @@ import Chart from './components/Chart/Chart';
 
 // Types
 import { TasksByHoursProps } from './TasksByHours.types';
-import { tasksByHours } from '../../types/Task';
+import { tasksByHours } from '@/types/Task';
 
 const TasksByHours = ({ timeEntries }: TasksByHoursProps) => {
     let data = {};

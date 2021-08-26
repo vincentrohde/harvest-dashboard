@@ -7,8 +7,8 @@ import { projectsSortService } from '@/services/ProjectsSortService/ProjectsSort
 import { useIsNewStateDifferent } from '@/hooks/useIsNewStateDifferent/useIsNewStateDifferent';
 
 // Types
-import { timeEntriesType } from '../../types/TimeEntry';
-import { projectsByHours } from '../../types/Project';
+import { timeEntriesType } from '@/types/TimeEntry';
+import { projectsByHours } from '@/types/Project';
 
 export const useTasksByHours = (timeEntries: timeEntriesType | undefined) => {
     const [projectsByHours, setTasksByHours] = useState<projectsByHours>([]);

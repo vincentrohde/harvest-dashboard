@@ -2,7 +2,7 @@
 import { objectService } from '@/services/ObjectService/ObjectService';
 
 // Types
-import { TimeEntryInterface } from '../../types/TimeEntry';
+import { TimeEntryInterface } from '@/types/TimeEntry';
 
 // Action Types
 import {
