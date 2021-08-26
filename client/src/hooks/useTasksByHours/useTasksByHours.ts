@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 
 // Services
-import { tasksSortService } from '../../lib/TasksSortService/TasksSortService';
+import { tasksSortService } from '@services/TasksSortService/TasksSortService';
 
 // Hooks
-import { useIsNewStateDifferent } from '../useIsNewStateDifferent/useIsNewStateDifferent';
+import { useIsNewStateDifferent } from '@hooks/useIsNewStateDifferent/useIsNewStateDifferent';
 
 // Types
 import { timeEntriesType } from '../../types/TimeEntry';
