@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 import moment from 'moment';
 
 // Services
-import { backendService } from '../../lib/BackendService/BackendService';
-import { timeService } from '../../lib/TimeService/TimeService';
+import { backendService } from '@services/BackendService/BackendService';
+import { timeService } from '@services/TimeService/TimeService';
 
 // Components
-import EditForm from '../EditForm/EditForm';
+import EditForm from '@components/EditForm/EditForm';
 import MetaData from './components/MetaData/MetaData';
 import Actions from './components/Actions/Actions';
 import Time from './components/Time/Time';
