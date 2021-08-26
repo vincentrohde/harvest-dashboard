@@ -1,6 +1,6 @@
 // Services
-import { tasksSortService } from '../../../../lib/TasksSortService/TasksSortService';
-import { projectsSortService } from '../../../../lib/ProjectsSortService/ProjectsSortService';
+import { tasksSortService } from '@services/TasksSortService/TasksSortService';
+import { projectsSortService } from '@services/ProjectsSortService/ProjectsSortService';
 
 // Types
 import { getByHours } from './useGetByHours.types';

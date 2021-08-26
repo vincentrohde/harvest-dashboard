@@ -1,24 +1,24 @@
 // Libs
 import React, { useState } from 'react';
 import { Grid } from 'semantic-ui-react';
+import { connect } from 'react-redux';
 
 // Components
 import Form from './components/Form/Form';
 import Chart from './components/Chart/Chart';
-import TabContainer from '../presentation/TabContainer/TabContainer';
+import TabContainer from '@components/presentation/TabContainer/TabContainer';
 
 // Services
-import { timeService } from '../../lib/TimeService/TimeService';
+import { timeService } from '@services/TimeService/TimeService';
 
 // Hooks
 import { useChartData } from './hooks/useChartData/useChartData';
 
 // Redux
-import { connect } from 'react-redux';
-import { timeEntriesSelector } from '../../stores/selectors/timeEntries';
+import { timeEntriesSelector } from '@redux/selectors/timeEntries';
 
 // Types
-import { timeUnit } from '../../lib/TimeService/TimeService.types';
+import { timeUnit } from '@services/TimeService/TimeService.types';
 import { DataOverviewProps, group, groups } from './DataOverview.types';
 import { onChangeHandler } from '../../types/components/SemanticInput';
 

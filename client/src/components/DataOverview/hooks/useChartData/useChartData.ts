@@ -2,13 +2,13 @@
 import { useState, useEffect } from 'react';
 
 // Services
-import { timeService } from '../../../../lib/TimeService/TimeService';
+import { timeService } from '@services/TimeService/TimeService';
 
 // Colors
 import { dataColors } from '../../../../variables/colors';
 
 // Hooks
-import { useTimeEntriesByTimeUnit } from '../../../../hooks/useTimeEntriesByTimeUnit/useTimeEntriesByTimeUnit';
+import { useTimeEntriesByTimeUnit } from '@hooks/useTimeEntriesByTimeUnit/useTimeEntriesByTimeUnit';
 import { useGroupLabel } from '../useGroupLabel/useGroupLabel';
 import { useGetByHours } from '../useGetByHours/useGetByHours';
 
@@ -16,7 +16,7 @@ import { useGetByHours } from '../useGetByHours/useGetByHours';
 import { DataSet, byHoursList, byHours, byHoursItem } from './useChartData.types';
 import { group } from '../../DataOverview.types';
 import { timeEntriesType } from '../../../../types/TimeEntry';
-import { timeUnit } from '../../../../lib/TimeService/TimeService.types';
+import { timeUnit } from '@services/TimeService/TimeService.types';
 
 export const useChartData = (timeEntries: timeEntriesType | undefined, group: group, timeUnit: timeUnit) => {
     const [chartData, setChartData] = useState<Chart.ChartData>({});
