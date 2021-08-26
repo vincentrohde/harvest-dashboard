@@ -6,7 +6,7 @@ import { Grid } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 
 // Hooks
-import { useTasksByHours } from '@hooks/useTasksByHours/useTasksByHours';
+import { useTasksByHours } from '@/hooks/useTasksByHours/useTasksByHours';
 
 // Services
 import { objectService } from '@/services/ObjectService/ObjectService';

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { projectsSortService } from '@/services/ProjectsSortService/ProjectsSortService';
 
 // Hooks
-import { useIsNewStateDifferent } from '@hooks/useIsNewStateDifferent/useIsNewStateDifferent';
+import { useIsNewStateDifferent } from '@/hooks/useIsNewStateDifferent/useIsNewStateDifferent';
 
 // Types
 import { timeEntriesType } from '../../types/TimeEntry';

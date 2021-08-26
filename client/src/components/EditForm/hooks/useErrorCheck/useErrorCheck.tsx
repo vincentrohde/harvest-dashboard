@@ -2,8 +2,8 @@
 import { useState, useEffect } from 'react';
 
 // Hooks
-import { usePrevious } from '@hooks/utils/usePrevious/usePrevious';
-import { useDebounce } from '@hooks/utils/useDebounce/useDebounce';
+import { usePrevious } from '@/hooks/utils/usePrevious/usePrevious';
+import { useDebounce } from '@/hooks/utils/useDebounce/useDebounce';
 
 // Services
 import { objectService } from '@/services/ObjectService/ObjectService';

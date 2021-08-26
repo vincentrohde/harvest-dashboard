@@ -8,7 +8,7 @@ import { timeService } from '@/services/TimeService/TimeService';
 import { dataColors } from '../../../../variables/colors';
 
 // Hooks
-import { useTimeEntriesByTimeUnit } from '@hooks/useTimeEntriesByTimeUnit/useTimeEntriesByTimeUnit';
+import { useTimeEntriesByTimeUnit } from '@/hooks/useTimeEntriesByTimeUnit/useTimeEntriesByTimeUnit';
 import { useGroupLabel } from '../useGroupLabel/useGroupLabel';
 import { useGetByHours } from '../useGetByHours/useGetByHours';
 

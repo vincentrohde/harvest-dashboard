@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { tasksSortService } from '@/services/TasksSortService/TasksSortService';
 
 // Hooks
-import { useIsNewStateDifferent } from '@hooks/useIsNewStateDifferent/useIsNewStateDifferent';
+import { useIsNewStateDifferent } from '@/hooks/useIsNewStateDifferent/useIsNewStateDifferent';
 
 // Types
 import { timeEntriesType } from '../../types/TimeEntry';
