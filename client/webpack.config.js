@@ -35,11 +35,12 @@ module.exports = {
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.json', '.scss'],
         alias: {
-            "@services": path.resolve(__dirname, './src/lib/'),
+            "@": path.resolve(__dirname, './src/'),
+            "@services": path.resolve(__dirname, './src/services/'),
             "@components": path.resolve(__dirname, './src/components/'),
             "@redux": path.resolve(__dirname, './src/stores/'),
             "@hooks": path.resolve(__dirname, './src/hooks/'),
-            "@types": path.resolve(__dirname, './src/types/')
+            "Types": path.resolve(__dirname, './src/types/')
         },
     },
 

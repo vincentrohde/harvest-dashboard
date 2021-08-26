@@ -1,8 +1,9 @@
 System.config({
     "paths": {
-        "@services": "./src/lib/",
+        "@": "./src/",
+        "@services": "./src/services/",
         "@components": "./src/components/",
         "@hooks": "./src/hooks/",
-        "@types": "./interfaces/"
+        "Types": "./types/"
     }
 });

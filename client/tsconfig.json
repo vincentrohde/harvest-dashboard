@@ -2,11 +2,12 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
-            "@services/*": ["src/lib/*"],
+            "@/*": ["src/*"],
+            "@services/*": ["src/services/*"],
             "@components/*": ["src/components/*"],
             "@redux/*": ["src/stores/*"],
             "@hooks/*": ["src/hooks/*"],
-            "@types/*": ["src/types/*"]
+            "Types/*": ["src/types/*"]
         },
         "allowSyntheticDefaultImports": true,
         "noFallthroughCasesInSwitch": true,
