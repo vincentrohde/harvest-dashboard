@@ -6,17 +6,17 @@ import { Grid } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 
 // Hooks
-import { useTasksByHours } from '../../hooks/useTasksByHours/useTasksByHours';
+import { useTasksByHours } from '@hooks/useTasksByHours/useTasksByHours';
 
 // Services
-import { objectService } from '../../lib/ObjectService/ObjectService';
-import { timeEntriesSelector } from '../../stores/selectors/timeEntries';
+import { objectService } from '@services/ObjectService/ObjectService';
+import { timeEntriesSelector } from '@redux/selectors/timeEntries';
 
 // Variables
 import { dataColors } from '../../variables/colors';
 
 // Components
-import TabContainer from '../presentation/TabContainer/TabContainer';
+import TabContainer from '@components/presentation/TabContainer/TabContainer';
 import Chart from './components/Chart/Chart';
 
 // Types
