@@ -13,7 +13,7 @@ import { objectService } from '@/services/ObjectService/ObjectService';
 import { timeEntriesSelector } from '@/stores/selectors/timeEntries';
 
 // Variables
-import { dataColors } from '../../variables/colors';
+import { dataColors } from '@/variables/colors';
 
 // Components
 import TabContainer from '@/components/presentation/TabContainer/TabContainer';

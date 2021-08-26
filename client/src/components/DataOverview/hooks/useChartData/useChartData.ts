@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { timeService } from '@/services/TimeService/TimeService';
 
 // Colors
-import { dataColors } from '../../../../variables/colors';
+import { dataColors } from '@/variables/colors';
 
 // Hooks
 import { useTimeEntriesByTimeUnit } from '@/hooks/useTimeEntriesByTimeUnit/useTimeEntriesByTimeUnit';
