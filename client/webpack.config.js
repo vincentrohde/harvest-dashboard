@@ -37,6 +37,7 @@ module.exports = {
         alias: {
             "@services": path.resolve(__dirname, './src/lib/'),
             "@components": path.resolve(__dirname, './src/components/'),
+            "@redux": path.resolve(__dirname, './src/stores/'),
             "@hooks": path.resolve(__dirname, './src/hooks/'),
             "@types": path.resolve(__dirname, './src/types/')
         },

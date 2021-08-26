@@ -4,6 +4,7 @@
         "paths": {
             "@services/*": ["src/lib/*"],
             "@components/*": ["src/components/*"],
+            "@redux/*": ["src/stores/*"],
             "@hooks/*": ["src/hooks/*"],
             "@types/*": ["src/types/*"]
         },
