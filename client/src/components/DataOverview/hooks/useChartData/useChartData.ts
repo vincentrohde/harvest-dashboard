@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 
 // Services
-import { timeService } from '@services/TimeService/TimeService';
+import { timeService } from '@/services/TimeService/TimeService';
 
 // Colors
 import { dataColors } from '../../../../variables/colors';
@@ -16,7 +16,7 @@ import { useGetByHours } from '../useGetByHours/useGetByHours';
 import { DataSet, byHoursList, byHours, byHoursItem } from './useChartData.types';
 import { group } from '../../DataOverview.types';
 import { timeEntriesType } from '../../../../types/TimeEntry';
-import { timeUnit } from '@services/TimeService/TimeService.types';
+import { timeUnit } from '@/services/TimeService/TimeService.types';
 
 export const useChartData = (timeEntries: timeEntriesType | undefined, group: group, timeUnit: timeUnit) => {
     const [chartData, setChartData] = useState<Chart.ChartData>({});

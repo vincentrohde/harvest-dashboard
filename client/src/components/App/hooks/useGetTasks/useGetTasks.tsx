@@ -2,8 +2,8 @@
 import { useEffect, useState } from 'react';
 
 // Services
-import { backendService } from '@services/BackendService/BackendService';
-import { errorService } from '@services/ErrorService/ErrorService';
+import { backendService } from '@/services/BackendService/BackendService';
+import { errorService } from '@/services/ErrorService/ErrorService';
 
 // Types
 import { tasksType } from '../../../../types/Task';

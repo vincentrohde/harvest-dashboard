@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 // Services
-import { tasksSortService } from '@services/TasksSortService/TasksSortService';
+import { tasksSortService } from '@/services/TasksSortService/TasksSortService';
 
 // Hooks
 import { useIsNewStateDifferent } from '@hooks/useIsNewStateDifferent/useIsNewStateDifferent';

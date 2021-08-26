@@ -8,7 +8,7 @@ import Preset from './components/Preset/Preset';
 import DateRange from './components/DateRange/DateRange';
 
 // Services
-import { timeService } from '@services/TimeService/TimeService';
+import { timeService } from '@/services/TimeService/TimeService';
 
 import { usePresetDateRange } from './hooks/usePresetDateRange/usePresetDateRange';
 

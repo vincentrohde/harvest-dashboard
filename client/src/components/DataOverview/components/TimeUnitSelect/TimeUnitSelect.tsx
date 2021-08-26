@@ -5,8 +5,8 @@ import React from 'react';
 import DropDown from '@components/DropDown/DropDown';
 
 // Services
-import { timeService } from '@services/TimeService/TimeService';
-import { semanticUiService } from '@services/SemanticUiService/SemanticUiService';
+import { timeService } from '@/services/TimeService/TimeService';
+import { semanticUiService } from '@/services/SemanticUiService/SemanticUiService';
 
 // Types
 import { TimeUnitSelectProps } from './TimeUnitSelect.types';

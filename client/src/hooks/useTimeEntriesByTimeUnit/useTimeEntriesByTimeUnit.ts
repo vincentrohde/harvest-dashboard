@@ -2,11 +2,11 @@
 import { useState, useEffect } from 'react';
 
 // Services
-import { timeService } from '@services/TimeService/TimeService';
+import { timeService } from '@/services/TimeService/TimeService';
 
 // Types
 import { timeEntriesType } from '../../types/TimeEntry';
-import { timeUnit } from '@services/TimeService/TimeService.types';
+import { timeUnit } from '@/services/TimeService/TimeService.types';
 
 export const useTimeEntriesByTimeUnit = (timeEntries: timeEntriesType | undefined, timeUnit: timeUnit) => {
     const [sortedTimeEntries, setSortedTimeEntries] = useState<timeEntriesType[]>([]);

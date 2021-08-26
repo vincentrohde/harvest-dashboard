@@ -5,7 +5,7 @@ import React from 'react';
 import DropDown from '@components/DropDown/DropDown';
 
 // Services
-import { semanticUiService } from '@services/SemanticUiService/SemanticUiService';
+import { semanticUiService } from '@/services/SemanticUiService/SemanticUiService';
 
 // Types
 import { GroupSelectProps } from './GroupSelect.types';

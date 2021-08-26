@@ -1,5 +1,5 @@
 // Services
-import { objectService } from '@services/ObjectService/ObjectService';
+import { objectService } from '@/services/ObjectService/ObjectService';
 
 // Types
 import { TimeEntryInterface } from '../../types/TimeEntry';

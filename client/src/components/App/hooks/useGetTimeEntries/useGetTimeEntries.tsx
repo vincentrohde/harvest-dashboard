@@ -2,9 +2,9 @@
 import { useEffect } from 'react';
 
 // Services
-import { objectService } from '@services/ObjectService/ObjectService';
-import { backendService } from '@services/BackendService/BackendService';
-import { errorService } from '@services/ErrorService/ErrorService';
+import { objectService } from '@/services/ObjectService/ObjectService';
+import { backendService } from '@/services/BackendService/BackendService';
+import { errorService } from '@/services/ErrorService/ErrorService';
 
 // Hooks
 import { usePrevious } from '@hooks/utils/usePrevious/usePrevious';

@@ -9,7 +9,7 @@ import Chart from './components/Chart/Chart';
 import TabContainer from '@components/presentation/TabContainer/TabContainer';
 
 // Services
-import { timeService } from '@services/TimeService/TimeService';
+import { timeService } from '@/services/TimeService/TimeService';
 
 // Hooks
 import { useChartData } from './hooks/useChartData/useChartData';
@@ -18,7 +18,7 @@ import { useChartData } from './hooks/useChartData/useChartData';
 import { timeEntriesSelector } from '@redux/selectors/timeEntries';
 
 // Types
-import { timeUnit } from '@services/TimeService/TimeService.types';
+import { timeUnit } from '@/services/TimeService/TimeService.types';
 import { DataOverviewProps, group, groups } from './DataOverview.types';
 import { onChangeHandler } from '../../types/components/SemanticInput';
 
