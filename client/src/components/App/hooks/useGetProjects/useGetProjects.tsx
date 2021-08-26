@@ -2,8 +2,8 @@
 import { useEffect, useState } from 'react';
 
 // Services
-import { backendService } from '../../../../lib/BackendService/BackendService';
-import { errorService } from '../../../../lib/ErrorService/ErrorService';
+import { backendService } from '@services/BackendService/BackendService';
+import { errorService } from '@services/ErrorService/ErrorService';
 
 // Types
 import { projectsType } from '../../../../types/Project';
