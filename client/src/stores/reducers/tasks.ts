@@ -1,6 +1,6 @@
 import {
     ADD_TASKS
-} from '../actions/tasks';
+} from '@redux/actions/tasks';
 
 export const tasks = (state = [], action: any) => {
     switch (action.type) {

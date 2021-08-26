@@ -1,5 +1,5 @@
 // Services
-import { objectService } from '../../lib/ObjectService/ObjectService';
+import { objectService } from '@services/ObjectService/ObjectService';
 
 // Types
 import { TimeEntryInterface } from '../../types/TimeEntry';
@@ -11,7 +11,7 @@ import {
     UPDATE_EDIT_ENTRY,
     UPDATE_TIME_ENTRY,
     DELETE_TIME_ENTRY
-} from '../actions/timeEntries';
+} from '@redux/actions/timeEntries';
 
 export const timeEntries = (state: any = {}, action: any) => {
     let timeEntry: TimeEntryInterface;

@@ -1,11 +1,11 @@
 // Services
-import { timeService } from '../../lib/TimeService/TimeService';
+import { timeService } from '@services/TimeService/TimeService';
 
 // Actions
 import {
     SET_FILTERS,
     UPDATE_DATE_RANGE
-} from '../actions/filters';
+} from '@redux/actions/filters';
 
 // Types
 import { FiltersInterface } from '../../types/Filters';
