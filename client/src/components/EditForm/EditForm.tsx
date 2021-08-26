@@ -6,14 +6,14 @@ import Form from './components/Form/Form';
 
 // Redux
 import { connect } from 'react-redux';
-import { editFormOptionsSelector } from '../../stores/selectors';
-import { addTimeEntry, updateTimeEntry } from '../../stores/actions/timeEntries';
+import { editFormOptionsSelector } from '@redux/selectors';
+import { addTimeEntry, updateTimeEntry } from '@redux/actions/timeEntries';
 
 // Services
-import { semanticUiService } from '../../lib/SemanticUiService/SemanticUiService';
-import { backendService } from '../../lib/BackendService/BackendService';
-import { timeService } from '../../lib/TimeService/TimeService';
-import { apiFormatService } from '../../lib/ApiFormatService/ApiFormatService';
+import { semanticUiService } from '@services/SemanticUiService/SemanticUiService';
+import { backendService } from '@services/BackendService/BackendService';
+import { timeService } from '@services/TimeService/TimeService';
+import { apiFormatService } from '@services/ApiFormatService/ApiFormatService';
 
 // Data
 import { defaultData } from './defaultData';

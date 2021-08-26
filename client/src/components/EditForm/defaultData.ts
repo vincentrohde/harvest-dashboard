@@ -1,4 +1,4 @@
-import { timeService } from '../../lib/TimeService/TimeService';
+import { timeService } from '@services/TimeService/TimeService';
 
 export const defaultData = {
     notes: '',
