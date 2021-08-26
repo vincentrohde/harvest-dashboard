@@ -6,8 +6,8 @@ import TimeEntry from '../TimeEntry/TimeEntry';
 
 // Redux
 import { connect } from 'react-redux';
-import { deleteTimeEntry } from '@redux/actions/timeEntries';
-import { timeEntriesSelector } from '@redux/selectors/timeEntries';
+import { deleteTimeEntry } from '@/stores/actions/timeEntries';
+import { timeEntriesSelector } from '@/stores/selectors/timeEntries';
 
 // Types
 import { TimeEntriesProps } from './TimeEntries.types';

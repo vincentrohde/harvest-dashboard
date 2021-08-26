@@ -3,7 +3,7 @@ import React from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
 
 // Store
-import store from '@redux/store';
+import store from '@/stores/store';
 
 // Types
 import { ProviderProps } from './Provider.types';

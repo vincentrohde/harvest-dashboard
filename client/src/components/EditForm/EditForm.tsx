@@ -6,8 +6,8 @@ import Form from './components/Form/Form';
 
 // Redux
 import { connect } from 'react-redux';
-import { editFormOptionsSelector } from '@redux/selectors';
-import { addTimeEntry, updateTimeEntry } from '@redux/actions/timeEntries';
+import { editFormOptionsSelector } from '@/stores/selectors';
+import { addTimeEntry, updateTimeEntry } from '@/stores/actions/timeEntries';
 
 // Services
 import { semanticUiService } from '@/services/SemanticUiService/SemanticUiService';

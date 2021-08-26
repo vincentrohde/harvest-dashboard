@@ -6,12 +6,12 @@ import { Grid } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 
 // Actions
-import { addTimeEntries } from '@redux/actions/timeEntries';
-import { addProjects } from '@redux/actions/projects';
-import { addTasks } from '@redux/actions/tasks';
+import { addTimeEntries } from '@/stores/actions/timeEntries';
+import { addProjects } from '@/stores/actions/projects';
+import { addTasks } from '@/stores/actions/tasks';
 
 // Selectors
-import { filtersSelector } from '@redux/selectors/filters';
+import { filtersSelector } from '@/stores/selectors/filters';
 
 // Components
 import TasksByHours from '@/components/TasksByHours/TasksByHours';

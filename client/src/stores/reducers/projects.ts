@@ -1,6 +1,6 @@
 import {
     ADD_PROJECTS
-} from '@redux/actions/projects';
+} from '@/stores/actions/projects';
 
 export const projects = (state = [], action: any) => {
     switch (action.type) {

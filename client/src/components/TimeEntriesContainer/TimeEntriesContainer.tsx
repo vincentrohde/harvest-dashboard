@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import TimeEntries from '../TimeEntries/TimeEntries';
 
 // Redux
-import { timeEntriesSelector } from '@redux/selectors/timeEntries';
+import { timeEntriesSelector } from '@/stores/selectors/timeEntries';
 
 // Hooks
 import { useTotalHoursAndMinutes } from './hooks/useTotalHoursAndMinutes/useTotalHoursAndMinutes';

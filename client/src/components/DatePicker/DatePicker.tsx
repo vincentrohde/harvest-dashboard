@@ -13,8 +13,8 @@ import { timeService } from '@/services/TimeService/TimeService';
 import { usePresetDateRange } from './hooks/usePresetDateRange/usePresetDateRange';
 
 // Redux
-import { updateDateRange } from '@redux/actions/filters';
-import { dateRangeFilterSelector } from '@redux/selectors/filters';
+import { updateDateRange } from '@/stores/actions/filters';
+import { dateRangeFilterSelector } from '@/stores/selectors/filters';
 
 // Types
 import { FiltersInterface } from '../../types/Filters';

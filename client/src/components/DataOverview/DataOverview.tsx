@@ -15,7 +15,7 @@ import { timeService } from '@/services/TimeService/TimeService';
 import { useChartData } from './hooks/useChartData/useChartData';
 
 // Redux
-import { timeEntriesSelector } from '@redux/selectors/timeEntries';
+import { timeEntriesSelector } from '@/stores/selectors/timeEntries';
 
 // Types
 import { timeUnit } from '@/services/TimeService/TimeService.types';

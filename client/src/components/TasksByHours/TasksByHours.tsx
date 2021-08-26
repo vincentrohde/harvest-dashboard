@@ -10,7 +10,7 @@ import { useTasksByHours } from '@/hooks/useTasksByHours/useTasksByHours';
 
 // Services
 import { objectService } from '@/services/ObjectService/ObjectService';
-import { timeEntriesSelector } from '@redux/selectors/timeEntries';
+import { timeEntriesSelector } from '@/stores/selectors/timeEntries';
 
 // Variables
 import { dataColors } from '../../variables/colors';

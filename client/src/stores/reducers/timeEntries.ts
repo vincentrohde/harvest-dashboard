@@ -11,7 +11,7 @@ import {
     UPDATE_EDIT_ENTRY,
     UPDATE_TIME_ENTRY,
     DELETE_TIME_ENTRY
-} from '@redux/actions/timeEntries';
+} from '@/stores/actions/timeEntries';
 
 export const timeEntries = (state: any = {}, action: any) => {
     let timeEntry: TimeEntryInterface;

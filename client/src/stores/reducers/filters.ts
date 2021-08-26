@@ -5,7 +5,7 @@ import { timeService } from '@/services/TimeService/TimeService';
 import {
     SET_FILTERS,
     UPDATE_DATE_RANGE
-} from '@redux/actions/filters';
+} from '@/stores/actions/filters';
 
 // Types
 import { FiltersInterface } from '../../types/Filters';
