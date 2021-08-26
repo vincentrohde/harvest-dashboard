@@ -16,7 +16,7 @@ import { timeEntriesSelector } from '@redux/selectors/timeEntries';
 import { dataColors } from '../../variables/colors';
 
 // Components
-import TabContainer from '@components/presentation/TabContainer/TabContainer';
+import TabContainer from '@/components/presentation/TabContainer/TabContainer';
 import Chart from './components/Chart/Chart';
 
 // Types

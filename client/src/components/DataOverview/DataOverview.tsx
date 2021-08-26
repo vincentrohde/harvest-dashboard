@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 // Components
 import Form from './components/Form/Form';
 import Chart from './components/Chart/Chart';
-import TabContainer from '@components/presentation/TabContainer/TabContainer';
+import TabContainer from '@/components/presentation/TabContainer/TabContainer';
 
 // Services
 import { timeService } from '@/services/TimeService/TimeService';

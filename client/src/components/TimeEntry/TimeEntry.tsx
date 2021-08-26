@@ -7,7 +7,7 @@ import { backendService } from '@/services/BackendService/BackendService';
 import { timeService } from '@/services/TimeService/TimeService';
 
 // Components
-import EditForm from '@components/EditForm/EditForm';
+import EditForm from '@/components/EditForm/EditForm';
 import MetaData from './components/MetaData/MetaData';
 import Actions from './components/Actions/Actions';
 import Time from './components/Time/Time';

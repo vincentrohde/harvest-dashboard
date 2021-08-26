@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Components
-import DropDown from '@components/DropDown/DropDown';
+import DropDown from '@/components/DropDown/DropDown';
 
 // Data
 import { dateRanges } from './dateRanges';

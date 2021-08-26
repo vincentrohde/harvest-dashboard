@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Components
-import DropDown from '@components/DropDown/DropDown';
+import DropDown from '@/components/DropDown/DropDown';
 
 // Services
 import { semanticUiService } from '@/services/SemanticUiService/SemanticUiService';

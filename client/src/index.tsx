@@ -3,8 +3,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // Components
-import App from '@components/App/App';
-import Provider from '@components/Provider/Provider';
+import App from '@/components/App/App';
+import Provider from '@/components/Provider/Provider';
 
 // Styles
 import 'semantic-ui-css/semantic.min.css';
