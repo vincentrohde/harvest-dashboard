@@ -1,5 +1,12 @@
 {
     "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@services/*": ["src/lib/*"],
+            "@components/*": ["src/components/*"],
+            "@hooks/*": ["src/hooks/*"],
+            "@types/*": ["src/types/*"]
+        },
         "allowSyntheticDefaultImports": true,
         "noFallthroughCasesInSwitch": true,
         "noUnusedParameters": true,

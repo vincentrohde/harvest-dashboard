@@ -32,9 +32,14 @@ module.exports = {
         path: path.join(__dirname, './dist'),
         filename: '[name].js'
     },
-
     resolve: {
-        extensions: ['.ts', '.tsx', '.js', '.json']
+        extensions: ['.ts', '.tsx', '.js', '.json', '.scss'],
+        alias: {
+            "@services": path.resolve(__dirname, './src/lib/'),
+            "@components": path.resolve(__dirname, './src/components/'),
+            "@hooks": path.resolve(__dirname, './src/hooks/'),
+            "@types": path.resolve(__dirname, './src/types/')
+        },
     },
 
     module: {
