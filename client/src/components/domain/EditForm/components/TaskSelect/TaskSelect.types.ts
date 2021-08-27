@@ -3,7 +3,7 @@ import { FormInputProps } from '../FormInput.types';
 import { ShallowSubmissionEntryInterface } from '@/types/TimeEntry';
 import { SelectOptionsList } from '@/services/SemanticUiService/SemanticUiService';
 
-export interface TaskProps extends FormInputProps{
+export interface TaskSelectProps extends FormInputProps{
     taskId: ShallowSubmissionEntryInterface['task_id'];
     tasks: SelectOptionsList;
 }

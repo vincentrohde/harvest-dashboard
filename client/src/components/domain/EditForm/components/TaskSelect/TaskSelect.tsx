@@ -2,12 +2,12 @@
 import React from 'react';
 
 // Components
-import DropDown from '@/components/presentation/DropDown/DropDown';
+import Select from '@/components/presentation/Select/Select';
 
 // Types
-import { TaskProps } from './Task.types';
+import { TaskSelectProps } from './TaskSelect.types';
 
-const Task = ({taskId, tasks, handleChange}: TaskProps) => (<DropDown
+const TaskSelect = ({taskId, tasks, handleChange}: TaskSelectProps) => (<Select
     label={{
         children: "Task",
         htmlFor: "form-select-control-task"
@@ -20,4 +20,4 @@ const Task = ({taskId, tasks, handleChange}: TaskProps) => (<DropDown
     value={taskId}
 />);
 
-export default Task;
+export default TaskSelect;
