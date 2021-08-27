@@ -2,12 +2,12 @@
 import React from 'react';
 
 // Components
-import DropDown from '@/components/presentation/DropDown/DropDown';
+import Select from '@/components/presentation/Select/Select';
 
 // Types
-import { ProjectProps } from './Project.types';
+import { ProjectSelectProps } from './ProjectSelect.types';
 
-const Project = ({projectId, projects, handleChange}: ProjectProps) => (<DropDown
+const ProjectSelect = ({projectId, projects, handleChange}: ProjectSelectProps) => (<Select
     label={{
         children: "Project",
         htmlFor: "form-select-control-task"
@@ -20,4 +20,4 @@ const Project = ({projectId, projects, handleChange}: ProjectProps) => (<DropDow
     value={projectId}
 />);
 
-export default Project;
+export default ProjectSelect;
