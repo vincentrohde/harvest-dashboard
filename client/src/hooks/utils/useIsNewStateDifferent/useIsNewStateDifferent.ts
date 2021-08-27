@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 // Hooks
 import { usePrevious } from '@/hooks/utils/usePrevious/usePrevious';
 
-export const useIsNewStateDifferent = <T>(state: T) => {
+const useIsNewStateDifferent = <T>(state: T) => {
     const [isNewStateDifferent, setIsNewStateDifferent] = useState(false);
     const prevState = usePrevious(state);
 
@@ -18,3 +18,5 @@ export const useIsNewStateDifferent = <T>(state: T) => {
 
     return isNewStateDifferent;
 }
+
+export default useIsNewStateDifferent;
