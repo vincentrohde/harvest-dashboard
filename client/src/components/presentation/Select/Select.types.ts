@@ -1,4 +1,4 @@
-import { SemanticInputProps } from '@/types/components/SemanticInput';
+import { SemanticInputProps } from '@/types/SemanticInput';
 import { SemanticWIDTHS } from 'semantic-ui-react/dist/commonjs/generic';
 
 export interface SelectTypes extends SemanticInputProps {
