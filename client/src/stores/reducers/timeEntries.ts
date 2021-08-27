@@ -1,5 +1,5 @@
 // Services
-import { objectService } from '@/services/ObjectService/ObjectService';
+import timeEntryService from '@/services/TimeEntryService/TimeEntryService';
 
 // Types
 import { TimeEntryInterface } from '@/types/TimeEntry';
@@ -15,6 +15,7 @@ import {
 
 export const timeEntries = (state: any = {}, action: any) => {
     let timeEntry: TimeEntryInterface;
+    let prevTimeEntries: TimeEntryInterface[];
     switch (action.type) {
         case ADD_TIME_ENTRIES:
             const timeEntries = action.payload;
@@ -24,12 +25,10 @@ export const timeEntries = (state: any = {}, action: any) => {
             };
         case ADD_TIME_ENTRY:
             timeEntry = action.payload;
+            prevTimeEntries = [...state.timeEntries];
             return {
                 ...state,
-                timeEntries: [
-                    ...state.timeEntries,
-                    timeEntry
-                ]
+                timeEntries: timeEntryService.addTimeEntry(timeEntry, prevTimeEntries)
             };
         case UPDATE_EDIT_ENTRY:
             return {
@@ -38,19 +37,17 @@ export const timeEntries = (state: any = {}, action: any) => {
             };
         case UPDATE_TIME_ENTRY:
             timeEntry = action.payload;
-            const updatedEntries = objectService.updateObjectInArray(state.timeEntries, timeEntry);
+            prevTimeEntries = [...state.timeEntries];
             return {
                 ...state,
-                timeEntries: [...updatedEntries]
+                timeEntries: timeEntryService.updateTimeEntry(timeEntry, prevTimeEntries)
             };
         case DELETE_TIME_ENTRY:
             const id = action.payload;
-            const updatedTimeEntries = state.timeEntries.filter((entry: TimeEntryInterface) => {
-                return entry.id !== id;
-            });
+            prevTimeEntries = [...state.timeEntries];
             return {
                 ...state,
-                timeEntries: updatedTimeEntries
+                timeEntries: timeEntryService.deleteTimeEntry(id, prevTimeEntries)
             }
         default:
             return state
