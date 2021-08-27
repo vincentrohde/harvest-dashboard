@@ -63,7 +63,7 @@ class TimeService {
         return moment().format(format);
     }
 
-    compareByTimeUnit(aDay: string, bDay: string, timeUnit: timeUnit) {
+    compareByTimeUnit(aDay: string, bDay: string, timeUnit: timeUnit = 'day') {
         const isBefore = moment(aDay).isBefore(bDay, timeUnit);
         const isAfter = moment(aDay).isAfter(bDay, timeUnit);
 
