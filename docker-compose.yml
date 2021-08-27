@@ -1,13 +1,28 @@
 version: '3.7'
 services:
   dashboard:
+    build: ./client
+    image: dashboard
+    container_name: dashboard
     depends_on:
       - api-server
+    networks:
+      - nginx.docker
+    ports:
+      - "3000:80"
     restart: always
   api-server:
     build: ./server
     command: nodemon app.js
     container_name: api-server
+    networks:
+      - nginx.docker
     volumes:
       - ./server:/app
+    ports:
+      - "8080:8080"
     restart: always
+networks:
+  nginx.docker:
+    name: nginx.docker
+    external: true
