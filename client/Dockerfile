@@ -1,4 +1,4 @@
-FROM node:12-alpine as build-service
+FROM node:14 as build-service
 # Create app directory
 WORKDIR /app
 COPY package*.json ./
