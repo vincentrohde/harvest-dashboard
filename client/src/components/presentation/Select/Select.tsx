@@ -1,14 +1,14 @@
 // Libs
 import React from 'react';
-import { Form, Select } from 'semantic-ui-react';
+import { Form, Select as SemanticSelect } from 'semantic-ui-react';
 
 // Types
-import { DropDownTypes } from './DropDown.types';
+import { SelectTypes } from './Select.types';
 
-const DropDown = ({ clearable = false, label, name, onChange, options, placeholder, searchInputId, value, width = 16 }: DropDownTypes) => {
+const Select = ({ clearable = false, label, name, onChange, options, placeholder, searchInputId, value, width = 16 }: SelectTypes) => {
     return (
         <Form.Field
-            control={Select}
+            control={SemanticSelect}
             label={label}
             search
             searchInput={{ id: searchInputId }}
@@ -23,4 +23,4 @@ const DropDown = ({ clearable = false, label, name, onChange, options, placehold
     );
 }
 
-export default DropDown;
+export default Select;
