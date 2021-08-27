@@ -1,16 +1,11 @@
 import {
     ADD_PROJECTS
-} from '../actions/projects';
+} from '@/stores/actions/projects';
 
-export const projects = (state = {}, action: any) => {
-    let projects;
+export const projects = (state = [], action: any) => {
     switch (action.type) {
         case ADD_PROJECTS:
-            projects = action.payload.projects;
-            return {
-                ...state,
-                projects
-            };
+            return [...action.payload];
         default:
             return state
     }

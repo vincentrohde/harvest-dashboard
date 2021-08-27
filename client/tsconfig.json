@@ -1,5 +1,9 @@
 {
     "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"]
+        },
         "allowSyntheticDefaultImports": true,
         "noFallthroughCasesInSwitch": true,
         "noUnusedParameters": true,

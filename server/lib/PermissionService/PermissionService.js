@@ -6,7 +6,7 @@ const READ_ONLY = process.env.READ_ONLY;
 
 class PermissionService {
     handleDataUpdate(success, res) {
-        if (READ_ONLY) {
+        if (READ_ONLY === 'true') {
             expressErrorService.sendReadOnlyErrorResponse(res);
         } else {
             success();

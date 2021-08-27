@@ -16,7 +16,10 @@ module.exports = {
         filename: '[name].js'
     },
     resolve: {
-        extensions: ['.ts', '.tsx', '.js', '.json']
+        extensions: ['.ts', '.tsx', '.js', '.json', '.scss'],
+        alias: {
+            "@": path.resolve(__dirname, './src/')
+        },
     },
     module: {
         rules: [

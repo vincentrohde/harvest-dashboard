@@ -9,7 +9,6 @@ COPY . .
 RUN npm run build
 
 # nginx part
-
 FROM nginx:latest as nginx-server
 RUN mkdir /app
 COPY --from=build-service /app/dist /app

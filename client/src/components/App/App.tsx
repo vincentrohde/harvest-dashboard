@@ -1,17 +1,87 @@
+// Libs
 import React from 'react';
-import { Provider } from 'react-redux';
-import store from '../../stores/store';
-import Entries from '../Entries/Entries';
+import { Grid } from 'semantic-ui-react';
 
+// Redux
+import { connect } from 'react-redux';
+
+// Actions
+import { addTimeEntries } from '@/stores/actions/timeEntries';
+import { addProjects } from '@/stores/actions/projects';
+import { addTasks } from '@/stores/actions/tasks';
+
+// Selectors
+import { filtersSelector } from '@/stores/selectors/filters';
+
+// Components
+import TasksByHours from '@/components/domain/TasksByHours/TasksByHours';
+import DatePicker from '@/components/domain/DatePicker/DatePicker';
+import EditForm from '@/components/domain/EditForm/EditForm';
+import TimeEntriesContainer from '@/components/domain/TimeEntriesContainer/TimeEntriesContainer';
+import DataOverview from '@/components/domain/DataOverview/DataOverview';
+
+// Hooks
+import { useGetTimeEntries } from './hooks/useGetTimeEntries/useGetTimeEntries';
+import { useGetProjects } from './hooks/useGetProjects/useGetProjects';
+import { useGetTasks } from './hooks/useGetTasks/useGetTasks';
+
+// Types
+import { categoriesType } from '@/types/Category';
+import { AppProps } from './App.types';
+
+// Styles
 import './App.scss';
 
-export const App = () => {
-    return (
-        <Provider store={store}>
-            <div className="App">
-                <h1 className="app-title">Harvest Dashboard</h1>
-                <Entries />
-            </div>
-        </Provider>
-    )
+const App = ({
+    filters,
+    addTimeEntries,
+    addProjects,
+    addTasks }: AppProps) => {
+
+    const filterAPIDataForState = (list: categoriesType) => {
+        return list.map(item => {
+            return {
+                id: item.id,
+                name: item.name,
+            }
+        });
+    };
+
+    useGetTasks(filterAPIDataForState, addTasks);
+    useGetProjects(filterAPIDataForState, addProjects);
+    useGetTimeEntries(filters, addTimeEntries);
+
+    return (<section className="App">
+            <h1 className="app-title">Harvest V2 API Client</h1>
+            <Grid>
+                <Grid.Column width={16}>
+                    <DatePicker />
+                </Grid.Column>
+
+                <Grid.Column width={16}>
+                    <EditForm />
+                </Grid.Column>
+
+                <DataOverview />
+
+                <TasksByHours />
+
+                <TimeEntriesContainer />
+
+            </Grid>
+        </section>)
+}
+
+const mapStateToProps = (state: any) => {
+    return {
+        filters: filtersSelector(state)
+    }
 };
+
+const mapDispatchToProps = {
+    addTimeEntries,
+    addProjects,
+    addTasks
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

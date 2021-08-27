@@ -1,16 +1,11 @@
 import {
     ADD_TASKS
-} from '../actions/tasks';
+} from '@/stores/actions/tasks';
 
-export const tasks = (state = {}, action: any) => {
-    let tasks;
+export const tasks = (state = [], action: any) => {
     switch (action.type) {
         case ADD_TASKS:
-            tasks = action.payload.tasks;
-            return {
-                ...state,
-                tasks
-            };
+            return [...action.payload];
         default:
             return state
     }

@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
-const tasksSelector = (state: any) => state.tasks.tasks;
-const projectsSelector = (state: any) => state.projects.projects;
+const tasksSelector = (state: any) => state.tasks;
+const projectsSelector = (state: any) => state.projects;
 
 export const editFormOptionsSelector = createSelector(
     [ tasksSelector, projectsSelector],

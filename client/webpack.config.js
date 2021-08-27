@@ -14,7 +14,7 @@ module.exports = {
         port: 3000,
         proxy: {
             '/api/**': {
-                target: 'http://localhost:8080/api/',
+                target: 'http://localhost:8080/',
                 pathRewrite: { '^/api': '' },
                 secure: false,
                 changeOrigin: true,
@@ -32,9 +32,11 @@ module.exports = {
         path: path.join(__dirname, './dist'),
         filename: '[name].js'
     },
-
     resolve: {
-        extensions: ['.ts', '.tsx', '.js', '.json']
+        extensions: ['.ts', '.tsx', '.js', '.json', '.scss'],
+        alias: {
+            "@": path.resolve(__dirname, './src/')
+        },
     },
 
     module: {
@@ -86,9 +88,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin({
-            multiStep: true
-        }),
+        new webpack.HotModuleReplacementPlugin(),
         new ForkTsCheckerWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: './src/index.html'
