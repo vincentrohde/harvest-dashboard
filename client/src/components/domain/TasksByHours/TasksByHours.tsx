@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { useTasksByHours } from '@/hooks/useTasksByHours/useTasksByHours';
 
 // Services
-import { objectService } from '@/services/ObjectService/ObjectService';
+import objectService from '@/services/ObjectService/ObjectService';
 import { timeEntriesSelector } from '@/stores/selectors/timeEntries';
 
 // Variables

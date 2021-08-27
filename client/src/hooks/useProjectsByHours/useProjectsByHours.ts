@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 // Services
-import { projectsSortService } from '@/services/ProjectsSortService/ProjectsSortService';
+import projectsSortService from '@/services/ProjectsSortService/ProjectsSortService';
 
 // Hooks
 import { useIsNewStateDifferent } from '@/hooks/useIsNewStateDifferent/useIsNewStateDifferent';

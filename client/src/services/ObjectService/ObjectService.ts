@@ -44,4 +44,6 @@ class ObjectService {
     };
 }
 
-export const objectService = new ObjectService();
+const objectService = new ObjectService();
+
+export default objectService;

@@ -51,4 +51,6 @@ class BackendService {
     }
 }
 
-export const backendService = new BackendService();
+const backendService = new BackendService();
+
+export default backendService;

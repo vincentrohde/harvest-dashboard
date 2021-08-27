@@ -6,7 +6,7 @@ import moment from 'moment';
 import { usePrevious } from '@/hooks/utils/usePrevious/usePrevious';
 
 // Services
-import { timeService } from '@/services/TimeService/TimeService';
+import timeService from '@/services/TimeService/TimeService';
 
 // Types
 import { FiltersInterface } from '@/types/Filters';

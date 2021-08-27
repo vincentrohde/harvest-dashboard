@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import moment from 'moment';
 
 // Services
-import { backendService } from '@/services/BackendService/BackendService';
-import { timeService } from '@/services/TimeService/TimeService';
+import backendService from '@/services/BackendService/BackendService';
+import timeService from '@/services/TimeService/TimeService';
 
 // Components
 import EditForm from '@/components/domain/EditForm/EditForm';

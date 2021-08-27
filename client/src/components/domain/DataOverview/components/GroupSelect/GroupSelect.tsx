@@ -5,7 +5,7 @@ import React from 'react';
 import Select from '@/components/presentation/Select/Select';
 
 // Services
-import { semanticUiService } from '@/services/SemanticUiService/SemanticUiService';
+import semanticUiService from '@/services/SemanticUiService/SemanticUiService';
 
 // Types
 import { GroupSelectProps } from './GroupSelect.types';

@@ -1,5 +1,5 @@
 // Services
-import { timeService } from '@/services/TimeService/TimeService';
+import timeService from '@/services/TimeService/TimeService';
 
 // Actions
 import {

@@ -35,4 +35,6 @@ class SemanticUiService {
     }
 }
 
-export const semanticUiService = new SemanticUiService();
+const semanticUiService = new SemanticUiService();
+
+export default semanticUiService;

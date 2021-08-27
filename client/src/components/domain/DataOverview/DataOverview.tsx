@@ -9,7 +9,7 @@ import Chart from './components/Chart/Chart';
 import TabContainer from '@/components/presentation/TabContainer/TabContainer';
 
 // Services
-import { timeService } from '@/services/TimeService/TimeService';
+import timeService from '@/services/TimeService/TimeService';
 
 // Hooks
 import { useChartData } from './hooks/useChartData/useChartData';

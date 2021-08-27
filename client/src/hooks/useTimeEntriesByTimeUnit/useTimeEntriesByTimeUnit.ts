@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 
 // Services
-import { timeService } from '@/services/TimeService/TimeService';
+import timeService from '@/services/TimeService/TimeService';
 
 // Types
 import { timeEntriesType } from '@/types/TimeEntry';

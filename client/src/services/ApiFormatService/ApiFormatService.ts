@@ -1,5 +1,5 @@
 // Libs
-import { timeService } from '@/services/TimeService/TimeService';
+import timeService from '@/services/TimeService/TimeService';
 
 // Types
 import { TimeEntrySubmissionInterface } from '@/types/TimeEntry';
@@ -22,4 +22,6 @@ class ApiFormatService {
     };
 }
 
-export const apiFormatService = new ApiFormatService();
+const apiFormatService = new ApiFormatService();
+
+export default apiFormatService;

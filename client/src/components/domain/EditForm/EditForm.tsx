@@ -10,10 +10,10 @@ import { editFormOptionsSelector } from '@/stores/selectors';
 import { addTimeEntry, updateTimeEntry } from '@/stores/actions/timeEntries';
 
 // Services
-import { semanticUiService } from '@/services/SemanticUiService/SemanticUiService';
-import { backendService } from '@/services/BackendService/BackendService';
-import { timeService } from '@/services/TimeService/TimeService';
-import { apiFormatService } from '@/services/ApiFormatService/ApiFormatService';
+import semanticUiService from '@/services/SemanticUiService/SemanticUiService';
+import backendService from '@/services/BackendService/BackendService';
+import timeService from '@/services/TimeService/TimeService';
+import apiFormatService from '@/services/ApiFormatService/ApiFormatService';
 
 // Data
 import { defaultData } from './defaultData';

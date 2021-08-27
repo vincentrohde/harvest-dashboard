@@ -1,5 +1,7 @@
+// Libs
 import moment from 'moment';
 
+// Types
 import { timeUnit, dateRange } from './TimeService.types';
 
 class TimeService {
@@ -114,4 +116,6 @@ class TimeService {
     };
 }
 
-export const timeService = new TimeService();
+const timeService = new TimeService();
+
+export default timeService;

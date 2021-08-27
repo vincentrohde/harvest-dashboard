@@ -1,8 +1,6 @@
-// Libs
-import { timeEntriesType } from '@/types/TimeEntry';
-
 // Types
 import { tasksByHours } from '@/types/Task';
+import { timeEntriesType } from '@/types/TimeEntry';
 
 class TasksSortService {
     getEntriesWithTask(entries: timeEntriesType): tasksByHours {
@@ -45,4 +43,6 @@ class TasksSortService {
     };
 }
 
-export const tasksSortService = new TasksSortService();
+const tasksSortService = new TasksSortService();
+
+export default tasksSortService;

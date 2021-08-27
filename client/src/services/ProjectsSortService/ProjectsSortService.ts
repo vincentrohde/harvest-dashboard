@@ -45,4 +45,6 @@ class ProjectsSortService {
     };
 }
 
-export const projectsSortService = new ProjectsSortService();
+const projectsSortService = new ProjectsSortService();
+
+export default projectsSortService;
