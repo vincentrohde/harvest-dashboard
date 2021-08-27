@@ -1,11 +1,11 @@
 // Libs
 import React from 'react';
+import { connect } from 'react-redux';
 
 // Components
 import TimeEntry from '../TimeEntry/TimeEntry';
 
 // Redux
-import { connect } from 'react-redux';
 import { deleteTimeEntry } from '@/stores/actions/timeEntries';
 import { timeEntriesSelector } from '@/stores/selectors/timeEntries';
 

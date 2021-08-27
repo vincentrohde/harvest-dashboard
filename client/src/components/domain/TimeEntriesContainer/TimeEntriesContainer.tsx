@@ -4,7 +4,7 @@ import { Grid } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 
 // Components
-import TimeEntries from '../TimeEntries/TimeEntries';
+import TimeEntries from './components/TimeEntries/TimeEntries';
 
 // Redux
 import { timeEntriesSelector } from '@/stores/selectors/timeEntries';

@@ -14,11 +14,11 @@ import { addTasks } from '@/stores/actions/tasks';
 import { filtersSelector } from '@/stores/selectors/filters';
 
 // Components
-import TasksByHours from '@/components/TasksByHours/TasksByHours';
-import DatePicker from '@/components/DatePicker/DatePicker';
-import EditForm from '@/components/EditForm/EditForm';
-import TimeEntriesContainer from '@/components/TimeEntriesContainer/TimeEntriesContainer';
-import DataOverview from '@/components/DataOverview/DataOverview';
+import TasksByHours from '@/components/domain/TasksByHours/TasksByHours';
+import DatePicker from '@/components/domain/DatePicker/DatePicker';
+import EditForm from '@/components/domain/EditForm/EditForm';
+import TimeEntriesContainer from '@/components/domain/TimeEntriesContainer/TimeEntriesContainer';
+import DataOverview from '@/components/domain/DataOverview/DataOverview';
 
 // Hooks
 import { useGetTimeEntries } from './hooks/useGetTimeEntries/useGetTimeEntries';
