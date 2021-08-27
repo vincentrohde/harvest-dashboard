@@ -1,5 +1,5 @@
 prod:
-	@docker-compose up
+	@docker-compose up -d
 down:
 	@docker-compose down
 down-dev:
