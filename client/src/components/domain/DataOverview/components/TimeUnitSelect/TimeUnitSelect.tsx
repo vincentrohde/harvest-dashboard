@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Components
-import DropDown from '@/components/presentation/DropDown/DropDown';
+import Select from '@/components/presentation/Select/Select';
 
 // Services
 import { timeService } from '@/services/TimeService/TimeService';
@@ -13,7 +13,7 @@ import { TimeUnitSelectProps } from './TimeUnitSelect.types';
 
 const TimeUnitSelect = ({ onChange, selectedTimeUnit }: TimeUnitSelectProps) => {
     const { timeUnits } = timeService;
-    return (<DropDown
+    return (<Select
         label={{
             children: "Time Unit",
             htmlFor: "form-select-control-time-unit"

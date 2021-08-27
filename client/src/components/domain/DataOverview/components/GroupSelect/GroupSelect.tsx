@@ -2,7 +2,7 @@
 import React from 'react';
 
 // Components
-import DropDown from '@/components/presentation/DropDown/DropDown';
+import Select from '@/components/presentation/Select/Select';
 
 // Services
 import { semanticUiService } from '@/services/SemanticUiService/SemanticUiService';
@@ -11,7 +11,7 @@ import { semanticUiService } from '@/services/SemanticUiService/SemanticUiServic
 import { GroupSelectProps } from './GroupSelect.types';
 
 const GroupSelect = ({ onChange, selectedGroup, groups }: GroupSelectProps) => {
-    return (<DropDown
+    return (<Select
         label={{
             children: "Group",
             htmlFor: "form-select-control-group"
