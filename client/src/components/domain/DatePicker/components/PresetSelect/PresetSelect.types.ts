@@ -1,6 +1,6 @@
 import { onChangeHandler } from '@/types/components/SemanticInput';
 
-export interface PresetProps {
+export interface PresetSelectProps {
     preset: string;
     onChange: onChangeHandler;
 }

@@ -2,15 +2,15 @@
 import React from 'react';
 
 // Components
-import DropDown from '@/components/presentation/DropDown/DropDown';
+import Select from '@/components/presentation/Select/Select';
 
 // Data
 import { dateRanges } from './dateRanges';
 
 // Types
-import { PresetProps } from './Preset.types';
+import { PresetSelectProps } from './PresetSelect.types';
 
-const Preset = ({ onChange, preset }: PresetProps) => <DropDown
+const PresetSelect = ({ onChange, preset }: PresetSelectProps) => <Select
     label={{
         children: "Preset",
         htmlFor: "form-select-control-task",
@@ -24,4 +24,4 @@ const Preset = ({ onChange, preset }: PresetProps) => <DropDown
     value={preset}
 />;
 
-export default Preset;
+export default PresetSelect;
