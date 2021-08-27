@@ -4,8 +4,8 @@ import { Form as SemanticUiForm } from 'semantic-ui-react';
 
 // Components
 import Error from '../Error/Error';
-import Task from '../Task/Task';
-import Project from '../Project/Project';
+import TaskSelect from '../TaskSelect/TaskSelect';
+import ProjectSelect from '../ProjectSelect/ProjectSelect';
 import Date from '../Date/Date';
 import Notes from '../Notes/Notes';
 import Hours from '../Hours/Hours';
@@ -28,12 +28,12 @@ const Form = ({ entry, errorList, isFieldInErrorList, isNewEntry, tasks, project
             <Error error={errorList}/>
 
             <SemanticUiForm.Group widths="equal">
-                <Task taskId={entry.task_id}
-                      tasks={tasks}
-                      handleChange={onChange} />
-                <Project projectId={entry.project_id}
-                         projects={projects}
-                         handleChange={onChange} />
+                <TaskSelect taskId={entry.task_id}
+                            tasks={tasks}
+                            handleChange={onChange} />
+                <ProjectSelect projectId={entry.project_id}
+                               projects={projects}
+                               handleChange={onChange} />
                 <Date date={entry.spent_date}
                       isError={isFieldInErrorList('spent_date')}
                       handleChange={onChange}/>

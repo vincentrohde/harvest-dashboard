@@ -4,7 +4,7 @@ import { Form, Grid } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 
 // Components
-import Preset from './components/Preset/Preset';
+import PresetSelect from './components/PresetSelect/PresetSelect';
 import DateRange from './components/DateRange/DateRange';
 
 // Services
@@ -95,7 +95,7 @@ const DatePicker = ({ dateRange, updateDateRange }: DatePickerProps) => {
                     />
                 </Grid.Column>
                 <Grid.Column width={6}>
-                    <Preset onChange={handlePresetChange} preset={preset}/>
+                    <PresetSelect onChange={handlePresetChange} preset={preset}/>
                 </Grid.Column>
             </Grid>
         </Form>
