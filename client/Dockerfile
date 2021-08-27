@@ -1,9 +1,8 @@
 FROM node:14 as build-service
 # Create app directory
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
 COPY . .
+RUN npm install --verbose
 
 # build files
 RUN npm run build
