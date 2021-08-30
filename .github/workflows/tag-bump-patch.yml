@@ -6,8 +6,8 @@ name: Tag Bump on Patch
 on:
   push:
     branches:
-      - feature*
-      - bug*
+      - 'feature/**'
+      - 'bug/**'
 jobs:
   build:
     runs-on: ubuntu-latest
