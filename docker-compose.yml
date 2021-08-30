@@ -14,6 +14,7 @@ services:
   api-server:
     build: ./server
     command: nodemon app.js
+    image: api-server
     container_name: api-server
     networks:
       - nginx.docker
