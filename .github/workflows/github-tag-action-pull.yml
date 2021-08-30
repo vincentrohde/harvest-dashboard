@@ -21,4 +21,4 @@ jobs:
           WITH_V: true
           RELEASE_BRANCHES: feature/*
           DEFAULT_BUMP: minor
-          VERBOSE: ${{ GITHUB_REF }}
+          VERBOSE: ${{ secrets.GITHUB_REF }}
