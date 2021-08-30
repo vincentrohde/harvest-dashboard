@@ -1,8 +1,11 @@
-name: Bump version
+# This workflow automatically bumps the repos patch version
+# If you include #major, #minor or #patch in your commit-message, the workflow
+# will update the version based on this input
+
+name: Tag Bump on Pull-Request
 on:
-  push:
+  pull_request:
     branches:
-      - master
       - develop
 jobs:
   build:
@@ -16,4 +19,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
-          RELEASE_BRANCHES: master,develop
+          RELEASE_BRANCHES: develop
+          DEFAULT_BUMP: minor

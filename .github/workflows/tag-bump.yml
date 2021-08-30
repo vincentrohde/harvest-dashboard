@@ -1,0 +1,23 @@
+# This workflow automatically bumps the repos patch version
+# If you include #major, #minor or #patch in your commit-message, the workflow
+# will update the version based on this input
+
+name: Tag Bump
+on:
+  push:
+    branches:
+      - develop
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.26.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+          RELEASE_BRANCHES: develop
+          DEFAULT_BUMP: patch
