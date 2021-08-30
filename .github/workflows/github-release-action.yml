@@ -1,8 +1,8 @@
-# This workflow automatically bumps the repos patch version
+# This workflow automatically bumps the repos minor version
 # If you include #major, #minor or #patch in your commit-message, the workflow
 # will update the version based on this input
 
-name: Github Tag Action
+name: Github Release Action
 on:
   push:
     branches:
@@ -21,7 +21,7 @@ jobs:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           WITH_V: true
           RELEASE_BRANCHES: develop
-          DEFAULT_BUMP: patch
+          DEFAULT_BUMP: minor
       - name: "Create Release"
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
