@@ -4,19 +4,20 @@ import { Grid } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 
 // Components
-import TimeEntries from './components/TimeEntries/TimeEntries';
+import MetaDataHeader from './components/MetaDataHeader/MetaDataHeader';
+import TimeEntry from './components/TimeEntry/TimeEntry';
 
 // Redux
 import { timeEntriesSelector } from '@/stores/selectors/timeEntries';
+import { deleteTimeEntry } from '@/stores/actions/timeEntries';
 
 // Hooks
 import { useTotalHoursAndMinutes } from './hooks/useTotalHoursAndMinutes/useTotalHoursAndMinutes';
 
 // Types
-import { TimeEntriesContainerProps } from './TimeEntriesContainer.types';
-import MetaDataHeader from './components/MetaDataHeader/MetaDataHeader';
+import { TimeEntriesProps } from './TimeEntries.types';
 
-const TimeEntriesContainer = ({ timeEntries }: TimeEntriesContainerProps) => {
+const TimeEntries = ({ timeEntries, deleteTimeEntry }: TimeEntriesProps) => {
     let totalHoursAndMinutes = '0:00';
     if (typeof timeEntries !== 'undefined') {
         totalHoursAndMinutes = useTotalHoursAndMinutes(timeEntries);
@@ -24,7 +25,9 @@ const TimeEntriesContainer = ({ timeEntries }: TimeEntriesContainerProps) => {
     return (<>
         { typeof timeEntries !== 'undefined' && <Grid.Column width={16}>
             <MetaDataHeader totalHoursAndMinutes={totalHoursAndMinutes} entriesAmount={timeEntries.length}/>
-            <TimeEntries />
+            { timeEntries && timeEntries.map((item, key) => (
+                <TimeEntry key={key} data={item} deleteTimeEntry={deleteTimeEntry} />))
+            }
         </Grid.Column> }
     </>);
 };
@@ -35,5 +38,7 @@ const mapStateToProps = (state: any) => {
     }
 };
 
-export default connect(mapStateToProps, null)(TimeEntriesContainer);
+const mapDispatchToProps = { deleteTimeEntry };
+
+export default connect(mapStateToProps, mapDispatchToProps)(TimeEntries);
 
