@@ -49,10 +49,4 @@ Now you can run the app in your browser, using this URL:
 http://localhost:8080
 ```
 
-## Built With
-
-- [React](https://reactjs.org/)
-- [SCSS](https://github.com/sass/node-sass)
-- [Redux](https://github.com/reduxjs/redux)
-
 <a href="#harvest-dashboard">Back To Top</a>
