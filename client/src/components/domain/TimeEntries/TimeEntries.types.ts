@@ -1,5 +1,6 @@
 import { timeEntriesType } from '@/types/TimeEntry';
 
-export interface TimeEntriesContainerProps {
+export interface TimeEntriesProps {
     timeEntries?: timeEntriesType;
+    deleteTimeEntry: Function;
 }

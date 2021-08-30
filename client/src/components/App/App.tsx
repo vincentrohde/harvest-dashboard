@@ -17,7 +17,7 @@ import { filtersSelector } from '@/stores/selectors/filters';
 import TasksByHours from '@/components/domain/TasksByHours/TasksByHours';
 import DatePicker from '@/components/domain/DatePicker/DatePicker';
 import EditForm from '@/components/domain/EditForm/EditForm';
-import TimeEntriesContainer from '@/components/domain/TimeEntriesContainer/TimeEntriesContainer';
+import TimeEntries from '@/components/domain/TimeEntries/TimeEntries';
 import DataOverview from '@/components/domain/DataOverview/DataOverview';
 
 // Hooks
@@ -66,7 +66,7 @@ const App = ({
 
                 <TasksByHours />
 
-                <TimeEntriesContainer />
+                <TimeEntries />
 
             </Grid>
         </section>)
