@@ -2,11 +2,11 @@
 # If you include #major, #minor or #patch in your commit-message, the workflow
 # will update the version based on this input
 
-name: Tag Bump on Patch
+name: Github Tag Action
 on:
   push:
     branches:
-      - 'develop'
+      - develop
 jobs:
   build:
     runs-on: ubuntu-latest
