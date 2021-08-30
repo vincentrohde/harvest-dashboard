@@ -22,3 +22,4 @@ jobs:
           WITH_V: true
           RELEASE_BRANCHES: feature*,bug*
           DEFAULT_BUMP: patch
+          INITIAL_VERSION: 1.0.0
