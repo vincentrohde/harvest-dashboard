@@ -19,5 +19,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
-          RELEASE_BRANCHES: feature/*,develop
+          RELEASE_BRANCHES: feature*,develop
           DEFAULT_BUMP: minor
