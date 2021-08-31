@@ -50,6 +50,28 @@ Now you can run the app in your browser, using this URL:
 http://localhost:8080
 ```
 
+## Development
+
+### Branches
+
+#### master
+The `master` branch is used as the project's release branch. No development should happen here, since every `push` (newest commit) to `master` will generate a new `minor version release` of the project, which will also end up starting a new `deployment` workflow.
+
+#### develop
+The `develop` branch is used as a collection for changes that will end up as a new release. In general, new pushes should only come through merging `feature/` or `bug/` branches into `develop`. Each push results in a `patch` version bump, that is handled as a `pre-release`. For smaller issues it's fine to commit directly into `develop`.
+
+#### feature/
+
+A `feature/**` branch should be used for the development of a new feature. When the feature is ready, a `Pull Request` into `develop` should be opened.
+
+#### bug/
+
+A `bug/**` branch should be used when fixing bug-issues. When the bug is fixed, a `Pull Request` into `develop` should be opened.
+
+### Workflows
+
+## Features
+
 ## Built With
 
 - [React](https://reactjs.org/)
