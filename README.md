@@ -26,29 +26,47 @@ you need to have **Node.js** and its package manager **npm** installed on your e
 
 ### Installation
 
-Clone the repository
+#### Clone repository
 
 ```
 git clone https://github.com/vincentrohde/harvest-dashboard.git
+cd ./harvest-dashboard
 ```
 
-Install the dependencies
+#### Install Server dependencies
 
 ```
+cd ./server
 npm install
+cd ..
 ```
 
-Start the server
+#### Install Client dependencies
 
 ```
-npm start
+cd ./client
+npm install
+cd ..
 ```
 
-Now you can run the app in your browser, using this URL:
+### Access to Harvest
 
-```
-http://localhost:8080
-```
+#### Harvest v2 Personal Access Token
+
+If you have your [Harvest account](https://www.getharvest.com) ready. It's time to setup your own Personal Access Token. To do so, jump over to the [Developers section](https://id.getharvest.com/developers) of your account.
+
+Under the tab **Personal Access Tokens** you will find the option **Create New Personal Access Token**
+
+#### Add an .env file
+
+Start by creating your own `.env` file in the `/server` directory. You can use the `.env.example` file and just create a copy of it, with the filename `.env` like so:
+
+````
+cp ./server/.env.example ./server/.env
+````
+
+#### Setup Access to your Harvest Account
+
 
 ## Development
 
