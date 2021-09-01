@@ -11,10 +11,15 @@
 A third-party React.js client for the [Harvest API V2](https://help.getharvest.com/api-v2/), that helps you to manage the time-trackings of your Harvest Account, while also giving you 
 statistical feedback on how you spend your time.
 
-## Table of Contents
+## Contents
 
 1. <a href="#getting-started">Getting Started</a>
-2. <a href="#built-with">Built With</a>
+    1. <a href="#prerequisites">Prerequisites</a>
+    2. <a href="#installation">Installation</a>
+    3. <a href="#access-to-harvest">Access to Harvest</a>
+    4. <a href="#start-the-project">Start the Project</a>
+2. <a href="#features">Features</a>
+3. <a href="#development">Development</a>
 
 ## Getting Started
 
@@ -22,7 +27,6 @@ statistical feedback on how you spend your time.
 
 First of all, you will need a [Harvest account](https://www.getharvest.com) to fully use this project. The [free version](https://www.getharvest.com/pricing) will do fine. To run the client, 
 you need to have **Node.js** and its package manager **npm** installed on your environment.
-
 
 ### Installation
 
@@ -139,11 +143,5 @@ A `feature/**` branch should be used for the development of a new feature. When 
 A `bug/**` branch should be used when fixing bug-issues. When the bug is fixed, a `Pull Request` into `develop` should be opened.
 
 ### Workflows
-
-## Built With
-
-- [React](https://reactjs.org/)
-- [SCSS](https://github.com/sass/node-sass)
-- [Redux](https://github.com/reduxjs/redux)
 
 <a href="#harvest-dashboard">Back To Top</a>
