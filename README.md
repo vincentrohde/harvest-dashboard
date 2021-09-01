@@ -38,7 +38,6 @@ cd ./harvest-dashboard
 ```
 cd ./server
 npm install
-cd ..
 ```
 
 #### Install Client dependencies
@@ -46,7 +45,6 @@ cd ..
 ```
 cd ./client
 npm install
-cd ..
 ```
 
 ### Access to Harvest
@@ -86,6 +84,41 @@ ACCOUNT_ID={{ Insert "Account ID" here }}
 READ_ONLY=false
 ```
 
+### Start the Project
+
+Now that you have everything in place you can start the servers.
+
+#### Backend
+
+To start the backend server, simply go to the `./server` directory and run the following command:
+
+```
+npm run start
+```
+
+The backend will be available under:
+
+```
+http://localhost:8080
+```
+
+#### Client
+
+To start the client's dev-server, go to the `./client` directory and run:
+
+```
+npm run start
+```
+
+The dev-server will be available under:
+
+```
+http://localhost:3000
+```
+
+Now both servers are running and will automatically reload on file changes.
+
+## Features
 
 ## Development
 
@@ -106,8 +139,6 @@ A `feature/**` branch should be used for the development of a new feature. When 
 A `bug/**` branch should be used when fixing bug-issues. When the bug is fixed, a `Pull Request` into `develop` should be opened.
 
 ### Workflows
-
-## Features
 
 ## Built With
 
