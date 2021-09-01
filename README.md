@@ -51,12 +51,6 @@ cd ..
 
 ### Access to Harvest
 
-#### Harvest v2 Personal Access Token
-
-If you have your [Harvest account](https://www.getharvest.com) ready. It's time to setup your own Personal Access Token. To do so, jump over to the [Developers section](https://id.getharvest.com/developers) of your account.
-
-Under the tab **Personal Access Tokens** you will find the option **Create New Personal Access Token**
-
 #### Add an .env file
 
 Start by creating your own `.env` file in the `/server` directory. You can use the `.env.example` file and just create a copy of it, with the filename `.env` like so:
@@ -65,7 +59,32 @@ Start by creating your own `.env` file in the `/server` directory. You can use t
 cp ./server/.env.example ./server/.env
 ````
 
+#### Harvest v2 Personal Access Token
+
+If you have your [Harvest account](https://www.getharvest.com) ready. It's time to setup your own Personal Access Token. To do so, jump over to the [Developers section](https://id.getharvest.com/developers) of your account.
+
+Under the tab **Personal Access Tokens** you will find the option **Create New Personal Access Token**
+
+![](./assets/harvest-developers-section.png)
+
+First of all start by setting the name for your token.
+
+![](./assets/harvest-token-create-exif.png)
+
 #### Setup Access to your Harvest Account
+
+Now that you have your Personal Access Token. It's time to add its data to your `.env` file in `./server`. The fields marked in red (see below) are required in your `.env` file.
+
+![](./assets/harvest-token-data.png)
+
+This should be your version of `./server/.env` :
+
+```
+HARVEST_API_URL=https://api.harvestapp.com
+ACCESS_TOKEN={{ Insert "Your Token" here }}
+ACCOUNT_ID={{ Insert "Account ID" here }}
+READ_ONLY=false
+```
 
 
 ## Development
