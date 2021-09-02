@@ -20,6 +20,7 @@ statistical feedback on how you spend your time.
     4. <a href="#start-the-project">Start the Project</a>
 2. <a href="#features">Features</a>
 3. <a href="#development">Development</a>
+4. <a href="#production">Production</a>
 
 ## Getting Started
 
@@ -233,5 +234,102 @@ export default MyComponent;
 ```
 
 ### Workflows
+
+## Production
+
+There are two ways you can deploy the project. In case you have forked the repository see the next section. If you didn't fork the repository, please follow the manual deployment guide.
+
+### Automatic Deploy (fork)
+
+If you have forked this repository you can automatically deploy the project using the `deployment` workflow.
+
+#### Adding Secrets
+
+To do this, you will need to add a few new GitHub secrets to your repo (the fork)
+
+Go to your forked repository on Github and open the `Settings` tab. Now navigate to `Secrets` and click on `New Repository Secret`. Add the following secrets to your repository.
+
+| Secret Name | Information |
+|---|---|
+| `SSH_KEY` | Your SSH key, with access to your server |
+| `SSH_HOST` | Your server's IP address |
+| `SSH_USER` | The server's user you log into with when using ssh |
+| `SSH_LOCATION` | The directory on your server, where the repo should be deployed to (remote directory) |
+
+#### Deploying
+
+Now you can deploy either through pushing new commits to your `master` branch or through the `Actions` tab of your repository.
+
+Here you will find a workflow called `Deployment`. If you click on `Run Workflow`, you will be able to deploy with any of your repository's branches.
+
+### Manual Deploy (no fork)
+
+If you have not created a fork of the repository, this is the guide to deploying the code. The guide assumes you have [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/install/) installed.
+
+#### Copy to server
+
+For the deploy you can either clone the project on your server (if you have git installed) or use ssh (scp or rsync) to copy it.
+
+##### scp
+
+If you have `rsync` installed you can skip copying with `scp`.
+
+```
+scp -r /path/to/local/copy user@your-server-ip:/path/to/remote/copy
+```
+
+##### rsync (alternative, recommended)
+
+If you already copied using `scp`, you can skip this part.
+
+```
+rsync -avz -e 'ssh' /path/to/local/copy user@your-server-ip:/path/to/remote/copy
+```
+
+#### Start containers
+
+The rest is fairly simple. Run the following command in the root of the project's directory.
+
+```
+docker-compose up -d
+```
+
+If you have [Make](https://www.gnu.org/software/make/manual/make.html) installed this command will also do the same.
+
+```
+make prod
+```
+
+#### Containers
+
+##### api-server
+
+This `Node.js` container will provide an `Express.js` api for your client server. It will be available under:
+
+```
+http://localhost:8080
+```
+
+##### dashboard
+
+This container runs two services. First, it builds a production version (`/dist`) of the client (`build-service`). This version will then be served by `ngnix` (`nginx-server`). The container will be available under:
+
+```
+http://localhost
+```
+
+#### Stop containers
+
+In case you want to stop the containers you can either run
+
+```
+docker-compose down
+```
+
+or
+
+```
+make down
+```
 
 <a href="#harvest-dashboard">Back To Top</a>
