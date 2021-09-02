@@ -124,6 +124,32 @@ Now both servers are running and will automatically reload on file changes.
 
 ## Features
 
+### Semantic UI
+
+When implementing templates, the project makes use of [Semantic UI](https://semantic-ui.com/) through [semantic-ui-react](https://react.semantic-ui.com/).
+
+### Components
+
+#### DatePicker
+
+With the `DatePicker` component you are able, to either select a certain date, a date range or a preset date range. On default, the `today` preset is selected.
+
+**Presets**
+
+| Preset | Output | Format |
+|---|---|---|
+| `today` | `[currentDay]` | `<'DD-MM-YYYY'>[]` |
+| `one-week` | `[6 days ago, currentDay]` | `<'DD-MM-YYYY'>[]` |
+| `one-month` | `[29 days ago, currentDay]` | `<'DD-MM-YYYY'>[]` |
+| `one-year` | `[364 days ago, currentDay]` | `<'DD-MM-YYYY'>[]` |
+| `all` | `1` | `number` |
+
+Once a date value (either a single date, a date-range or 1) is set, the applications redux store (`store.filters.dateRange`) will be updated. When the `dateRange` property is updated, the application will request new time-entries from the backend.
+
+#### EditForm
+
+#### DataOverview
+
 ### Services
 
 Services are classes that bundle various utility functions, that belong to a certain topic (ex. time-formatting). Server and client each have their own services.
@@ -176,7 +202,7 @@ A `bug/**` branch should be used when fixing bug-issues. When the bug is fixed, 
 
 ### Types files
 
-To prevent cluttering regular files with Typescript declarations (ex. interfaces, types, etc.), these should be moved into a separate file using the `.types` naming. The regular file will then import the `.types` file declarations.
+To prevent cluttering regular files with Typescript declarations (ex. interfaces, types, etc.). they should be moved into a separate file using the `.types` naming. The regular file will then import the `.types` file declarations.
 
 **Example**
 
