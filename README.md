@@ -21,6 +21,8 @@ statistical feedback on how you spend your time.
 2. <a href="#features">Features</a>
 3. <a href="#development">Development</a>
 4. <a href="#production">Production</a>
+    1. <a href="#automatic-deploy-fork">Automatic Deploy (fork)</a>
+    2. <a href="#manual-deploy-no-fork">Manual Deploy (no fork)</a>
 
 ## Getting Started
 
@@ -237,7 +239,7 @@ export default MyComponent;
 
 ## Production
 
-There are two ways you can deploy the project. In case you have forked the repository see the next section. If you didn't fork the repository, please follow the manual deployment guide.
+There are two ways you can deploy the project. In case you have forked the repository see the next section. If you didn't fork the repository, please follow the [manual deployment guide](#manual-deploy-no-fork).
 
 ### Automatic Deploy (fork)
 
