@@ -124,6 +124,38 @@ Now both servers are running and will automatically reload on file changes.
 
 ## Features
 
+### Services
+
+Services are classes that bundle various utility functions, that belong to a certain topic (ex. time-formatting). Server and client each have their own services.
+
+Each service is written in the same pattern:
+
+```
+class ExampleService {
+    ...
+}
+
+const exampleService = new ExampleService();
+export default exampleService;
+```
+
+
+#### BackendService
+
+Communication (create, read, update, delete) to the backend by the client using axios.
+
+#### ApiService (Server)
+
+Communication (create, read, update, delete) to the Harvest API by the server using axios.
+
+#### TimeService
+
+Time utility functions (ex. comparing or formatting dates) using `moment.js`.
+
+#### ObjectService
+
+Object utility functions (ex. sorting, comparing or updating objects).
+
 ## Development
 
 ### Branches
