@@ -174,6 +174,38 @@ A `feature/**` branch should be used for the development of a new feature. When 
 
 A `bug/**` branch should be used when fixing bug-issues. When the bug is fixed, a `Pull Request` into `develop` should be opened.
 
+### Types files
+
+To prevent cluttering regular files with Typescript declarations (ex. interfaces, types, etc.), these should be moved into a separate file using the `.types` naming. The regular file will then import the `.types` file declarations.
+
+**Example**
+
+This is an example for a React component:
+
+```
++ MyComponent
+|   + MyComponent.tsx
+|   + MyComponent.types.ts
+```
+
+```
+// MyComponent.types.ts
+export interface MyComponentProps {
+    title: string;
+}
+```
+
+```
+// MyComponent.tsx
+
+// Types
+import { MyComponentProps } from './MyComponent.types';
+
+const MyComponent = ({ title }: MyComponentProps) => <h2>{ title }</h2>;
+
+export default MyComponent;
+```
+
 ### Workflows
 
 <a href="#harvest-dashboard">Back To Top</a>
