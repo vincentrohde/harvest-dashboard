@@ -13,16 +13,16 @@ statistical feedback on how you spend your time.
 
 ## Contents
 
-1. <a href="#getting-started">Getting Started</a>
-    1. <a href="#prerequisites">Prerequisites</a>
-    2. <a href="#installation">Installation</a>
-    3. <a href="#access-to-harvest">Access to Harvest</a>
-    4. <a href="#start-the-project">Start the Project</a>
-2. <a href="#features">Features</a>
-3. <a href="#development">Development</a>
-4. <a href="#production">Production</a>
-    1. <a href="#automatic-deploy-fork">Automatic Deploy (fork)</a>
-    2. <a href="#manual-deploy-no-fork">Manual Deploy (no fork)</a>
+1. [Getting Started](#getting-started)
+    1. [Prerequisites](#prerequisites)
+    2. [Installation](#installation)
+    3. [Access to Harvest](#access-to-harvest)
+    4. [Start the Project](#start-the-project)
+2. [Features](#features)
+3. [Development](#development)
+4. [Production](#production)
+    1. [Automatic Deploy (fork)](#automatic-deploy-fork)
+    2. [Manual Deploy (no fork)](#manual-deploy-no-fork)
 
 ## Getting Started
 
@@ -190,10 +190,10 @@ Object utility functions (ex. sorting, comparing or updating objects).
 ### Branches
 
 #### master
-The `master` branch is used as the project's release branch. No development should happen here, since every `push` (newest commit) to `master` will generate a new `minor version release` of the project, which will also end up starting a new `deployment` workflow.
+The `master` branch is used as the project's release branch. No development should happen here.
 
 #### develop
-The `develop` branch is used as a collection for changes that will end up as a new release. In general, new pushes should only come through merging `feature/` or `bug/` branches into `develop`. Each push results in a `patch` version bump, that is handled as a `pre-release`. For smaller issues it's fine to commit directly into `develop`.
+The `develop` branch is used as a collection for changes that will end up as a new release. In general, new pushes should only come through merging `feature/` or `bug/` branches into `develop`.
 
 #### feature/
 
@@ -236,6 +236,18 @@ export default MyComponent;
 ```
 
 ### Workflows
+
+#### Github Release Action
+
+The `Github Release Action` workflow is triggered once a new push on `master` happens. This will generate a new minor tag of the project, which will automatically be released.
+
+#### Github Patch Action
+
+The `Github Patch Action` workflow is triggered once a new push on `develop` happens. This will generate a new patch tag of the project. This patch tag is not released.
+
+#### Deployment
+
+The `Deployment` workflow can be triggered manually or with push to `master`. It will deploy a production-ready version of the project to the server.
 
 ## Production
 
