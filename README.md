@@ -131,6 +131,10 @@ Now both servers are running and will automatically reload on file changes.
 
 When implementing templates, the project makes use of [Semantic UI](https://semantic-ui.com/) through [semantic-ui-react](https://react.semantic-ui.com/).
 
+### Chart.js
+
+When implementing data visualization, the project makes use of [chart.js](https://www.chartjs.org/docs/latest/).
+
 ### Components
 
 #### DatePicker
@@ -184,6 +188,10 @@ When a new entry is submitted by the user, the component will reset itself to de
 In both cases (create or update an entry) the `onSuccess` callback method is executed.
 
 #### DataOverview
+
+The `DataOverview` component gives the user a data-visualisation of his/ her time-entries.
+
+It's possible to filter by tasks or projects and sort by time-unit (day, week, month, year).
 
 ### Services
 
