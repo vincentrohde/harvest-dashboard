@@ -137,7 +137,7 @@ When implementing templates, the project makes use of [Semantic UI](https://sema
 
 With the `DatePicker` component you are able, to either select a certain date, a date range or a preset date range. On default, the `today` preset is selected.
 
-**Presets**
+##### Presets
 
 | Preset | Output | Format |
 |---|---|---|
@@ -150,6 +150,38 @@ With the `DatePicker` component you are able, to either select a certain date, a
 Once a date value (either a single date, a date-range or 1) is set, the applications redux store (`store.filters.dateRange`) will be updated. When the `dateRange` property is updated, the application will request new time-entries from the backend.
 
 #### EditForm
+
+The `EditForm` component allows you to add new time-entries as well as updating existing ones.
+
+##### Props
+
+The following props can be passed to the `EditForm` component, but are not required.
+
+| Prop | Information | Default |
+|---|---|---|
+| `data` | data of the time-entry | * |
+| `onSuccess` | callback when submit succeeds | `() => {}` |
+| `onCancel` | callback when submit was cancelled | `() => {}` |
+
+*) If no data is provided, the component will fall back on its `defaultData` which can be found in `EditForm/defaultData.ts`. This will be then handled as a `isNewEntry`.
+
+##### onChange
+
+Whenever the user makes updates to the data, the component will update its `lastInputChange` state (latest field that was updated).
+
+##### useErrorCheck
+
+The `EditForm` component comes with its own hook called `useErrorCheck`. It passes `lastInputChange` and `entry` as props to the hook.
+
+The `entry` prop is debounced (using `useDebounce`) and is compared with its `prevDebouncedEntry` prop. This is supposed to prevent error-checking while the user is still typing and unecessary error-checking if the content did not change.
+
+The fields that are checked, are `hours` and `spent_date`. If the hook finds any errors it will return the list of field-names, that are not matching the format.
+
+##### onSubmit
+
+When a new entry is submitted by the user, the component will reset itself to default with `resetStateToDefault()`.
+
+In both cases (create or update an entry) the `onSuccess` callback method is executed.
 
 #### DataOverview
 
@@ -168,7 +200,6 @@ const exampleService = new ExampleService();
 export default exampleService;
 ```
 
-
 #### BackendService
 
 Communication (create, read, update, delete) to the backend by the client using axios.
@@ -180,10 +211,6 @@ Communication (create, read, update, delete) to the Harvest API by the server us
 #### TimeService
 
 Time utility functions (ex. comparing or formatting dates) using `moment.js`.
-
-#### ObjectService
-
-Object utility functions (ex. sorting, comparing or updating objects).
 
 ## Development
 
@@ -255,7 +282,7 @@ There are two ways you can deploy the project. In case you have forked the repos
 
 ### Automatic Deploy (fork)
 
-If you have forked this repository you can automatically deploy the project using the `deployment` workflow.
+If you have forked this repository you can automatically deploy the project using the `Deployment` workflow.
 
 #### Adding Secrets
 
