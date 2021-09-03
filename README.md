@@ -19,7 +19,14 @@ statistical feedback on how you spend your time.
     3. [Access to Harvest](#access-to-harvest)
     4. [Start the Project](#start-the-project)
 2. [Features](#features)
+    1. [Semantic UI](#semantic-ui)
+    2. [Chart.js](#chartjs)
+    3. [Components](#components)
+    4. [Services](#services)
 3. [Development](#development)
+    1. [Branches](#branches)
+    2. [Types files](#types-files)
+    3. [Workflows](#workflows)
 4. [Production](#production)
     1. [Automatic Deploy (fork)](#automatic-deploy-fork)
     2. [Manual Deploy (no fork)](#manual-deploy-no-fork)
@@ -183,15 +190,13 @@ The fields that are checked, are `hours` and `spent_date`. If the hook finds any
 
 ##### onSubmit
 
-When a new entry is submitted by the user, the component will reset itself to default with `resetStateToDefault()`.
-
-In both cases (create or update an entry) the `onSuccess` callback method is executed.
+When a new entry is submitted by the user, the component will reset itself to default with `resetStateToDefault()`. In both cases (create or update an entry) the `onSuccess` callback method is executed.
 
 #### DataOverview
 
 The `DataOverview` component gives the user a data-visualisation of his/ her time-entries.
 
-It's possible to filter by tasks or projects and sort by time-unit (day, week, month, year).
+It's possible to filter by tasks or projects and sort by time-unit (day, week, month or year).
 
 ### Services
 
