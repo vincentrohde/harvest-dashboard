@@ -4,6 +4,5 @@ client/dist
 client/node_modules
 client/package-lock.json
 
-server/node_modules
-# API information
-server/.env
+api/node_modules
+api/.env
