@@ -1,0 +1,12 @@
+{
+    "name": "harvest-dashboard",
+    "version": "1.0.0",
+    "main": "index.js",
+    "author": "Vincent",
+    "scripts": {
+        "dev:install": "docker-compose -f docker/docker-compose.dev.yml build --no-cache",
+        "dev:up": "docker-compose -f docker/docker-compose.dev.yml up",
+        "dev:down": "docker-compose -f docker/docker-compose.dev.yml down",
+        "dev:uninstall": "docker-compose -f docker/docker-compose.dev.yml down --rmi all"
+    }
+}
