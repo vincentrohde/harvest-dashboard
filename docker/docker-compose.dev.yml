@@ -1,0 +1,36 @@
+version: '3'
+services:
+  nginx:
+    build:
+      context: ../.
+      dockerfile: docker/nginx/Dockerfile.dev
+    image: harvest-server
+    ports:
+      - '80:80'
+    links:
+      - api:api
+      - client:client
+  client:
+    build:
+      context: ../.
+      dockerfile: docker/client/Dockerfile.dev
+    image: harvest-client
+    environment:
+      - NODE_ENV=development
+    volumes: # For webpack dev server to use our local files
+      - ../client:/app
+      - /app/node_modules
+    ports:
+      - '3000:3000' # For docker to now where to redirect HMR queries
+  api:
+    build:
+      context: ../.
+      dockerfile: docker/api/Dockerfile
+    image: harvest-api
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ../api:/app
+      - /app/node_modules
+    ports:
+      - '8080'
