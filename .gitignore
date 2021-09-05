@@ -6,3 +6,4 @@ client/package-lock.json
 
 api/node_modules
 api/.env
+api/package-lock.json
