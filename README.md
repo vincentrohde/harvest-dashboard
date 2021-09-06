@@ -47,18 +47,15 @@ git clone https://github.com/vincentrohde/harvest-dashboard.git
 cd ./harvest-dashboard
 ```
 
-#### Install Server dependencies
+
+
+#### Install dependencies
+This is for your dev environment (ex. IDE auto-completion, Typescript, etc.). The `node_modules` used by Docker are installed later on 😉
 
 ```
-cd ./server
-npm install
-```
-
-#### Install Client dependencies
-
-```
-cd ./client
-npm install
+cd ./server && npm install
+cd ../client && npm install
+cd ..
 ```
 
 ### Access to Harvest
@@ -100,37 +97,18 @@ READ_ONLY=false
 
 ### Start the Project
 
-Now that you have everything in place you can start the servers.
-
-#### Backend
-
-To start the backend server, simply go to the `./server` directory and run the following command:
+Now that you have everything in place you can start the project.
 
 ```
-npm run start
+npm run dev:install
+npm run dev:up
 ```
 
-The backend will be available under:
+The project will be available via
 
 ```
-http://localhost:8080
+http://localhost
 ```
-
-#### Client
-
-To start the client's dev-server, go to the `./client` directory and run:
-
-```
-npm run start
-```
-
-The dev-server will be available under:
-
-```
-http://localhost:3000
-```
-
-Now both servers are running and will automatically reload on file changes.
 
 ## Features
 
