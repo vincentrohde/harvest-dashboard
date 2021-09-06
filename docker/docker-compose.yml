@@ -1,0 +1,16 @@
+version: '3'
+services:
+  harvest-app:
+    image: harvest-app
+    ports:
+      - '80:80'
+  api:
+    build:
+      context: ../.
+      dockerfile: docker/api/Dockerfile
+    image: harvest-api
+    volumes:
+      - ../api:/app
+      - /app/node_modules
+    ports:
+      - '8080'
