@@ -110,6 +110,12 @@ The project will be available via
 http://localhost
 ```
 
+The api will be available via
+
+```
+http://localhost/api/
+```
+
 ## Features
 
 ### Semantic UI
@@ -323,28 +329,33 @@ rsync -avz -e 'ssh' /path/to/local/copy user@your-server-ip:/path/to/remote/copy
 The rest is fairly simple. Run the following command in the root of the project's directory.
 
 ```
-docker-compose up -d
+docker-compose -f docker/docker-compose.yml -f docker/docker-compose.prod.yml build --no-cache
+```
+
+```
+docker-compose -f docker/docker-compose.yml -f docker/docker-compose.prod.yml up -d
 ```
 
 If you have [Make](https://www.gnu.org/software/make/manual/make.html) installed this command will also do the same.
 
 ```
-make prod
+make prod:install
+make prod:up
 ```
 
 #### Containers
 
-##### api-server
+##### api
 
 This `Node.js` container will provide an `Express.js` api for your client server. It will be available under:
 
 ```
-http://localhost:8080
+http://localhost/api/
 ```
 
-##### dashboard
+##### harvest-app
 
-This container runs two services. First, it builds a production version (`/dist`) of the client (`build-service`). This version will then be served by `ngnix` (`nginx-server`). The container will be available under:
+This container runs two services. First, it builds a production version (`/dist`) of the client (`build-service`). This version will then be served by `ngnix` (`nginx-server`) as well as the api (through reverse-proxying). The container will be available under:
 
 ```
 http://localhost
@@ -355,13 +366,27 @@ http://localhost
 In case you want to stop the containers you can either run
 
 ```
-docker-compose down
+docker-compose -f docker/docker-compose.yml -f docker/docker-compose.prod.yml down
 ```
 
 or
 
 ```
-make down
+make prod:down
+```
+
+#### Uninstall containers
+
+In case you want to stop the containers you can either run
+
+```
+docker-compose -f docker/docker-compose.yml -f docker/docker-compose.prod.yml down --rmi all
+```
+
+or
+
+```
+make prod:uninstall
 ```
 
 <a href="#harvest-dashboard">Back To Top</a>
