@@ -330,9 +330,6 @@ The rest is fairly simple. Run the following command in the root of the project'
 
 ```
 docker-compose -f docker/docker-compose.yml -f docker/docker-compose.prod.yml build --no-cache
-```
-
-```
 docker-compose -f docker/docker-compose.yml -f docker/docker-compose.prod.yml up -d
 ```
 
@@ -345,20 +342,20 @@ make prod:up
 
 #### Containers
 
-##### api
-
-This `Node.js` container will provide an `Express.js` api for your client server. It will be available under:
-
-```
-http://localhost/api/
-```
-
 ##### harvest-app
 
 This container runs two services. First, it builds a production version (`/dist`) of the client (`build-service`). This version will then be served by `ngnix` (`nginx-server`) as well as the api (through reverse-proxying). The container will be available under:
 
 ```
 http://localhost
+```
+
+##### api
+
+This `Node.js` container will provide an `Express.js` api for your client server. It will be available under:
+
+```
+http://localhost/api/
 ```
 
 #### Stop containers
