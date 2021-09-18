@@ -8,6 +8,7 @@ import { options } from './Chart.options';
 // Types
 import { ChartProps } from './Chart.types';
 
+// @ts-ignore
 const Chart = ({ data }: ChartProps) => <Bar data={data} options={options}/>;
 
 export default Chart;

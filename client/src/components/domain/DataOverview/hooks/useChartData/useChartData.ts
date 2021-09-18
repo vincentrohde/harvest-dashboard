@@ -19,7 +19,7 @@ import { timeEntriesType } from '@/types/TimeEntry';
 import { timeUnit } from '@/services/TimeService/TimeService.types';
 
 export const useChartData = (timeEntries: timeEntriesType | undefined, group: group, timeUnit: timeUnit) => {
-    const [chartData, setChartData] = useState<Chart.ChartData>({});
+    const [chartData, setChartData] = useState<any>({});
     const sortedTimeEntries = useTimeEntriesByTimeUnit(timeEntries, timeUnit);
     const groupLabel = useGroupLabel(group);
     const getByHours = useGetByHours(group);
