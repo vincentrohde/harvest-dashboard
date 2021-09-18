@@ -4,22 +4,16 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+const distUrl = 'dist';
+
 module.exports = {
     mode: 'development',
     devServer: {
-        historyApiFallback: true,
         hot: true,
-        inline: true,
-        host: 'localhost',
-        port: 3000,
-        proxy: {
-            '/api/**': {
-                target: 'http://localhost:8080/',
-                pathRewrite: { '^/api': '' },
-                secure: false,
-                changeOrigin: true,
-            }
-        }
+        contentBase: path.resolve(__dirname, distUrl),
+        publicPath: '/',
+        historyApiFallback: true,
+        disableHostCheck: true,
     },
     devtool: 'cheap-module-source-map',
 

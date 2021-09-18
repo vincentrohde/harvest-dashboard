@@ -64,6 +64,7 @@ const DatePicker = ({ dateRange, updateDateRange }: DatePickerProps) => {
 
     // For the User
     const getDateRangeValue = () => {
+        // If 'all' was selected the user will see no date range
         if (dateRange === 1 || dateRange.length < 1) return '';
 
         const convertedDateRange = convertDateRangeToDDMMYYY(dateRange);

@@ -1,3 +1,6 @@
+// @ts-ignore
+import Chart from 'chart.js/auto';
+
 export interface ChartProps {
-    data: Chart.ChartData;
+    data: any;
 }
