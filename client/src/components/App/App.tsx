@@ -53,9 +53,10 @@ const App = ({
 
     return (
     <>
-    <nav className="app-navbar">    <h1 className="app-title">Harvest TEST V2 API Client</h1></nav>
-<section className="App">
-            
+     <nav className="app-navbar">
+       <h1 className="app-title">Harvest V2 API Client</h1>
+     </nav>
+     <section className="App">      
             <Grid>
                 <Grid.Column width={16}>
                     <DatePicker />
@@ -72,7 +73,8 @@ const App = ({
                 <TimeEntries />
 
             </Grid>
-        </section></>)
+     </section>
+    </>)
 }
 
 const mapStateToProps = (state: any) => {
