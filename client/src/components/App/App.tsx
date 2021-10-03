@@ -1,6 +1,6 @@
 // Libs
 import React from 'react';
-import { Grid } from 'semantic-ui-react';
+import { Grid  } from 'semantic-ui-react';
 
 // Redux
 import { connect } from 'react-redux';
@@ -51,8 +51,11 @@ const App = ({
     useGetProjects(filterAPIDataForState, addProjects);
     useGetTimeEntries(filters, addTimeEntries);
 
-    return (<section className="App">
-            <h1 className="app-title">Harvest V2 API Client</h1>
+    return (
+    <>
+    <nav className="app-navbar">    <h1 className="app-title">Harvest TEST V2 API Client</h1></nav>
+<section className="App">
+            
             <Grid>
                 <Grid.Column width={16}>
                     <DatePicker />
@@ -69,7 +72,7 @@ const App = ({
                 <TimeEntries />
 
             </Grid>
-        </section>)
+        </section></>)
 }
 
 const mapStateToProps = (state: any) => {
