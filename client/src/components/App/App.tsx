@@ -26,7 +26,7 @@ import { useGetProjects } from './hooks/useGetProjects/useGetProjects';
 import { useGetTasks } from './hooks/useGetTasks/useGetTasks';
 
 // Types
-import { categoriesType } from '@/types/Category';
+import { groupsType } from '@/types/Group';
 import { AppProps } from './App.types';
 
 // Styles
@@ -38,7 +38,7 @@ const App = ({
     addProjects,
     addTasks }: AppProps) => {
 
-    const filterAPIDataForState = (list: categoriesType) => {
+    const filterAPIDataForState = (list: groupsType) => {
         return list.map(item => {
             return {
                 id: item.id,

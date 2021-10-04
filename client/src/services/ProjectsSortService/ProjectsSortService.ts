@@ -24,11 +24,11 @@ class ProjectsSortService {
         }));
     };
 
-    addEntryHoursToProjects(entriesWithCategory: projectsByHours, projectsByHoursList: projectsByHours) {
-        entriesWithCategory.forEach(entry => {
-            projectsByHoursList.forEach((category) => {
-                if (category.project == entry.project) {
-                    category.hours += entry.hours;
+    addEntryHoursToProjects(entriesWithGroup: projectsByHours, projectsByHoursList: projectsByHours) {
+        entriesWithGroup.forEach(entry => {
+            projectsByHoursList.forEach((group) => {
+                if (group.project == entry.project) {
+                    group.hours += entry.hours;
                 }
             });
         });

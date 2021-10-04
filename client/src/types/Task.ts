@@ -1,8 +1,8 @@
-import { categoriesType, CategoryInterface } from './Category';
+import { groupsType, GroupInterface } from './Group';
 
-export type tasksType = categoriesType;
+export type tasksType = groupsType;
 
-export interface TaskInterface extends CategoryInterface {}
+export interface TaskInterface extends GroupInterface {}
 
 export type tasksByHours = TaskByHours[];
 

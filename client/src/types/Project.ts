@@ -1,8 +1,8 @@
-import { categoriesType, CategoryInterface } from './Category';
+import { groupsType, GroupInterface } from './Group';
 
-export type projectsType = categoriesType;
+export type projectsType = groupsType;
 
-export interface ProjectInterface extends CategoryInterface {}
+export interface ProjectInterface extends GroupInterface {}
 
 export type projectsByHours = ProjectByHours[];
 
