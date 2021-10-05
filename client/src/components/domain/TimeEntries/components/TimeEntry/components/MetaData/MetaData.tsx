@@ -9,7 +9,7 @@ import './MetaData.scss';
 
 const MetaData = ({notes, date, task}: MetaDataProps) => (<div className="meta-data-container">
     <p className="meta-data pipes">
-        <span className="group">{task}</span>
+        <span className="task">{task}</span>
         <span>{date}</span>
     </p>
     <h3 className="title">{notes}</h3>
