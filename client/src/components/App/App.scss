@@ -1,4 +1,8 @@
 .App {
+    @media (max-width:800px) {
+        padding: 5rem 10px;
+    }
+
     min-height: 100vh;
     padding: 7rem 10px;
     max-width: 800px;
@@ -7,17 +11,23 @@
     * {
         font-family: 'Helvetica', sans-serif;
     }
-
-    .app-title {
-        padding: 10px 0;
-    }
 }
 
 .app-navbar {
+    @media (max-width:800px)  {
+        padding: 10px;
+    }
+
     background-color: #3f51b5;
     padding: 1rem 2rem;
     color: #fff;
     position: fixed;
     width: 100%;
     z-index: 1;
+
+    .app-title {
+        @media (max-width:800px)  {
+            font-size: 1.2rem;
+        }
+    }
 }
