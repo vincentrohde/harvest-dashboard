@@ -22,22 +22,22 @@ class TasksSortService {
         }));
     };
 
-    addEntryHoursToTasks(entriesWithCategory: tasksByHours, tasksByHoursList: tasksByHours) {
-        entriesWithCategory.forEach(entry => {
-            tasksByHoursList.forEach((category) => {
-                if (category.task == entry.task) {
-                    category.hours += entry.hours;
+    addEntryHoursToTasks(entriesWithGroup: tasksByHours, tasksByHoursList: tasksByHours) {
+        entriesWithGroup.forEach(entry => {
+            tasksByHoursList.forEach((group) => {
+                if (group.task == entry.task) {
+                    group.hours += entry.hours;
                 }
             });
         });
     }
 
     getTasksByHours(entries: timeEntriesType): tasksByHours {
-        const entriesWithCategory = this.getEntriesWithTask(entries);
-        const uniqueCategories = this.getUniqueTasksFromEntries(entriesWithCategory);
+        const entriesWithGroup = this.getEntriesWithTask(entries);
+        const uniqueGroups = this.getUniqueTasksFromEntries(entriesWithGroup);
 
-        let tasksByHoursList = this.getTasksByHoursList(uniqueCategories);
-        this.addEntryHoursToTasks(entriesWithCategory, tasksByHoursList);
+        let tasksByHoursList = this.getTasksByHoursList(uniqueGroups);
+        this.addEntryHoursToTasks(entriesWithGroup, tasksByHoursList);
 
         return tasksByHoursList;
     };
