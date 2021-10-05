@@ -1,4 +1,6 @@
 dev\:install:
+	@docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml build
+dev\:install\:nocache:
 	@docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml build --no-cache
 dev\:up:
 	@docker-compose -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up
