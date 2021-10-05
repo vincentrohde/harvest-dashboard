@@ -1,6 +1,6 @@
 // Libs
 import React from 'react';
-import { Grid } from 'semantic-ui-react';
+import { Grid  } from 'semantic-ui-react';
 
 // Redux
 import { connect } from 'react-redux';
@@ -36,7 +36,8 @@ const App = ({
     filters,
     addTimeEntries,
     addProjects,
-    addTasks }: AppProps) => {
+    addTasks
+}: AppProps) => {
 
     const filterAPIDataForState = (list: groupsType) => {
         return list.map(item => {
@@ -51,25 +52,30 @@ const App = ({
     useGetProjects(filterAPIDataForState, addProjects);
     useGetTimeEntries(filters, addTimeEntries);
 
-    return (<section className="App">
-            <h1 className="app-title">Harvest V2 API Client</h1>
-            <Grid>
-                <Grid.Column width={16}>
-                    <DatePicker />
-                </Grid.Column>
+    return (
+    <>
+     <nav className="app-navbar">
+       <h1 className="app-title">Harvest V2 API Client</h1>
+     </nav>
+     <section className="App">
+        <Grid>
+            <Grid.Column width={16}>
+                <DatePicker />
+            </Grid.Column>
 
-                <Grid.Column width={16}>
-                    <EditForm />
-                </Grid.Column>
+            <Grid.Column width={16}>
+                <EditForm />
+            </Grid.Column>
 
-                <DataOverview />
+            <DataOverview />
 
-                <TasksByHours />
+            <TasksByHours />
 
-                <TimeEntries />
+            <TimeEntries />
 
-            </Grid>
-        </section>)
+        </Grid>
+     </section>
+    </>)
 }
 
 const mapStateToProps = (state: any) => {
