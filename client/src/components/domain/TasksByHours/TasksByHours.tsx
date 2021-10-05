@@ -47,7 +47,7 @@ const TasksByHours = ({ timeEntries }: TasksByHoursProps) => {
     const getChartData = (data: number[], labels: string[]) => {
         return {
             datasets: [{
-                label: 'Groups by Hours',
+                label: 'Tasks by Hours',
                 backgroundColor: dataColors,
                 borderWidth: '0',
                 data
