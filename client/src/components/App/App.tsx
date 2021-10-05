@@ -36,7 +36,8 @@ const App = ({
     filters,
     addTimeEntries,
     addProjects,
-    addTasks }: AppProps) => {
+    addTasks
+}: AppProps) => {
 
     const filterAPIDataForState = (list: categoriesType) => {
         return list.map(item => {
@@ -56,23 +57,23 @@ const App = ({
      <nav className="app-navbar">
        <h1 className="app-title">Harvest V2 API Client</h1>
      </nav>
-     <section className="App">      
-            <Grid>
-                <Grid.Column width={16}>
-                    <DatePicker />
-                </Grid.Column>
+     <section className="App">
+        <Grid>
+            <Grid.Column width={16}>
+                <DatePicker />
+            </Grid.Column>
 
-                <Grid.Column width={16}>
-                    <EditForm />
-                </Grid.Column>
+            <Grid.Column width={16}>
+                <EditForm />
+            </Grid.Column>
 
-                <DataOverview />
+            <DataOverview />
 
-                <TasksByHours />
+            <TasksByHours />
 
-                <TimeEntries />
+            <TimeEntries />
 
-            </Grid>
+        </Grid>
      </section>
     </>)
 }
