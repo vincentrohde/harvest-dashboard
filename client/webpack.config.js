@@ -14,6 +14,14 @@ module.exports = {
         publicPath: '/',
         historyApiFallback: true,
         disableHostCheck: true,
+        proxy: {
+            '/api/**': {
+                target: 'http://api:8080/',
+                pathRewrite: { '^/api': '' },
+                secure: false,
+                changeOrigin: true,
+            }
+        }
     },
     devtool: 'cheap-module-source-map',
 
