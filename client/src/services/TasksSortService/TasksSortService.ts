@@ -1,29 +1,29 @@
 // Types
-import {tasksByHours} from '@/types/Task';
-import {timeEntriesType} from '@/types/TimeEntry';
+import { tasksByHours } from '@/types/Task';
+import { timeEntriesType } from '@/types/TimeEntry';
 
 class TasksSortService {
     getEntriesWithTask(entries: timeEntriesType): tasksByHours {
-        return entries.map((entry) => ({
+        return entries.map(entry => ({
             task: entry.task.name,
-            hours: entry.hours,
+            hours: entry.hours
         }));
     }
 
     getUniqueTasksFromEntries(entries: tasksByHours) {
-        const tasksOnlyList = entries.map((entry) => entry.task);
+        const tasksOnlyList = entries.map(entry => entry.task);
         return [...new Set(tasksOnlyList)];
-    }
+    };
 
-    getTasksByHoursList(tasks: string[]): tasksByHours {
+    getTasksByHoursList (tasks: string[]): tasksByHours {
         return tasks.map((task) => ({
             task,
-            hours: 0,
+            hours: 0
         }));
-    }
+    };
 
     addEntryHoursToTasks(entriesWithGroup: tasksByHours, tasksByHoursList: tasksByHours) {
-        entriesWithGroup.forEach((entry) => {
+        entriesWithGroup.forEach(entry => {
             tasksByHoursList.forEach((group) => {
                 if (group.task == entry.task) {
                     group.hours += entry.hours;
@@ -40,7 +40,7 @@ class TasksSortService {
         this.addEntryHoursToTasks(entriesWithGroup, tasksByHoursList);
 
         return tasksByHoursList;
-    }
+    };
 }
 
 const tasksSortService = new TasksSortService();

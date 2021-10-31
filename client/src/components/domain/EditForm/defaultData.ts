@@ -5,5 +5,5 @@ export const defaultData = {
     hours: '0:00',
     project_id: '',
     task_id: '',
-    spent_date: timeService.getCurrentDate(),
+    spent_date: timeService.getCurrentDate()
 };

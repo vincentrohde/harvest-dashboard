@@ -1,5 +1,5 @@
 .App {
-    @media (max-width: 800px) {
+    @media (max-width:800px) {
         padding: 5rem 10px;
     }
 
@@ -14,7 +14,7 @@
 }
 
 .app-navbar {
-    @media (max-width: 800px) {
+    @media (max-width:800px)  {
         padding: 10px;
     }
 
@@ -26,7 +26,7 @@
     z-index: 1;
 
     .app-title {
-        @media (max-width: 800px) {
+        @media (max-width:800px)  {
             font-size: 1.2rem;
         }
     }

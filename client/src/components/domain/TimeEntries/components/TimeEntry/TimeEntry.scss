@@ -1,7 +1,7 @@
 .TimeEntry {
     display: flex;
 
-    @media (max-width: 600px) {
+    @media (max-width:600px)  {
         p {
             margin-bottom: 0;
         }
@@ -39,8 +39,7 @@
             flex-wrap: wrap;
         }
 
-        .edit-task,
-        .edit-project {
+        .edit-task, .edit-project {
             flex: 0 0 48%;
         }
 

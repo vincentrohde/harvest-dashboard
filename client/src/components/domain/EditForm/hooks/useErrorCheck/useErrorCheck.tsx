@@ -1,5 +1,5 @@
 // Libs
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 
 // Hooks
 import usePrevious from '@/hooks/utils/usePrevious/usePrevious';
@@ -9,12 +9,12 @@ import useDebounce from '@/hooks/utils/useDebounce/useDebounce';
 import objectService from '@/services/ObjectService/ObjectService';
 
 // Types
-import {useErrorCheckProps} from './useErrorCheck.types';
+import { useErrorCheckProps } from './useErrorCheck.types'
 
 // Regex
-import {hoursInputRegex, dateInputRegex} from './useErrorCheck.regex';
+import { hoursInputRegex, dateInputRegex } from './useErrorCheck.regex';
 
-export const useErrorCheck = ({entry, lastInputChange}: useErrorCheckProps) => {
+export const useErrorCheck = ({ entry, lastInputChange }: useErrorCheckProps) => {
     const [errorList, setErrorList] = useState<string[]>([]);
     const debouncedEntry = useDebounce(entry, 2000);
     const prevDebouncedEntry = usePrevious(debouncedEntry);
@@ -41,8 +41,11 @@ export const useErrorCheck = ({entry, lastInputChange}: useErrorCheckProps) => {
         }
 
         // @ts-ignore
-        setErrorList([...errorList, inputName]);
-    };
+        setErrorList([
+            ...errorList,
+            inputName
+        ]);
+    }
 
     const checkFormInput = () => {
         if (lastInputChange === 'hours') {
@@ -52,7 +55,7 @@ export const useErrorCheck = ({entry, lastInputChange}: useErrorCheckProps) => {
         if (lastInputChange === 'spent_date') {
             userInputErrorHandler('spent_date', dateInputRegex);
         }
-    };
+    }
 
     useEffect(() => {
         const isSameEntry = !objectService.isNewObjectDifferent(prevDebouncedEntry, debouncedEntry);
@@ -62,4 +65,4 @@ export const useErrorCheck = ({entry, lastInputChange}: useErrorCheckProps) => {
     }, [debouncedEntry]);
 
     return errorList;
-};
+}

@@ -17,6 +17,12 @@
         "strict": true,
         "jsx": "react"
     },
-    "include": ["./**/*"],
-    "exclude": ["./node_modules", "../api", "./dist"]
+    "include": [
+        "./**/*"
+    ],
+    "exclude": [
+        "./node_modules",
+        "../api",
+        "./dist"
+    ]
 }

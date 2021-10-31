@@ -10,9 +10,6 @@ import Provider from '@/components/Provider/Provider';
 import 'semantic-ui-css/semantic.min.css';
 import './index.scss';
 
-ReactDOM.render(
-    <Provider>
-        <App />
-    </Provider>,
-    document.querySelector('.app-container'),
-);
+ReactDOM.render((<Provider>
+    <App />
+</Provider>), document.querySelector('.app-container'));

@@ -2,13 +2,16 @@
 import timeService from '@/services/TimeService/TimeService';
 
 // Actions
-import {SET_FILTERS, UPDATE_DATE_RANGE} from '@/stores/actions/filters';
+import {
+    SET_FILTERS,
+    UPDATE_DATE_RANGE
+} from '@/stores/actions/filters';
 
 // Types
-import {FiltersInterface} from '@/types/Filters';
+import { FiltersInterface } from '@/types/Filters';
 
 const initialState: FiltersInterface = {
-    dateRange: [timeService.getCurrentDate()],
+    dateRange: [timeService.getCurrentDate()]
 };
 
 export const filters = (state = initialState, action: any) => {
@@ -17,7 +20,7 @@ export const filters = (state = initialState, action: any) => {
         case SET_FILTERS:
             return {
                 ...state,
-                ...action.payload,
+                ...action.payload
             };
         case UPDATE_DATE_RANGE:
             dateRange = action.payload;
@@ -27,7 +30,7 @@ export const filters = (state = initialState, action: any) => {
             };
         default:
             return {
-                ...state,
-            };
+                ...state
+            }
     }
 };

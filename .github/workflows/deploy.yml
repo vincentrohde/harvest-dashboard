@@ -4,41 +4,41 @@ name: Deployment
 
 # Controls when the action will run.
 on:
-    # Triggers the workflow on push or pull request events but only for the master branch
-    push:
-        branches: [master]
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
 
-    # Allows you to run this workflow manually from the Actions tab
-    workflow_dispatch:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-    # This workflow contains a single job called "build"
-    build:
-        # The type of runner that the job will run on
-        runs-on: ubuntu-latest
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
 
-        steps:
-            - uses: actions/checkout@v2
-            - name: Install SSH Key
-              uses: shimataro/ssh-key-action@v2
-              with:
-                  key: ${{ secrets.SSH_KEY }}
-                  known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
-            - name: Adding Known Hosts
-              run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
-            - name: Deploy with rsync
-              run: |
-                  rsync -avz ./api ./client ./docker ./config ./Makefile ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.SSH_LOCATION }}
-            - name: Restarting Server
-              uses: appleboy/ssh-action@master
-              with:
-                  host: ${{ secrets.SSH_HOST }}
-                  username: ${{ secrets.SSH_USER }}
-                  key: ${{ secrets.SSH_KEY }}
-                  port: ${{ secrets.SSH_PORT }}
-                  script: |
-                      cd ~/..${{ secrets.SSH_LOCATION }}
-                      make prod:down
-                      make prod:install
-                      make prod:up
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
+      - name: Adding Known Hosts
+        run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+      - name: Deploy with rsync
+        run: |
+          rsync -avz ./api ./client ./docker ./config ./Makefile ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.SSH_LOCATION }}
+      - name: Restarting Server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd ~/..${{ secrets.SSH_LOCATION }}
+            make prod:down
+            make prod:install
+            make prod:up

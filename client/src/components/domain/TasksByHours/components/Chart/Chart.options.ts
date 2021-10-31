@@ -1,12 +1,12 @@
 export const options = {
     plugins: {
         legend: {
-            display: false,
+            display: false
         },
     },
     scales: {
         y: {
             beginAtZero: true,
-        },
-    },
+        }
+    }
 };

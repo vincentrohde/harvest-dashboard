@@ -1,21 +1,19 @@
 // Libs
 import React from 'react';
-import {Form, Input} from 'semantic-ui-react';
+import { Form, Input } from 'semantic-ui-react';
 
 // Types
-import {NotesProps} from './Notes.types';
+import { NotesProps } from './Notes.types';
 
-const Notes = ({notes, handleChange}: NotesProps) => (
-    <Form.Field
-        className="form-input"
-        control={Input}
-        label="Notes"
-        placeholder="Notes"
-        name="notes"
-        onChange={handleChange}
-        value={notes}
-        width={12}
-    />
-);
+const Notes = ({notes, handleChange}: NotesProps) => (<Form.Field
+    className="form-input"
+    control={Input}
+    label="Notes"
+    placeholder="Notes"
+    name="notes"
+    onChange={handleChange}
+    value={notes}
+    width={12}
+/>);
 
 export default Notes;

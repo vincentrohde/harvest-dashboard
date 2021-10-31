@@ -2,9 +2,9 @@
 import React from 'react';
 
 // Types
-import {ShallowSubmissionEntryInterface} from '@/types/TimeEntry';
-import {SelectOptionsList} from '@/services/SemanticUiService/SemanticUiService';
-import {onChangeHandler} from '@/types/SemanticInput';
+import { ShallowSubmissionEntryInterface } from '@/types/TimeEntry';
+import { SelectOptionsList } from '@/services/SemanticUiService/SemanticUiService';
+import { onChangeHandler } from '@/types/SemanticInput';
 
 export interface FormProps {
     entry: ShallowSubmissionEntryInterface;
@@ -16,4 +16,4 @@ export interface FormProps {
     onCancel: () => void;
     onChange: onChangeHandler;
     onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-}
+};

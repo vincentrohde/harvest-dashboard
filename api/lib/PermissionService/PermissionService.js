@@ -11,7 +11,7 @@ class PermissionService {
         } else {
             success();
         }
-    }
+    };
 }
 
 module.exports = new PermissionService();

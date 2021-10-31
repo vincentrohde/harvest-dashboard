@@ -1,4 +1,4 @@
-import {idObject} from './ObjectService.types';
+import { idObject } from './ObjectService.types';
 
 class ObjectService {
     isEmptyObject(obj: Object) {
@@ -38,10 +38,10 @@ class ObjectService {
 
             return {
                 ...item,
-                ...object,
-            };
+                ...object
+            }
         });
-    }
+    };
 }
 
 const objectService = new ObjectService();

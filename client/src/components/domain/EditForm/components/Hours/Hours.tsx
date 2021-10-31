@@ -1,22 +1,20 @@
 // Libs
 import React from 'react';
-import {Form, Input} from 'semantic-ui-react';
+import { Form, Input } from 'semantic-ui-react';
 
 // Types
-import {HoursProps} from './Hours.types';
+import { HoursProps } from './Hours.types';
 
-const Hours = ({hours, isError, handleChange}: HoursProps) => (
-    <Form.Field
-        className="form-input"
-        control={Input}
-        label="Hours"
-        placeholder="Hours"
-        name="hours"
-        error={isError}
-        onChange={handleChange}
-        value={hours}
-        width={4}
-    />
-);
+const Hours = ({hours, isError, handleChange}: HoursProps) => (<Form.Field
+    className="form-input"
+    control={Input}
+    label="Hours"
+    placeholder="Hours"
+    name="hours"
+    error={isError}
+    onChange={handleChange}
+    value={hours}
+    width={4}
+/>);
 
 export default Hours;

@@ -2,14 +2,14 @@
 import timeEntryService from '@/services/TimeEntryService/TimeEntryService';
 
 // Types
-import {TimeEntryInterface} from '@/types/TimeEntry';
+import { TimeEntryInterface } from '@/types/TimeEntry';
 
 // Action Types
 import {
     ADD_TIME_ENTRIES,
     ADD_TIME_ENTRY,
     UPDATE_TIME_ENTRY,
-    DELETE_TIME_ENTRY,
+    DELETE_TIME_ENTRY
 } from '@/stores/actions/timeEntries';
 
 export const timeEntries = (state: TimeEntryInterface[] = [], action: any) => {
@@ -29,8 +29,8 @@ export const timeEntries = (state: TimeEntryInterface[] = [], action: any) => {
         case DELETE_TIME_ENTRY:
             const id = action.payload;
             prevTimeEntries = [...state];
-            return [...timeEntryService.deleteTimeEntry(id, prevTimeEntries)];
+            return [...timeEntryService.deleteTimeEntry(id, prevTimeEntries)]
         default:
-            return state;
+            return state
     }
 };

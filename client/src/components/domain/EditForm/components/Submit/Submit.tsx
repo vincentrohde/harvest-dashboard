@@ -1,7 +1,7 @@
 import React from 'react';
-import {Button, Icon} from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
 
-const Submit = ({disabled}: {disabled: boolean}) => {
+const Submit = ({ disabled }: { disabled: boolean; }) => {
     return (
         <Button
             className="submit-button js-submit"
@@ -13,6 +13,6 @@ const Submit = ({disabled}: {disabled: boolean}) => {
             <Icon name="send" /> Submit
         </Button>
     );
-};
+}
 
 export default Submit;

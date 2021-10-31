@@ -1,17 +1,14 @@
 // Libs
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 
 // Services
 import timeService from '@/services/TimeService/TimeService';
 
 // Types
-import {timeEntriesType} from '@/types/TimeEntry';
-import {timeUnit} from '@/services/TimeService/TimeService.types';
+import { timeEntriesType } from '@/types/TimeEntry';
+import { timeUnit } from '@/services/TimeService/TimeService.types';
 
-export const useTimeEntriesByTimeUnit = (
-    timeEntries: timeEntriesType | undefined,
-    timeUnit: timeUnit,
-) => {
+export const useTimeEntriesByTimeUnit = (timeEntries: timeEntriesType | undefined, timeUnit: timeUnit) => {
     const [sortedTimeEntries, setSortedTimeEntries] = useState<timeEntriesType[]>([]);
 
     // Sorts time entries by day (oldest to newest)
@@ -26,9 +23,7 @@ export const useTimeEntriesByTimeUnit = (
     };
 
     const sortTimeEntriesByTimeUnit = () => {
-        if (typeof timeEntries === 'undefined') {
-            return;
-        }
+        if (typeof timeEntries === 'undefined') { return; }
 
         const newSortedTimeEntries = getSortedTimeEntries(timeEntries);
         let timeEntriesGrouped: timeEntriesType[] = [];
@@ -45,11 +40,7 @@ export const useTimeEntriesByTimeUnit = (
             for (let i = 0; i < timeEntriesGrouped.length; i++) {
                 if (!isAdded) {
                     const firstGroupedEntry = timeEntriesGrouped[i][0];
-                    const isSameDateRange = timeService.isSameDateRange(
-                        entry.spent_date,
-                        firstGroupedEntry.spent_date,
-                        timeUnit,
-                    );
+                    const isSameDateRange = timeService.isSameDateRange(entry.spent_date, firstGroupedEntry.spent_date, timeUnit);
                     const isLastGroup = i === timeEntriesGrouped.length - 1;
 
                     if (isSameDateRange) {
@@ -67,7 +58,7 @@ export const useTimeEntriesByTimeUnit = (
         });
 
         setSortedTimeEntries(timeEntriesGrouped);
-    };
+    }
 
     useEffect(() => {
         sortTimeEntriesByTimeUnit();

@@ -1,6 +1,6 @@
 // Types
-import {groupLabel} from './useGroupLabel.types';
-import {group} from '../../DataOverview.types';
+import { groupLabel } from './useGroupLabel.types';
+import { group } from '../../DataOverview.types';
 
 export const useGroupLabel = (group: group) => {
     let groupLabel: groupLabel;

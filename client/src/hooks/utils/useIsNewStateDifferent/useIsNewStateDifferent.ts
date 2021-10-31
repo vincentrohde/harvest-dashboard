@@ -1,5 +1,5 @@
 // Libs
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 
 // Hooks
 import usePrevious from '@/hooks/utils/usePrevious/usePrevious';
@@ -10,15 +10,13 @@ const useIsNewStateDifferent = <T>(state: T) => {
 
     useEffect(() => {
         const isFirstState = typeof prevState === 'undefined' && typeof state !== 'undefined';
-        const isDifferentState =
-            typeof prevState !== 'undefined' &&
-            typeof state !== 'undefined' &&
-            JSON.stringify(prevState) !== JSON.stringify(state);
+        const isDifferentState = (typeof prevState !== 'undefined' && typeof state !== 'undefined') &&
+            (JSON.stringify(prevState) !== JSON.stringify(state));
 
         setIsNewStateDifferent(isFirstState || isDifferentState);
     }, [state]);
 
     return isNewStateDifferent;
-};
+}
 
 export default useIsNewStateDifferent;

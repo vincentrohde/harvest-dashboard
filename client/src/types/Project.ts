@@ -1,4 +1,4 @@
-import {groupsType, GroupInterface} from './Group';
+import { groupsType, GroupInterface } from './Group';
 
 export type projectsType = groupsType;
 

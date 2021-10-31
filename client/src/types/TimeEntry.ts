@@ -1,5 +1,5 @@
-import {ProjectInterface} from './Project';
-import {TaskInterface} from './Task';
+import { ProjectInterface } from './Project';
+import { TaskInterface } from './Task';
 
 export type timeEntriesType = TimeEntryInterface[];
 
