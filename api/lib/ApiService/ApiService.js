@@ -4,18 +4,13 @@ const axios = require('axios');
 
 // Configs
 
-const requestConfig = {
-    headers: {
-        'Authorization': 'Bearer ' + process.env.ACCESS_TOKEN,
-        'Harvest-Account-ID': process.env.ACCOUNT_ID,
-    }
-};
-
-const updateConfig = {
-    headers: {
-        ...requestConfig.headers,
-        'Content-Type': 'application/json',
-    }
+const getUpdateConfig = (config) => {
+    return {
+        headers: {
+            ...config.headers,
+            'Content-Type': 'application/json',
+        },
+    };
 };
 
 // URLs for different requests
@@ -25,54 +20,70 @@ const TIME_ENTRIES_URL = V2_HARVEST_API_URL + '/time_entries';
 const TASKS_URL = V2_HARVEST_API_URL + '/tasks';
 const PROJECTS_URL = V2_HARVEST_API_URL + '/projects';
 
+// OAuth URLs
+
+const OAUTH_URL = 'https://id.getharvest.com/api/v2/oauth2/token';
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
+
 class ApiService {
-    addTimeEntry (timeEntry) {
-        return axios.post(TIME_ENTRIES_URL, timeEntry, updateConfig);
+    addTimeEntry(config, timeEntry) {
+        return axios.post(TIME_ENTRIES_URL, timeEntry, getUpdateConfig(config));
     }
 
-    deleteTimeEntry (entryID) {
-        return axios.delete(`${TIME_ENTRIES_URL}/${entryID}`, updateConfig);
+    deleteTimeEntry(config, entryID) {
+        return axios.delete(`${TIME_ENTRIES_URL}/${entryID}`, getUpdateConfig(config));
     }
 
-    updateTimeEntry (timeEntry, entryID) {
-        return axios.patch(`${TIME_ENTRIES_URL}/${entryID}`, timeEntry, updateConfig);
+    updateTimeEntry(config, timeEntry, entryID) {
+        return axios.patch(`${TIME_ENTRIES_URL}/${entryID}`, timeEntry, getUpdateConfig(config));
     }
 
-    getTimeEntry (entryID) {
-        return axios.get(`${TIME_ENTRIES_URL}/${entryID}`, requestConfig);
+    getTimeEntry(config, entryID) {
+        return axios.get(`${TIME_ENTRIES_URL}/${entryID}`, config);
     }
 
-    getTimeEntries (from, to) {
+    getAccessTokenFromOAuth(code) {
+        return axios
+            .post(
+                `${OAUTH_URL}?code=${code}&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&grant_type=authorization_code`,
+            )
+            .then((response) => {
+                const {data} = response;
+                return new Promise((resolve) => {
+                    resolve(data);
+                });
+            });
+    }
+
+    getTimeEntries(config, from, to) {
         const isParams = typeof from !== 'undefined' && from && typeof to !== 'undefined' && to;
         const queryString = isParams ? `?from=${from}&to=${to}` : '';
 
-        return axios.get(TIME_ENTRIES_URL + queryString, requestConfig)
-            .then((response) => {
-                const { time_entries } = response.data;
-                return new Promise ((resolve) => {
-                    resolve(time_entries);
-                })
+        return axios.get(TIME_ENTRIES_URL + queryString, config).then((response) => {
+            const {time_entries} = response.data;
+            return new Promise((resolve) => {
+                resolve(time_entries);
             });
+        });
     }
 
-    getTasks () {
-        return axios.get(TASKS_URL, requestConfig)
-            .then((response) => {
-                const { tasks } = response.data;
-                return new Promise((resolve) => {
-                    resolve(tasks)
-                });
+    getTasks(config) {
+        return axios.get(TASKS_URL, config).then((response) => {
+            const {tasks} = response.data;
+            return new Promise((resolve) => {
+                resolve(tasks);
             });
+        });
     }
 
-    getProjects () {
-        return axios.get(PROJECTS_URL, requestConfig)
-            .then((response) => {
-                const { projects } = response.data;
-                return new Promise((resolve) => {
-                    resolve(projects);
-                });
+    getProjects(config) {
+        return axios.get(PROJECTS_URL, config).then((response) => {
+            const {projects} = response.data;
+            return new Promise((resolve) => {
+                resolve(projects);
             });
+        });
     }
 }
 
