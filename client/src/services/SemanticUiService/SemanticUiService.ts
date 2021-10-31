@@ -19,9 +19,9 @@ class SemanticUiService {
             return {
                 value: item,
                 text: isFirstCharUpperCase ? item[0].toUpperCase() + item.slice(1) : item,
-                key: index.toString()
-            }
-        })
+                key: index.toString(),
+            };
+        });
     }
 
     convertDataToSelectOptions(data: ApiData[]): SelectOptionsList {
@@ -29,9 +29,9 @@ class SemanticUiService {
             return {
                 value: item.id,
                 text: item.name,
-                key: item.id
-            }
-        })
+                key: item.id,
+            };
+        });
     }
 }
 

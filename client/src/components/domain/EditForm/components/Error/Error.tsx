@@ -1,14 +1,14 @@
 // Libs
 import React from 'react';
-import { Message } from "semantic-ui-react";
+import {Message} from 'semantic-ui-react';
 
 // Types
-import { ErrorProps } from './Error.types';
+import {ErrorProps} from './Error.types';
 
 // Styling
 import './Error.scss';
 
-const Error = ({ error }: ErrorProps) => {
+const Error = ({error}: ErrorProps) => {
     let errorContent: string;
     switch (error[0]) {
         case 'hours':
@@ -22,15 +22,9 @@ const Error = ({ error }: ErrorProps) => {
     }
     return (
         <div className="Error">
-            { error && (
-                <Message
-                    error
-                    header="Input Error"
-                    content={ errorContent }
-                />
-            )}
+            {error && <Message error header="Input Error" content={errorContent} />}
         </div>
     );
-}
+};
 
 export default Error;

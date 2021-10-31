@@ -6,5 +6,5 @@ export const dataColors = [
     '#6bc5d2',
     '#d2fafb',
     '#ff935c',
-    '#ef4b4b'
-]
+    '#ef4b4b',
+];

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 
 // Services
 import tasksSortService from '@/services/TasksSortService/TasksSortService';
@@ -7,8 +7,8 @@ import tasksSortService from '@/services/TasksSortService/TasksSortService';
 import useIsNewStateDifferent from '@/hooks/utils/useIsNewStateDifferent/useIsNewStateDifferent';
 
 // Types
-import { timeEntriesType } from '@/types/TimeEntry';
-import { tasksByHours } from '@/types/Task';
+import {timeEntriesType} from '@/types/TimeEntry';
+import {tasksByHours} from '@/types/Task';
 
 export const useTasksByHours = (timeEntries: timeEntriesType | undefined) => {
     const [tasksByHours, setTasksByHours] = useState<tasksByHours>([]);
@@ -22,4 +22,4 @@ export const useTasksByHours = (timeEntries: timeEntriesType | undefined) => {
     }, [timeEntries]);
 
     return tasksByHours;
-}
+};

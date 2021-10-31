@@ -1,5 +1,4 @@
-export type onChangeHandler = (_event: any, { name, value }:
-    { name: string; value: string }) => void;
+export type onChangeHandler = (_event: any, {name, value}: {name: string; value: string}) => void;
 
 export interface Label {
     children: string;

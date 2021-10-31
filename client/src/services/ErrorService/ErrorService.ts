@@ -1,5 +1,5 @@
 class ErrorService {
-    handleBasicApiError (error: Error) {
+    handleBasicApiError(error: Error) {
         console.log(error);
     }
 }

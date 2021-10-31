@@ -1,4 +1,4 @@
-import { timeEntriesType } from '@/types/TimeEntry';
+import {timeEntriesType} from '@/types/TimeEntry';
 
 export interface TimeEntriesProps {
     timeEntries?: timeEntriesType;

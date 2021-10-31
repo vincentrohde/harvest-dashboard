@@ -2,7 +2,7 @@
 import moment from 'moment';
 
 // Types
-import { timeUnit, dateRange } from './TimeService.types';
+import {timeUnit, dateRange} from './TimeService.types';
 
 class TimeService {
     timeUnits: timeUnit[] = ['day', 'week', 'month', 'year'];
@@ -28,11 +28,12 @@ class TimeService {
     }
 
     hoursAndMinutesToHours(time: string): number {
-        const timeComponents = time.split(':').map(i=>Number(i));
+        const timeComponents = time.split(':').map((i) => Number(i));
         const dec = parseInt(String((timeComponents[1] / 6) * 10), 10);
 
-        const hours = parseFloat(parseInt(String(timeComponents[0]), 10)
-            + '.' + (dec<10?'0':'') + dec);
+        const hours = parseFloat(
+            parseInt(String(timeComponents[0]), 10) + '.' + (dec < 10 ? '0' : '') + dec,
+        );
 
         return Number(hours);
     }
@@ -58,7 +59,7 @@ class TimeService {
     }
 
     getDateFromDaysAgo(days: number, format: string = 'DD-MM-YYYY') {
-        return moment().subtract(days,'days').format(format);
+        return moment().subtract(days, 'days').format(format);
     }
 
     getCurrentDate(format: string = 'YYYY-MM-DD') {
@@ -92,7 +93,10 @@ class TimeService {
                 dateRange = moment(aDay, 'YYYY-MM-DD').format('DD.MM.YYYY');
                 break;
             case 'week':
-                dateRange = `Week ${moment(aDay, 'YYYY-MM-DD').week()}, ${moment(aDay, 'YYYY-MM-DD').format('YYYY')}`;
+                dateRange = `Week ${moment(aDay, 'YYYY-MM-DD').week()}, ${moment(
+                    aDay,
+                    'YYYY-MM-DD',
+                ).format('YYYY')}`;
                 break;
             case 'month':
                 dateRange = moment(aDay, 'YYYY-MM-DD').format('MMMM, YYYY');
@@ -108,12 +112,12 @@ class TimeService {
     }
 
     convertDateRangeToISO8601(dateRange: dateRange) {
-        return dateRange.map(item => timeService.ddMMYYYYToISO8601(item));
+        return dateRange.map((item) => timeService.ddMMYYYYToISO8601(item));
     }
 
-    convertDateRangeToDDMMYYY (dateRange: dateRange) {
-        return dateRange.map(item => timeService.iso8601ToDDMMYYY(item));
-    };
+    convertDateRangeToDDMMYYY(dateRange: dateRange) {
+        return dateRange.map((item) => timeService.iso8601ToDDMMYYY(item));
+    }
 }
 
 const timeService = new TimeService();

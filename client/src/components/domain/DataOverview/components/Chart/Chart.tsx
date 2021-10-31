@@ -1,14 +1,14 @@
 // Libs
 import React from 'react';
-import { Bar } from 'react-chartjs-2';
+import {Bar} from 'react-chartjs-2';
 
 // Options
-import { options } from './Chart.options';
+import {options} from './Chart.options';
 
 // Types
-import { ChartProps } from './Chart.types';
+import {ChartProps} from './Chart.types';
 
 // @ts-ignore
-const Chart = ({ data }: ChartProps) => <Bar data={data} options={options}/>;
+const Chart = ({data}: ChartProps) => <Bar data={data} options={options} />;
 
 export default Chart;

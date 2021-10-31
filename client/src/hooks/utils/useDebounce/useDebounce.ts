@@ -3,7 +3,7 @@
 // (c) 17th January, 2019
 
 // Libs
-import { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react';
 
 const useDebounce = (value: any, delay: number) => {
     const [debouncedValue, setDebouncedValue] = useState(value);
@@ -15,7 +15,7 @@ const useDebounce = (value: any, delay: number) => {
         return () => {
             clearTimeout(handler);
         };
-    },[value]);
+    }, [value]);
 
     return debouncedValue;
 };

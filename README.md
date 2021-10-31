@@ -12,7 +12,6 @@ A third-party React.js client for the [Harvest API V2](https://help.getharvest.c
 
 **Disclaimer: This project is not affiliated with Harvest**
 
-
 ## Contents
 
 1. [Getting Started](#getting-started)
@@ -37,7 +36,7 @@ A third-party React.js client for the [Harvest API V2](https://help.getharvest.c
 
 ### Prerequisites
 
-First of all, you will need a [Harvest account](https://www.getharvest.com) to fully use this project. The [free version](https://www.getharvest.com/pricing) will do fine. To run the client, 
+First of all, you will need a [Harvest account](https://www.getharvest.com) to fully use this project. The [free version](https://www.getharvest.com/pricing) will do fine. To run the client,
 you need to have **Node.js** and its package manager **npm** installed on your environment.
 
 ### Installation
@@ -49,9 +48,8 @@ git clone https://github.com/vincentrohde/harvest-dashboard.git
 cd ./harvest-dashboard
 ```
 
-
-
 #### Install dependencies
+
 This is for your dev environment (ex. IDE auto-completion, Typescript, etc.). The `node_modules` used by Docker are installed later on 😉
 
 ```
@@ -66,9 +64,9 @@ cd ..
 
 Start by creating your own `.env` file in the `/server` directory. You can use the `.env.example` file and just create a copy of it, with the filename `.env` like so:
 
-````
+```
 cp ./server/.env.example ./server/.env
-````
+```
 
 #### Harvest v2 Personal Access Token
 
@@ -136,13 +134,13 @@ With the `DatePicker` component you are able, to either select a certain date, a
 
 ##### Presets
 
-| Preset | Output | Format |
-|---|---|---|
-| `today` | `[currentDay]` | `<'DD-MM-YYYY'>[]` |
-| `one-week` | `[6 days ago, currentDay]` | `<'DD-MM-YYYY'>[]` |
-| `one-month` | `[29 days ago, currentDay]` | `<'DD-MM-YYYY'>[]` |
-| `one-year` | `[364 days ago, currentDay]` | `<'DD-MM-YYYY'>[]` |
-| `all` | `1` | `number` |
+| Preset      | Output                       | Format             |
+| ----------- | ---------------------------- | ------------------ |
+| `today`     | `[currentDay]`               | `<'DD-MM-YYYY'>[]` |
+| `one-week`  | `[6 days ago, currentDay]`   | `<'DD-MM-YYYY'>[]` |
+| `one-month` | `[29 days ago, currentDay]`  | `<'DD-MM-YYYY'>[]` |
+| `one-year`  | `[364 days ago, currentDay]` | `<'DD-MM-YYYY'>[]` |
+| `all`       | `1`                          | `number`           |
 
 Once a date value (either a single date, a date-range or 1) is set, the applications redux store (`store.filters.dateRange`) will be updated. When the `dateRange` property is updated, the application will request new time-entries from the backend.
 
@@ -154,13 +152,13 @@ The `EditForm` component allows you to add new time-entries as well as updating 
 
 The following props can be passed to the `EditForm` component, but are not required.
 
-| Prop | Information | Default |
-|---|---|---|
-| `data` | data of the time-entry | * |
-| `onSuccess` | callback when submit succeeds | `() => {}` |
-| `onCancel` | callback when submit was cancelled | `() => {}` |
+| Prop        | Information                        | Default    |
+| ----------- | ---------------------------------- | ---------- |
+| `data`      | data of the time-entry             | \*         |
+| `onSuccess` | callback when submit succeeds      | `() => {}` |
+| `onCancel`  | callback when submit was cancelled | `() => {}` |
 
-*) If no data is provided, the component will fall back on its `defaultData` which can be found in `EditForm/defaultData.ts`. This will be then handled as a `isNewEntry`.
+\*) If no data is provided, the component will fall back on its `defaultData` which can be found in `EditForm/defaultData.ts`. This will be then handled as a `isNewEntry`.
 
 ##### onChange
 
@@ -216,9 +214,11 @@ Time utility functions (ex. comparing or formatting dates) using `moment.js`.
 ### Branches
 
 #### master
+
 The `master` branch is used as the project's release branch. No development should happen here.
 
 #### develop
+
 The `develop` branch is used as a collection for changes that will end up as a new release. In general, new pushes should only come through merging `feature/` or `bug/` branches into `develop`.
 
 #### feature/
@@ -289,11 +289,11 @@ To do this, you will need to add a few new GitHub secrets to your repo (the fork
 
 Go to your forked repository on Github and open the `Settings` tab. Now navigate to `Secrets` and click on `New Repository Secret`. Add the following secrets to your repository.
 
-| Secret Name | Information |
-|---|---|
-| `SSH_KEY` | Your SSH key, with access to your server |
-| `SSH_HOST` | Your server's IP address |
-| `SSH_USER` | The server's user you log into with when using ssh |
+| Secret Name    | Information                                                                           |
+| -------------- | ------------------------------------------------------------------------------------- |
+| `SSH_KEY`      | Your SSH key, with access to your server                                              |
+| `SSH_HOST`     | Your server's IP address                                                              |
+| `SSH_USER`     | The server's user you log into with when using ssh                                    |
 | `SSH_LOCATION` | The directory on your server, where the repo should be deployed to (remote directory) |
 
 #### Deploying

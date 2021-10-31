@@ -1,5 +1,5 @@
-import { TaskByHours, tasksByHours } from '@/types/Task';
-import { ProjectByHours, projectsByHours } from '@/types/Project';
+import {TaskByHours, tasksByHours} from '@/types/Task';
+import {ProjectByHours, projectsByHours} from '@/types/Project';
 
 export type byHoursList = tasksByHours[] | projectsByHours[];
 export type byHours = tasksByHours | projectsByHours;

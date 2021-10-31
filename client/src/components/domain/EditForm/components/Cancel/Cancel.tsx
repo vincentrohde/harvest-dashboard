@@ -1,11 +1,11 @@
 // Libs
 import React from 'react';
-import { Button, Icon } from 'semantic-ui-react';
+import {Button, Icon} from 'semantic-ui-react';
 
 // Types
-import { CancelProps } from './Cancel.types';
+import {CancelProps} from './Cancel.types';
 
-const Cancel = ({ onCancel }: CancelProps) => {
+const Cancel = ({onCancel}: CancelProps) => {
     return (
         <Button
             className="cancel-button js-cancel"
@@ -17,6 +17,6 @@ const Cancel = ({ onCancel }: CancelProps) => {
             <Icon name="cancel" /> Cancel
         </Button>
     );
-}
+};
 
 export default Cancel;

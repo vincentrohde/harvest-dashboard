@@ -1,15 +1,15 @@
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
 
-import { filters } from './filters';
-import { timeEntries } from './timeEntries';
-import { projects } from './projects';
-import { tasks } from './tasks';
+import {filters} from './filters';
+import {timeEntries} from './timeEntries';
+import {projects} from './projects';
+import {tasks} from './tasks';
 
 const application = combineReducers({
     filters,
     timeEntries,
     projects,
-    tasks
+    tasks,
 });
 
 export default application;

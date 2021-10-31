@@ -4,27 +4,27 @@
 
 name: Github Release Action
 on:
-  push:
-    branches:
-      - master
+    push:
+        branches:
+            - master
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: '0'
-      - id: tagbump
-        name: "Bump version and push tag"
-        uses: "anothrNick/github-tag-action@1.34.0"
-        env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          WITH_V: true
-          RELEASE_BRANCHES: master
-          DEFAULT_BUMP: minor
-      - name: "Create Release"
-        uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "${{ steps.tagbump.outputs.tag }}"
-          prerelease: false
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+              with:
+                  fetch-depth: '0'
+            - id: tagbump
+              name: 'Bump version and push tag'
+              uses: 'anothrNick/github-tag-action@1.34.0'
+              env:
+                  GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+                  WITH_V: true
+                  RELEASE_BRANCHES: master
+                  DEFAULT_BUMP: minor
+            - name: 'Create Release'
+              uses: 'marvinpinto/action-automatic-releases@latest'
+              with:
+                  repo_token: '${{ secrets.GITHUB_TOKEN }}'
+                  automatic_release_tag: '${{ steps.tagbump.outputs.tag }}'
+                  prerelease: false

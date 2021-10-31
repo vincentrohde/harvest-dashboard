@@ -1,26 +1,26 @@
 version: '3'
 services:
-  harvest-app:
-    build:
-      context: ../.
-      dockerfile: docker/harvest-app/Dockerfile.dev
-    links:
-      - api:api
-      - client:client
-    ports:
-      - '80:80'
-  client:
-    build:
-      context: ../.
-      dockerfile: docker/client/Dockerfile.dev
-    image: harvest-client
-    environment:
-      - NODE_ENV=development
-    volumes:
-      - ../client:/app
-      - /app/node_modules
-    ports:
-      - '3000:3000'
-  api:
-    environment:
-      - NODE_ENV=development
+    harvest-app:
+        build:
+            context: ../.
+            dockerfile: docker/harvest-app/Dockerfile.dev
+        links:
+            - api:api
+            - client:client
+        ports:
+            - '80:80'
+    client:
+        build:
+            context: ../.
+            dockerfile: docker/client/Dockerfile.dev
+        image: harvest-client
+        environment:
+            - NODE_ENV=development
+        volumes:
+            - ../client:/app
+            - /app/node_modules
+        ports:
+            - '3000:3000'
+    api:
+        environment:
+            - NODE_ENV=development

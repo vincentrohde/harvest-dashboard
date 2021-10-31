@@ -23,5 +23,5 @@ export const dateRanges = [
         key: '5',
         value: 'all',
         text: 'Show All',
-    }
+    },
 ];

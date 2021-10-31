@@ -3,7 +3,7 @@ import timeService from '@/services/TimeService/TimeService';
 import objectService from '@/services/ObjectService/ObjectService';
 
 // Types
-import { TimeEntryInterface } from '@/types/TimeEntry';
+import {TimeEntryInterface} from '@/types/TimeEntry';
 
 class TimeEntryService {
     addTimeEntry(timeEntry: TimeEntryInterface, timeEntries: TimeEntryInterface[]) {

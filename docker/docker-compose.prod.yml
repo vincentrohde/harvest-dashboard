@@ -1,21 +1,21 @@
 version: '3'
 services:
-  harvest-app:
-    build:
-      context: ../.
-      dockerfile: docker/harvest-app/Dockerfile.prod
-    links:
-      - api:api
-    environment:
-      - NODE_ENV=production
-    networks:
-      - nginx.docker
-  api:
-    environment:
-      - NODE_ENV=production
-    networks:
-      - nginx.docker
+    harvest-app:
+        build:
+            context: ../.
+            dockerfile: docker/harvest-app/Dockerfile.prod
+        links:
+            - api:api
+        environment:
+            - NODE_ENV=production
+        networks:
+            - nginx.docker
+    api:
+        environment:
+            - NODE_ENV=production
+        networks:
+            - nginx.docker
 networks:
-  nginx.docker:
-    name: nginx.docker
-    external: true
+    nginx.docker:
+        name: nginx.docker
+        external: true
