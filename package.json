@@ -17,12 +17,7 @@
         "prepare": "husky install",
         "format-code": "prettier --write --ignore-unknown ."
     },
-    "lint-staged": {
-        "**/*": "prettier --write --ignore-unknown"
-    },
     "devDependencies": {
-        "husky": "^7.0.4",
-        "lint-staged": "^11.2.6",
         "prettier": "2.4.1"
     }
 }
