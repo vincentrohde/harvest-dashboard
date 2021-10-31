@@ -13,6 +13,16 @@
         "prod:install:nocache": "docker-compose -f docker/docker-compose.yml -f docker/docker-compose.prod.yml build --no-cache",
         "prod:up": "docker-compose -f docker/docker-compose.yml -f docker/docker-compose.prod.yml up -d",
         "prod:down": "docker-compose -f docker/docker-compose.yml -f docker/docker-compose.prod.yml down",
-        "prod:uninstall": "docker-compose -f docker/docker-compose.yml -f docker/docker-compose.prod.yml down --rmi all"
+        "prod:uninstall": "docker-compose -f docker/docker-compose.yml -f docker/docker-compose.prod.yml down --rmi all",
+        "prepare": "husky install",
+        "format-code": "prettier --write --ignore-unknown ."
+    },
+    "lint-staged": {
+        "**/*": "prettier --write --ignore-unknown"
+    },
+    "devDependencies": {
+        "husky": "^7.0.4",
+        "lint-staged": "^11.2.6",
+        "prettier": "2.4.1"
     }
 }
