@@ -13,6 +13,10 @@
         "prod:install:nocache": "docker-compose -f docker/docker-compose.yml -f docker/docker-compose.prod.yml build --no-cache",
         "prod:up": "docker-compose -f docker/docker-compose.yml -f docker/docker-compose.prod.yml up -d",
         "prod:down": "docker-compose -f docker/docker-compose.yml -f docker/docker-compose.prod.yml down",
-        "prod:uninstall": "docker-compose -f docker/docker-compose.yml -f docker/docker-compose.prod.yml down --rmi all"
+        "prod:uninstall": "docker-compose -f docker/docker-compose.yml -f docker/docker-compose.prod.yml down --rmi all",
+        "format-code": "prettier --write --ignore-unknown ."
+    },
+    "devDependencies": {
+        "prettier": "2.4.1"
     }
 }
