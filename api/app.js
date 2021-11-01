@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const apiService = require('./lib/ApiService/ApiService');
 const expressErrorService = require('./lib/ExpressErrorService/ExpressErrorService');
 const oAuthService = require('./lib/OAuthService/OAuthService');
@@ -36,7 +37,7 @@ app.get('/oauth/redirect', (req, res) => {
 });
 
 // Get Time Entries
-app.get('/time_entries', (req, res) => {
+app.get('/time_entries', cors(), (req, res) => {
     oAuthService.handleHarvestRequest(req, res, (config) => {
         const from = req.query.from || false;
         const to = req.query.to || false;
@@ -49,7 +50,7 @@ app.get('/time_entries', (req, res) => {
 });
 
 // Get Tasks
-app.get('/tasks', (req, res) => {
+app.get('/tasks', cors(), (req, res) => {
     oAuthService.handleHarvestRequest(req, res, (config) => {
         apiService
             .getTasks(config)
@@ -59,7 +60,7 @@ app.get('/tasks', (req, res) => {
 });
 
 // Get Projects
-app.get('/projects', (req, res) => {
+app.get('/projects', cors(), (req, res) => {
     oAuthService.handleHarvestRequest(req, res, (config) => {
         apiService
             .getProjects(config)
@@ -71,7 +72,7 @@ app.get('/projects', (req, res) => {
 });
 
 // Add Time Entry
-app.post('/time_entries', (req, res) => {
+app.post('/time_entries', cors(), (req, res) => {
     oAuthService.handleHarvestRequest(req, res, (config) => {
         const {body: entry} = req;
         apiService
@@ -82,7 +83,7 @@ app.post('/time_entries', (req, res) => {
 });
 
 // Update Time Entry
-app.patch('/time_entries/:entryId', ({params, body: timeEntry}, res) => {
+app.patch('/time_entries/:entryId', cors(), ({params, body: timeEntry}, res) => {
     oAuthService.handleHarvestRequest(req, res, (config) => {
         const {entryId} = params;
         apiService
@@ -93,7 +94,7 @@ app.patch('/time_entries/:entryId', ({params, body: timeEntry}, res) => {
 });
 
 // Remove Time Entry
-app.delete('/time_entries/:entryId', ({params}, res) => {
+app.delete('/time_entries/:entryId', cors(), ({params}, res) => {
     oAuthService.handleHarvestRequest(req, res, (config) => {
         const {entryId} = params;
 
