@@ -7,7 +7,6 @@ const expressErrorService = require('./lib/ExpressErrorService/ExpressErrorServi
 const oAuthService = require('./lib/OAuthService/OAuthService');
 
 const app = express();
-const port = 8080;
 
 const CLIENT_URL = process.env.CLIENT_URL;
 
@@ -105,4 +104,6 @@ app.delete('/time_entries/:entryId', ({params}, res) => {
     });
 });
 
-app.listen(port, () => console.log(`App listening on port ${port}`));
+app.listen(process.env.PORT || 3000, () =>
+    console.log(`App listening on port ${process.env.PORT || 3000}`),
+);
