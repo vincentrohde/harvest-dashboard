@@ -15,7 +15,7 @@
         "prod:down": "docker-compose -f docker/docker-compose.yml -f docker/docker-compose.prod.yml down",
         "prod:uninstall": "docker-compose -f docker/docker-compose.yml -f docker/docker-compose.prod.yml down --rmi all",
         "format-code": "prettier --write --ignore-unknown .",
-        "heroku-prebuild": "cd app && npm install && npm run build && cd .. && cd api && npm install",
+        "heroku-prebuild": "cd api && npm install",
         "start": "cd api && npm start"
     },
     "devDependencies": {
