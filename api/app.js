@@ -77,9 +77,10 @@ app.post('/time_entries', cors(), (req, res) => {
 });
 
 // Update Time Entry
-app.patch('/time_entries/:entryId', cors(), ({params, body: timeEntry}, res) => {
+app.patch('/time_entries/:entryId', cors(), (req, res) => {
     oAuthService.handleHarvestRequest(req, res, (config) => {
-        const {entryId} = params;
+        const {body: timeEntry} = req;
+        const {entryId} = req.params;
         apiService
             .updateTimeEntry(config, timeEntry, entryId)
             .then(({data}) => res.json(data))
@@ -88,9 +89,9 @@ app.patch('/time_entries/:entryId', cors(), ({params, body: timeEntry}, res) => 
 });
 
 // Remove Time Entry
-app.delete('/time_entries/:entryId', cors(), ({params}, res) => {
+app.delete('/time_entries/:entryId', cors(), (req, res) => {
     oAuthService.handleHarvestRequest(req, res, (config) => {
-        const {entryId} = params;
+        const {entryId} = req.params;
 
         apiService
             .deleteTimeEntry(config, entryId)
