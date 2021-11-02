@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const axios = require('axios');
 
 // Configs
@@ -25,6 +23,7 @@ const PROJECTS_URL = V2_HARVEST_API_URL + '/projects';
 const OAUTH_URL = 'https://id.getharvest.com/api/v2/oauth2/token';
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
+const OAUTH_APP_SERVER = process.env.OAUTH_APP_SERVER;
 
 class ApiService {
     addTimeEntry(config, timeEntry) {
@@ -43,10 +42,21 @@ class ApiService {
         return axios.get(`${TIME_ENTRIES_URL}/${entryID}`, config);
     }
 
-    getAccessTokenFromOAuth(code) {
+    getOAuthData(requestToken) {
+        return axios
+            .get(`${OAUTH_APP_SERVER}/oauth/data?requestToken=${requestToken}`)
+            .then((response) => {
+                const {data} = response;
+                return new Promise((resolve) => {
+                    resolve(data);
+                });
+            });
+    }
+
+    getAccessTokenFromOAuth(requestToken) {
         return axios
             .post(
-                `${OAUTH_URL}?code=${code}&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&grant_type=authorization_code`,
+                `${OAUTH_URL}?code=${requestToken}&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&grant_type=authorization_code`,
             )
             .then((response) => {
                 const {data} = response;

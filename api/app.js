@@ -14,24 +14,18 @@ const CLIENT_URL = process.env.CLIENT_URL;
 app.use(express.json());
 app.use(cookieParser());
 
-// Handle OAuth Redirect
-app.get('/oauth/redirect', (req, res) => {
-    const requestToken = req.query.code;
-    const requestScope = req.query.scope;
-    const account_id = oAuthService.getAccountId(requestScope);
+// Handle OAuth Access Token Requests
+app.get('/oauth/data', cors(), (req, res) => {
+    const requestToken = req.query.requestToken;
 
     apiService
         .getAccessTokenFromOAuth(requestToken)
-        .then(({access_token, refresh_token, token_type, expires_in}) => {
-            const cookieData = oAuthService.setOAuthCookieData(
+        .then(({access_token, refresh_token, expires_in}) => {
+            res.send({
                 access_token,
                 refresh_token,
-                account_id,
                 expires_in,
-            );
-            const cookieConfig = oAuthService.getOAuthCookieConfig(expires_in);
-            res.cookie('oauth', cookieData, cookieConfig);
-            res.redirect(CLIENT_URL);
+            });
         })
         .catch((error) => expressErrorService.sendErrorResponse(error, res));
 });
