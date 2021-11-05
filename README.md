@@ -199,7 +199,7 @@ const exampleService = new ExampleService();
 export default exampleService;
 ```
 
-#### BackendService
+#### ApiService
 
 Communication (create, read, update, delete) to the backend by the client using axios.
 

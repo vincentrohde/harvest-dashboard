@@ -8,14 +8,14 @@ import oAuthService from '../OAuthService/OAuthService';
 import {timeEntriesType, TimeEntryInterface, TimeEntrySubmissionInterface} from '@/types/TimeEntry';
 import {tasksType} from '@/types/Task';
 import {projectsType} from '@/types/Project';
-import {requestConfig} from './BackendService.types';
+import {requestConfig} from './ApiService.types';
 
-const V2_HARVEST_API_URL = 'https://api.harvestapp.com' + '/v2';
-const TIME_ENTRIES_URL = V2_HARVEST_API_URL + '/time_entries';
-const TASKS_URL = V2_HARVEST_API_URL + '/tasks';
-const PROJECTS_URL = V2_HARVEST_API_URL + '/projects';
+const HARVEST_API_URL = process.env.HARVEST_API_URL;
+const TIME_ENTRIES_URL = HARVEST_API_URL + '/time_entries';
+const TASKS_URL = HARVEST_API_URL + '/tasks';
+const PROJECTS_URL = HARVEST_API_URL + '/projects';
 
-class BackendService {
+class ApiService {
     getAuthorizationConfig(write: boolean = false): Promise<requestConfig> {
         return new Promise((resolve, reject) => {
             const credentials = oAuthService.getOAuthCookieData();
@@ -48,8 +48,8 @@ class BackendService {
                 return axios.get(TIME_ENTRIES_URL + queryString, config);
             })
             .then((response) => {
-                const {timeEntries}: {timeEntries: timeEntriesType} = response.data;
-                return timeEntries;
+                const {time_entries}: {time_entries: timeEntriesType} = response.data;
+                return time_entries;
             });
     }
 
@@ -100,6 +100,6 @@ class BackendService {
     }
 }
 
-const backendService = new BackendService();
+const apiService = new ApiService();
 
-export default backendService;
+export default apiService;
