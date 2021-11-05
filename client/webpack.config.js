@@ -1,4 +1,6 @@
-const webpack = require("webpack");
+require('dotenv').config({path: './.env'});
+
+const webpack = require('webpack');
 const path = require('path');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -14,14 +16,6 @@ module.exports = {
         publicPath: '/',
         historyApiFallback: true,
         disableHostCheck: true,
-        proxy: {
-            '/api/**': {
-                target: 'http://api:8080/',
-                pathRewrite: { '^/api': '' },
-                secure: false,
-                changeOrigin: true,
-            }
-        }
     },
     devtool: 'cheap-module-source-map',
 
@@ -30,14 +24,14 @@ module.exports = {
         vendor: ['semantic-ui-react'],
     },
 
-    output:{
+    output: {
         path: path.join(__dirname, './dist'),
-        filename: '[name].js'
+        filename: '[name].js',
     },
     resolve: {
         extensions: ['.ts', '.tsx', '.js', '.json', '.scss'],
         alias: {
-            "@": path.resolve(__dirname, './src/')
+            '@': path.resolve(__dirname, './src/'),
         },
     },
 
@@ -47,22 +41,28 @@ module.exports = {
                 test: /\.(ts|js)x?$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: 'babel-loader'
-                }
+                    loader: 'babel-loader',
+                },
             },
             {
                 test: /\.scss$/i,
-                use: [{
-                    loader: "style-loader"
-                }, {
-                    loader: "css-loader", options: {
-                        sourceMap: true
-                    }
-                }, {
-                    loader: "sass-loader", options: {
-                        sourceMap: true
-                    }
-                }]
+                use: [
+                    {
+                        loader: 'style-loader',
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            sourceMap: true,
+                        },
+                    },
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: true,
+                        },
+                    },
+                ],
             },
             {
                 test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
@@ -85,16 +85,19 @@ module.exports = {
                         },
                     },
                     'css-loader',
-                ]
-            }
-        ]
+                ],
+            },
+        ],
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
+        new webpack.DefinePlugin({
+            'process.env': JSON.stringify(process.env),
+        }),
         new ForkTsCheckerWebpackPlugin(),
         new HtmlWebpackPlugin({
-            template: './src/index.html'
+            template: './src/index.html',
         }),
-        new MiniCssExtractPlugin('styles.css')
-    ]
+        new MiniCssExtractPlugin('styles.css'),
+    ],
 };
