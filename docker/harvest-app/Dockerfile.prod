@@ -1,10 +1,18 @@
 # Building client
+ARG HARVEST_API_URL
+ARG AUTHORIZE_OAUTH_APP_URL
+
 FROM node:14-alpine as build-service
+
+ARG HARVEST_API_URL
+ARG AUTHORIZE_OAUTH_APP_URL
+ENV HARVEST_API_URL=${HARVEST_API_URL}
+ENV AUTHORIZE_OAUTH_APP_URL=${AUTHORIZE_OAUTH_APP_URL}
 
 WORKDIR /app
 
 COPY ./client/package.json .
-RUN npm ci
+RUN npm i
 
 COPY ./client .
 RUN npm run build
@@ -12,4 +20,4 @@ RUN npm run build
 # Starting harvest-app
 FROM nginx:latest as harvest-app
 COPY --from=build-service /app/dist /var/www/html
-ADD /config/nginx/nginx.prod.conf /etc/nginx/nginx.conf
+ADD /config/nginx/nginx.conf /etc/nginx/nginx.conf

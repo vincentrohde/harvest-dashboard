@@ -9,6 +9,6 @@ RUN npm ci
 
 COPY ./api .
 
-EXPOSE 8080
+EXPOSE $VERIFICATION_SERVER_PORT
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "verification-server:dev"]

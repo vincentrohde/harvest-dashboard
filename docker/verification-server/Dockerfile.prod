@@ -1,0 +1,12 @@
+FROM node:14-alpine
+
+WORKDIR /app
+
+COPY ./api/package*.json .
+RUN npm ci
+
+COPY ./api .
+
+EXPOSE $VERIFICATION_SERVER_PORT
+
+CMD ["npm", "run", "verification-server:prod"]
