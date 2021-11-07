@@ -23,7 +23,7 @@
         "verification-server:prod:uninstall": "docker-compose --env-file .env -f docker/docker-compose.verification.yml -f docker/docker-compose.verification.prod.yml down --rmi all",
         "format-code": "prettier --write --ignore-unknown .",
         "heroku-prebuild": "cd api && npm install",
-        "start": "cd api && npm start"
+        "start": "cd api && npm run verification-server:prod"
     },
     "devDependencies": {
         "prettier": "2.4.1"
