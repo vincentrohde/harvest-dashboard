@@ -4,7 +4,10 @@
     "description": "",
     "main": "app.js",
     "scripts": {
-        "start": "nodemon app.js"
+        "redirect-server:dev": "nodemon ./redirect-server/app.js",
+        "redirect-server:prod": "node ./redirect-server/app.js",
+        "verification-server:dev": "nodemon ./verification-server/app.js",
+        "verification-server:prod": "node ./verification-server/app.js"
     },
     "keywords": [],
     "author": "Vincent Rohde",

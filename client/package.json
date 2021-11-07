@@ -10,7 +10,8 @@
         "type-check": "tsc --noEmit",
         "type-check:watch": "npm run type-check -- --watch",
         "build": "webpack --progress --colors --config ./webpack.production.config.js",
-        "start": "webpack-dev-server --config ./webpack.config.js --watch --progress --colors --open --mode=development --port 3000 --host=0.0.0.0"
+        "start": "webpack-dev-server --config ./webpack.config.js --watch --progress --colors --open --mode=development --port 3000",
+        "start:docker": "webpack-dev-server --config ./webpack.config.js --watch --progress --colors --open --mode=development --port 3000 --host 0.0.0.0"
     },
     "keywords": [],
     "author": "",
@@ -30,7 +31,7 @@
         "browserslist": "^4.12.0",
         "caniuse-lite": "^1.0.30001078",
         "chart.js": "^3.5.0",
-        "dotenv": "^8.2.0",
+        "dotenv": "^8.6.0",
         "js-cookie": "^3.0.1",
         "moment": "^2.24.0",
         "node-sass": "^4.14.1",
