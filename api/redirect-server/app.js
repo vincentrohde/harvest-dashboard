@@ -2,13 +2,13 @@ require('dotenv').config({path: '../.env'});
 
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const apiService = require('../lib/ApiService/ApiService');
 const expressErrorService = require('../lib/ExpressErrorService/ExpressErrorService');
 const oAuthService = require('../lib/OAuthService/OAuthService');
 
 const app = express();
 
 const CLIENT_URL = process.env.CLIENT_URL;
+const PORT = process.env.REDIRECT_SERVER_PORT || 5000;
 
 app.use(express.json());
 app.use(cookieParser());
@@ -19,7 +19,7 @@ app.get('/oauth/redirect', (req, res) => {
     const requestScope = req.query.scope;
     const account_id = oAuthService.getAccountId(requestScope);
 
-    apiService
+    oAuthService
         .getOAuthData(requestToken)
         .then(({access_token, refresh_token, expires_in}) => {
             const cookieData = oAuthService.setOAuthCookieData(
@@ -36,4 +36,4 @@ app.get('/oauth/redirect', (req, res) => {
         .catch((error) => expressErrorService.sendErrorResponse(error, res));
 });
 
-app.listen(5000, () => console.log(`App listening on port 5000`));
+app.listen(PORT, () => console.log(`App listening on port ${PORT}`));
