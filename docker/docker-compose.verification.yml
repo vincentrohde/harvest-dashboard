@@ -1,0 +1,16 @@
+version: '3'
+services:
+  verification-server:
+    env_file:
+      - ../.env
+    volumes:
+      - ../api:/app
+      - /app/node_modules
+    ports:
+      - "${VERIFICATION_SERVER_PORT}:${VERIFICATION_SERVER_PORT}"
+    networks:
+      - harvest.dashboard
+networks:
+  harvest.dashboard:
+    name: harvest.dashboard
+    external: true
