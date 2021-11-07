@@ -1,14 +1,16 @@
 version: '3'
 services:
-  harvest-app:
-    image: harvest-app
-  api:
-    build:
-      context: ../.
-      dockerfile: docker/api/Dockerfile
-    image: harvest-api
+  redirect-server:
+    env_file:
+      - ../.env
     volumes:
       - ../api:/app
       - /app/node_modules
     ports:
-      - '8080'
+      - "${REDIRECT_SERVER_PORT}:${REDIRECT_SERVER_PORT}"
+    networks:
+      - harvest.dashboard
+networks:
+  harvest.dashboard:
+    name: harvest.dashboard
+    external: true

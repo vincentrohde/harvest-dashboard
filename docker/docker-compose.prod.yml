@@ -4,18 +4,24 @@ services:
     build:
       context: ../.
       dockerfile: docker/harvest-app/Dockerfile.prod
+      args:
+        HARVEST_API_URL: ${HARVEST_API_URL}
+        AUTHORIZE_OAUTH_APP_URL: ${AUTHORIZE_OAUTH_APP_URL}
+    image: harvest-app
     links:
-      - api:api
+      - redirect-server:redirect-server
+    env_file:
+      - ../.env
     environment:
       - NODE_ENV=production
+    ports:
+      - "80:80"
     networks:
-      - nginx.docker
-  api:
+      - harvest.dashboard
+  redirect-server:
+    image: harvest-redirect-server-prod
+    build:
+      context: ../.
+      dockerfile: docker/redirect-server/Dockerfile.prod
     environment:
       - NODE_ENV=production
-    networks:
-      - nginx.docker
-networks:
-  nginx.docker:
-    name: nginx.docker
-    external: true
