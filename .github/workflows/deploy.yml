@@ -39,6 +39,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             cd ~/..${{ secrets.SSH_LOCATION }}
+            make network
             make prod:down
             make prod:install
             make prod:up

@@ -6,6 +6,7 @@ const cors = require('cors');
 const oAuthService = require('../lib/OAuthService/OAuthService');
 const expressErrorService = require('../lib/ExpressErrorService/ExpressErrorService');
 
+// using process.env.PORT is only necessary for Heroku setup
 const PORT = process.env.PORT || process.env.VERIFICATION_SERVER_PORT || 8080;
 
 const app = express();
