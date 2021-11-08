@@ -1,12 +1,12 @@
 // Libs
 import Cookies from 'js-cookie';
-import {oAuthType} from '@/types/OAuth';
+import jwt_decode from 'jwt-decode';
 
 class OAuthService {
     getOAuthCookieData() {
-        const cookie = this.getOAuthCookie();
-        if (cookie) {
-            const {access_token, account_id} = cookie;
+        const token = this.getTokenCookie();
+        if (token) {
+            const {access_token, account_id} = jwt_decode(token);
 
             return {
                 access_token,
@@ -17,8 +17,22 @@ class OAuthService {
         return false;
     }
 
-    getOAuthCookie(): oAuthType | false {
-        return JSON.parse(Cookies.get('oauth') || 'false');
+    setTokenCookie(token: string) {
+        return Cookies.set('token', token, {expires: 13});
+    }
+
+    getTokenCookie() {
+        return Cookies.get('token') || false;
+    }
+
+    getTokenParam() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const tokenParam = urlParams.get('token');
+        return tokenParam ? tokenParam : false;
+    }
+
+    deleteTokenParamFromUrl() {
+        window.history.pushState({}, document.title, window.location.pathname);
     }
 }
 

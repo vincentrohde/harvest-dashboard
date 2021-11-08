@@ -1,24 +1,27 @@
 // Libs
 import {useEffect, useState} from 'react';
-import Cookies from 'js-cookie';
+import oAuthService from '@/services/OAuthService/OAuthService';
 
 export const useOAuthCredentials = () => {
     const [isOAuthCredentials, setIsOAuthCredentials] = useState(false);
 
     const getCredentials = () => {
-        const oAuthCookie = Cookies.get('oauth');
+        const tokenCookie = oAuthService.getTokenCookie();
 
-        if (typeof oAuthCookie !== 'undefined') {
-            const parsedOAuthCookie = JSON.parse(oAuthCookie);
-            const {access_token, refresh_token, account_id} = parsedOAuthCookie;
+        if (!tokenCookie) {
+            const tokenFromParam = oAuthService.getTokenParam();
 
-            if (
-                typeof access_token !== 'undefined' &&
-                typeof refresh_token !== 'undefined' &&
-                typeof account_id !== 'undefined'
-            ) {
+            if (tokenFromParam) {
+                oAuthService.setTokenCookie(tokenFromParam);
+                oAuthService.deleteTokenParamFromUrl();
                 setIsOAuthCredentials(true);
             }
+
+            return;
+        }
+
+        if (tokenCookie) {
+            setIsOAuthCredentials(true);
         }
     };
 

@@ -4,22 +4,19 @@
     "description": "",
     "main": "app.js",
     "scripts": {
-        "redirect-server:dev": "nodemon ./redirect-server/app.js",
-        "redirect-server:prod": "node ./redirect-server/app.js",
-        "verification-server:dev": "nodemon ./verification-server/app.js",
-        "verification-server:prod": "node ./verification-server/app.js"
+        "dev": "nodemon app.js",
+        "prod": "node app.js"
     },
     "keywords": [],
     "author": "Vincent Rohde",
     "license": "ISC",
     "dependencies": {
         "axios": "^0.21.1",
-        "cookie-parser": "^1.4.5",
         "cors": "^2.8.5",
         "dotenv": "^8.2.0",
         "express": "^4.17.1",
         "glob-parent": ">=5.1.2",
-        "moment": "^2.29.1",
+        "jsonwebtoken": "^8.5.1",
         "nodemon": "^2.0.6",
         "normalize-url": ">=4.5.1"
     }
