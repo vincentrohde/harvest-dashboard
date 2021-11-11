@@ -1,9 +1,0 @@
-version: '3'
-services:
-  verification-server:
-    image: harvest-verification-server-prod
-    build:
-      context: ../.
-      dockerfile: docker/verification-server/Dockerfile.prod
-    environment:
-      - NODE_ENV=production

@@ -9,6 +9,6 @@ RUN npm i
 
 COPY ./api .
 
-EXPOSE $VERIFICATION_SERVER_PORT
+EXPOSE $SERVER_PORT
 
-CMD ["npm", "run", "verification-server:dev"]
+CMD ["npm", "run", "dev"]

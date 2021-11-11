@@ -7,6 +7,6 @@ RUN npm i
 
 COPY ./api .
 
-EXPOSE $REDIRECT_SERVER_PORT
+EXPOSE $SERVER_PORT
 
-CMD ["npm", "run", "redirect-server:prod"]
+CMD ["npm", "run", "prod"]

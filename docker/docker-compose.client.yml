@@ -1,13 +1,8 @@
 version: '3'
 services:
-  redirect-server:
+  client:
     env_file:
       - ../.env
-    volumes:
-      - ../api:/app
-      - /app/node_modules
-    ports:
-      - "${REDIRECT_SERVER_PORT}:${REDIRECT_SERVER_PORT}"
     networks:
       - harvest.dashboard
 networks:
