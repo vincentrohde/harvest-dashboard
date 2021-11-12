@@ -5,7 +5,22 @@
     background: #fff;
     border-radius: 10px;
 
+    .header-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: .5rem;
+    }
+
     .title {
         margin: 0;
+    }
+
+    .tag {
+        border-radius: 10px;
+        padding: 0 0.5rem;
+        background: lightblue;
+        color: black;
+        display: inline-block;
+        margin: 0 .5rem;
     }
 }
