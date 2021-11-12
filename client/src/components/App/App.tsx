@@ -19,6 +19,7 @@ import DatePicker from '@/components/domain/DatePicker/DatePicker';
 import EditForm from '@/components/domain/EditForm/EditForm';
 import TimeEntries from '@/components/domain/TimeEntries/TimeEntries';
 import DataOverview from '@/components/domain/DataOverview/DataOverview';
+import OAuthOverlay from '@/components/domain/OAuthOverlay/OAuthOverlay';
 
 // Hooks
 import {useGetTimeEntries} from './hooks/useGetTimeEntries/useGetTimeEntries';
@@ -71,7 +72,7 @@ const App = ({filters, addTimeEntries, addProjects, addTasks}: AppProps) => {
                         <TimeEntries />
                     </Grid>
                 ) : (
-                    <a href={process.env.AUTHORIZE_OAUTH_APP_URL}>Log In</a>
+                    <OAuthOverlay />
                 )}
             </section>
         </>
