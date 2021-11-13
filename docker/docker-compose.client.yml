@@ -1,0 +1,11 @@
+version: '3'
+services:
+  client:
+    env_file:
+      - ../.env
+    networks:
+      - harvest.dashboard
+networks:
+  harvest.dashboard:
+    name: harvest.dashboard
+    external: true

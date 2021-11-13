@@ -1,0 +1,9 @@
+version: '3'
+services:
+  api:
+    image: harvest-api-dev
+    build:
+      context: ../.
+      dockerfile: docker/api/Dockerfile.dev
+    environment:
+      - NODE_ENV=development

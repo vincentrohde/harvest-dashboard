@@ -1,0 +1,14 @@
+version: '3'
+services:
+  client:
+    build:
+      context: ../.
+      dockerfile: docker/client/Dockerfile.prod
+      args:
+        HARVEST_API_URL: ${HARVEST_API_URL}
+        OAUTH_APP_ID: ${OAUTH_APP_ID}
+    image: harvest-client-prod
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "80:80"

@@ -1,23 +1,25 @@
 // Libs
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 
 // Services
-import backendService from '@/services/BackendService/BackendService';
+import apiService from '@/services/ApiService/ApiService';
 import errorService from '@/services/ErrorService/ErrorService';
 
 // Types
-import { tasksType } from '@/types/Task';
+import {tasksType} from '@/types/Task';
 
 export const useGetTasks = (filterApiData: Function, addTasks: Function) => {
     const [isTasksLoaded, setIsTasksLoaded] = useState(false);
 
     const getTasks = () => {
-        backendService.getTasks()
+        apiService
+            .getTasks()
             .then((tasks: tasksType) => {
                 setIsTasksLoaded(true);
                 const filteredTasksData = filterApiData(tasks);
                 addTasks(filteredTasksData);
-            }).catch(errorService.handleBasicApiError);
+            })
+            .catch(errorService.handleBasicApiError);
     };
 
     useEffect(() => {
