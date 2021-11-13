@@ -1,12 +1,11 @@
 .idea
+.env
+node_modules/
 
 client/dist
 client/node_modules
 client/package-lock.json
 
 api/node_modules
-api/.env
 api/package-lock.json
-
-node_modules/
 

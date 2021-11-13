@@ -1,0 +1,12 @@
+FROM node:14-alpine
+
+WORKDIR /app
+
+COPY ./api/package*.json .
+RUN npm i
+
+COPY ./api .
+
+EXPOSE $SERVER_PORT
+
+CMD ["npm", "run", "prod"]

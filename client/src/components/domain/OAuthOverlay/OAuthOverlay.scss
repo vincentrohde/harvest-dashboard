@@ -1,0 +1,29 @@
+.OAuthOverlay {
+    .title, .section-title {
+        margin-bottom: 1.5rem;
+    }
+
+    .section {
+        margin-bottom: 6rem;
+
+        .section-title {
+            font-size: 1.4rem;
+        }
+
+        .notice {
+            font-size: 1.2rem;
+            line-height: 1.5;
+        }
+
+        .repo-link {
+            display: block;
+        }
+
+        .cta-link {
+            margin-top: 1rem;
+            a {
+                color: #fff;
+            }
+        }
+    }
+}
