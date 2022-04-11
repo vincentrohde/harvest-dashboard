@@ -26,9 +26,7 @@ export const useOAuthCredentials = () => {
             }
 
             return;
-        }
-
-        if (credentialsCookie) {
+        } else {
             setIsOAuthCredentials(true);
         }
     };

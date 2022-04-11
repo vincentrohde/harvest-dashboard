@@ -56,7 +56,6 @@ const App = ({filters, addTimeEntries, addProjects, addTasks}: AppProps) => {
             </nav>
             <section className={styles.App}>
                 {isOAuthCredentials ? (
-                    /* @ts-ignore */
                     <Grid>
                         <Grid.Column width={16}>
                             <DatePicker />

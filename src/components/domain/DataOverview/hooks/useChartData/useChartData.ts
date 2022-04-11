@@ -56,6 +56,7 @@ export const useChartData = (timeEntries: timeEntriesType | undefined, group: gr
             byHours.forEach((item: byHoursItem) => groupMembers.push(item[groupLabel]))
         });
 
+        // @ts-ignore
         return [...new Set(groupMembers)];
     };
 
