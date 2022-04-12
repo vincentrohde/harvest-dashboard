@@ -14,6 +14,7 @@ class ProjectsSortService {
 
     getUniqueProjectsFromEntries(entries: projectsByHours) {
         const projectsOnlyList = entries.map(entry => entry.project);
+        // @ts-ignore
         return [...new Set(projectsOnlyList)];
     };
 

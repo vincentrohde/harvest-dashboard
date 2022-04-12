@@ -10,6 +10,7 @@ import GroupSelect from '../GroupSelect/GroupSelect';
 import { FormProps } from './Form.types';
 
 const Form = ({ groups, selectedTimeUnit, selectedGroup, handleTimeUnitSelect, handleGroupSelect }: FormProps) => {
+    // @ts-ignore
     return <SemanticUiForm>
         <SemanticUiForm.Group widths={'equal'}>
             <TimeUnitSelect onChange={handleTimeUnitSelect} selectedTimeUnit={selectedTimeUnit} />

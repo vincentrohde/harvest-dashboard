@@ -87,7 +87,9 @@ const DatePicker = ({ dateRange, updateDateRange }: DatePickerProps) => {
     });
 
     return (
+        // @ts-ignore
         <Form className={styles.DatePicker}>
+            { /** @ts-ignore */ }
             <Grid>
                 <Grid.Column width={10}>
                     <DateRange

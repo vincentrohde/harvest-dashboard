@@ -21,6 +21,7 @@ import styles from './Form.module.scss';
 
 const Form = ({ entry, errorList, isFieldInErrorList, isNewEntry, tasks, projects, onCancel, onChange, onSubmit}: FormProps) => {
     return (<div className={classNames(styles.Form, 'full', {['tab-container']: isNewEntry})}>
+        { /** @ts-ignore */ }
         <SemanticUiForm
             onSubmit={onSubmit}
             error={errorList.length !== 0}

@@ -12,6 +12,7 @@ class TasksSortService {
 
     getUniqueTasksFromEntries(entries: tasksByHours) {
         const tasksOnlyList = entries.map(entry => entry.task);
+        // @ts-ignore
         return [...new Set(tasksOnlyList)];
     };
 
