@@ -5,9 +5,16 @@
     "main": "index.js",
     "scripts": {
         "dev": "next dev",
-        "build": "next build && next export -o build",
-        "start": "next start",
-        "lint": "next lint"
+        "build": "next build",
+        "preexport": "npm run build",
+        "export": "next export",
+        "prestart": "npm run export",
+        "start": "serve out",
+        "lint": "next lint",
+        "prod:install": "docker-compose --env-file .env -f docker/docker-compose.yml -f docker/docker-compose.prod.yml build",
+        "prod:up": "docker-compose --env-file .env -f docker/docker-compose.yml -f docker/docker-compose.prod.yml up -d",
+        "prod:down": "docker-compose --env-file .env -f docker/docker-compose.yml -f docker/docker-compose.prod.yml down",
+        "prod:uninstall": "docker-compose --env-file .env -f docker/docker-compose.yml -f docker/docker-compose.prod.yml down --rmi all"
     },
     "keywords": [],
     "author": "",
