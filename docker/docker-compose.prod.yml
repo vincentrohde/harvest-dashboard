@@ -1,13 +1,13 @@
 version: '3'
 services:
-  client:
+  dashboard:
     build:
       context: ../.
-      dockerfile: docker/client/Dockerfile.prod
+      dockerfile: docker/files/Dockerfile.prod
       args:
         HARVEST_API_URL: ${HARVEST_API_URL}
         OAUTH_APP_ID: ${OAUTH_APP_ID}
-    image: harvest-client-prod
+    image: harvest-dashboard-prod
     environment:
       - NODE_ENV=production
     ports:
