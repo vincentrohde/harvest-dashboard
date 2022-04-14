@@ -1,0 +1,12 @@
+version: '3'
+services:
+  dashboard:
+    build:
+      context: ../.
+      dockerfile: docker/files/Dockerfile.dev
+    image: harvest-dashboard-dev
+    volumes:
+      - ../:/app
+      - /app/node_modules
+    ports:
+      - '3000:3000'

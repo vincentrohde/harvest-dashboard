@@ -1,0 +1,14 @@
+version: '3'
+services:
+  dashboard:
+    build:
+      context: ../.
+      dockerfile: docker/files/Dockerfile.prod
+      args:
+        HARVEST_API_URL: ${HARVEST_API_URL}
+        OAUTH_APP_ID: ${OAUTH_APP_ID}
+    image: harvest-dashboard-prod
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "80:80"

@@ -2,12 +2,11 @@
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/vincentrohde/harvest-dashboard)
 ![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/vincentrohde/harvest-dashboard)
-[![Deployment](https://github.com/vincentrohde/harvest-dashboard/actions/workflows/deploy.yml/badge.svg)](https://github.com/vincentrohde/harvest-dashboard/actions/workflows/deploy.yml)
 
 [![](https://tokei.rs/b1/github/vincentrohde/harvest-dashboard?category=code)](https://github.com/vincentrohde/harvest-dashboard)
 [![](https://tokei.rs/b1/github/vincentrohde/harvest-dashboard?category=files)](https://github.com/vincentrohde/harvest-dashboard)
 
-A third-party React.js client for the [Harvest API V2](https://help.getharvest.com/api-v2/), that helps you to manage the time tracking of your Harvest Account, while also giving you statistical feedback on how you spend your time.
+A third-party Next.js client for the [Harvest API V2](https://help.getharvest.com/api-v2/), that helps you to manage the time tracking of your Harvest Account, while also giving you statistical feedback on how you spend your time.
 
 **Disclaimer: This project is not affiliated with Harvest**
 
@@ -16,7 +15,9 @@ A third-party React.js client for the [Harvest API V2](https://help.getharvest.c
 
 1. [Getting Started](#getting-started)
 2. [Run the Project](#run-the-project)
-2. [Custom OAuth App](#custom-oauth-app)
+3. [Custom OAuth App](#custom-oauth-app)
+4. [Production](#production)
+5. [Docker Commands](#docker-commands)
 
 ## Getting Started
 
@@ -37,7 +38,8 @@ cd ./harvest-dashboard
 ```
 
 #### Run setup.sh
-This will install the `node_modules` for your dev environment (ex. IDE auto-completion, Typescript, etc.) and add the required `.env` file.
+
+This will install the `node_modules` and add the required `.env` file.
 
 ```
 ./setup.sh
@@ -47,55 +49,63 @@ This will install the `node_modules` for your dev environment (ex. IDE auto-comp
 
 Now that you have everything in place, you can start the dashboard.
 
-### NPM
+### NPM (Recommended)
 
-When you just started with programming, you can choose to run the dashboard using Node.js/ NPM.
-
-```
-npm run start:client:dev
-```
-
-### Docker  (Recommended)
-
-If you have [Docker](https://www.docker.com/) installed, you can also run the client using Docker.
-
-Make sure that the docker-network is available, by running:
+You can choose to run the dashboard using Node.js/ NPM. This
 
 ```
-npm run network
+npm run dev
 ```
 
-Then you can start the client via:
+### Docker (Alternative)
+
+If you have [Docker](https://www.docker.com/) installed, you can also run the dashboard using Docker.
+
+You can start the dashboard via:
 
 ```
-npm run client:dev:up
+npm run dev:up
 ```
+
+[Further down](#docker-commands) you will find an overview of all docker-related commands that are available in the project.
 
 ### Open in Browser
 
-Either option (Node/ NPM or Docker) is perfectly fine to use. Now, the dashboard will be available via:
+Now, the dashboard will be available via:
 
 ```
 http://localhost:3000
 ```
 
-For most cases, this will be enough to run the project. With this setup you will use the default development server, when you authorize your dashboard copy to access your Harvest Account.
-
 ## Custom OAuth App
 
-If you want to use your own Harvest OAuth App, you can run your own custom server, see `./api` directory and your `.env` file.
+If you want to use your own Harvest OAuth App, you can do so in the following way.
 
-### Custom Harvest OAuth App
+### Create your own Harvest OAuth App
 
 First, you have to go to the [Developers section](https://id.getharvest.com/developers) of your account. Here you will have to use the `Create new OAuth2 application` button.
 
 ![](./assets/oauth-create.png)
 
-Now you will be directed to the setup page. On this page, you will have to set the `Redirect URL` field, which is the URL of your custom server. Once everything is set, hit `Create application`.
+Now you will be directed to the setup page. On this page, you will have to set the `Redirect URL` field, which is the URL of your application.
+
+#### In development
+
+```
+http://localhost:3000
+```
+
+#### In production
+
+```
+https://www.yourwebsite.com
+```
+
+Once everything is set, hit `Create application`.
 
 ![](./assets/oauth-setup.png)
 
-Finally, you will arrive at the detail page of your OAuth App. The two parameters `Client ID` and `Client Secret` will be required in your `.env` file.
+Finally, you will arrive at the detail page of your OAuth App. The parameter `Client ID` will be required in your `.env` file.
 
 ![](./assets/oauth-secrets.png)
 
@@ -105,23 +115,63 @@ When you have created your own OAuth App, you will have to update your `.env` fi
 
 ```
 OAUTH_APP_ID={ the Client ID of your OAuth App }
-OAUTH_APP_SECRET={ the Client Secret of your OAuth App }
 ```
 
-### Run your Server
+## Production
 
-To run your server, you can choose between using NPM/ Node.js or Docker.
+If you want to host the dashboard there are two options available to you. 
 
-#### Docker (Recommended)
+### Using Next.js
 
-```
-npm run api:dev:up
-```
+This option is recommended if you use a hoster such as (Heroku, Cloudflare, etc.). They will allow you to automatically deploy on pushes to GitHub and most often host personal projects for free.
 
-#### NPM
+You are able to get a static version of the dashboard by running. 
 
 ```
-npm run start:api:dev
+npm run production
 ```
+
+This will return you all production-ready files in the `./out` directory. This will be enough for most of these hosters, since they are able to specifically deal with Nexct.js projects.
+
+#### Next Server
+
+If you want to run a server on your own, you can then serve your static files using the server provided by Next.js. To do so, just run
+
+```
+npm run start
+```
+
+### Using Docker
+
+If you are hosting on an actual server or virtual machine, the recommended option is to use Docker for the production version of your dahsboard. This will make deployment much easier, since the setup for you is only minimal (ie. installing Docker and NPM on your environment)
+
+Once, Docker is installed on your environment you can run
+
+```
+npm run prod:up
+```
+
+Now a static version of your dashboard will be served, using an Nginx Server. It's available under
+
+```
+http://0.0.0.0 and http://localhost
+```
+
+## Docker Commands
+
+The following commands are available to you, when using Docker.
+
+| **Cmd**        | **Description**                                                                 |
+|----------------|---------------------------------------------------------------------------------|
+| dev:install    | Install the development container                                               |
+| dev:up         | Run and install the development container                                       |
+| dev:down       | Turn off the development container                                              |
+| dev:uninstall  | Uninstall the development container                                             |
+| prod:install   | Install the production container                                                |
+| prod:up        | Run and install the production container. Files are served using an NGINX server |
+| prod:down      | Turn off the production container                                               |
+| prod:uninstall | Uninstall the production container                                              |
+
+
 
 <a href="#harvest-dashboard">Back To Top</a>

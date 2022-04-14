@@ -1,11 +1,39 @@
 .idea
-.env
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
 node_modules/
+/.pnp
+.pnp.js
 
-client/dist
-client/node_modules
-client/package-lock.json
+# testing
+/coverage
 
-api/node_modules
-api/package-lock.json
+# next.js
+/.next/
+/out/
 
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+package-lock.json
+
+# local env files
+.env*.local
+.env
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
