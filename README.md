@@ -62,13 +62,7 @@ npm run dev
 
 If you have [Docker](https://www.docker.com/) installed, you can also run the dashboard using Docker.
 
-Make sure that the docker-network is available, by running:
-
-```
-npm run network
-```
-
-Then you can start the dashboard via:
+You can start the dashboard via:
 
 ```
 npm run dev:up
