@@ -89,13 +89,13 @@ First, you have to go to the [Developers section](https://id.getharvest.com/deve
 
 Now you will be directed to the setup page. On this page, you will have to set the `Redirect URL` field, which is the URL of your application.
 
-#### Development
+#### In development
 
 ```
 http://localhost:3000
 ```
 
-#### Production
+#### In production
 
 ```
 https://www.yourwebsite.com
