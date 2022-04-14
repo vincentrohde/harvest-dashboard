@@ -3,14 +3,14 @@
 # will update the version based on this input
 
 name: Github Patch Action
-on:
-  push:
-    branches:
-      - develop
+on: [push]
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Safe directory
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
       - uses: actions/checkout@v2
         with:
           fetch-depth: '0'
