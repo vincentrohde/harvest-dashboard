@@ -2,7 +2,7 @@
 # If you include #major, #minor or #patch in your commit-message, the workflow
 # will update the version based on this input
 
-name: Github Patch Action
+name: Test Action
 on:
   push:
 jobs:
