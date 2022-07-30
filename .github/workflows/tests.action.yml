@@ -1,0 +1,16 @@
+# This workflow automatically bumps the repos patch version
+# If you include #major, #minor or #patch in your commit-message, the workflow
+# will update the version based on this input
+
+name: Github Patch Action
+on:
+  push:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: "Run Jest Tests"
+        run: |
+          npm install
+          npm test

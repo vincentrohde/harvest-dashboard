@@ -12,6 +12,7 @@
         "start": "serve out",
         "production": "next build && next export",
         "lint": "next lint",
+        "test": "jest",
         "dev:install": "docker-compose --env-file .env -f docker/docker-compose.yml -f docker/docker-compose.dev.yml build",
         "dev:up": "docker-compose --env-file .env -f docker/docker-compose.yml -f docker/docker-compose.dev.yml up",
         "dev:down": "docker-compose --env-file .env -f docker/docker-compose.yml -f docker/docker-compose.dev.yml down",
