@@ -8,6 +8,8 @@ class ObjectService {
     }
 
     sortObjectsArray(isDescending: boolean, list: any[], selector: string) {
+        if (!list.length) return list;
+
         return list.sort((a, b) => {
             if (isDescending) {
                 return parseFloat(b[selector]) - parseFloat(a[selector]);
@@ -32,6 +34,9 @@ class ObjectService {
         return false;
     }
 
+    /**
+     * TODO: Clarify this method, Rename
+     */
     updateObjectInArray(array: idObject[], object: idObject) {
         return array.map((item) => {
             if (item.id !== object.id) return item;
