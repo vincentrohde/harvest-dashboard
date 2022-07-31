@@ -23,6 +23,8 @@ class TasksSortService {
         }));
     };
 
+    // This method takes a list of entries and a list of tasks and hours.
+    // It then adds the hours of each entry to the specific task, in the list of tasks and hours.
     addEntryHoursToTasks(entriesWithGroup: tasksByHours, tasksByHoursList: tasksByHours) {
         entriesWithGroup.forEach(entry => {
             tasksByHoursList.forEach((group) => {
