@@ -6,6 +6,7 @@ import { TimeEntrySubmissionInterface } from '@/types/TimeEntry';
 import { EditFormEntry } from '@/components/domain/EditForm/EditForm.types';
 
 class ApiFormatService {
+    // This is a cleanup function, to make each Entry ready for sending it to the API
     getTimeEntryInSubmitFormat(entry: EditFormEntry): TimeEntrySubmissionInterface {
         const { hours: inputHours, spent_date: inputDate } = entry;
 
