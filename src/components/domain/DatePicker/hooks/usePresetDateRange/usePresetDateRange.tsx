@@ -1,6 +1,5 @@
 // Libs
 import { useEffect } from 'react';
-import moment from 'moment';
 
 // Hooks
 import usePrevious from '@/hooks/utils/usePrevious/usePrevious';
@@ -12,7 +11,7 @@ import timeService from '@/services/TimeService/TimeService';
 import { FiltersInterface } from '@/types/Filters';
 
 export const usePresetDateRange = (preset: string, action: Function) => {
-    const currentDay = moment().format('DD-MM-YYYY');
+    const currentDay = timeService.getCurrentDay();
     const prevPreset = usePrevious(preset);
 
     const getPresetStartDate = () => {
