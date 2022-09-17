@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MetaDataHeader /> renders 1`] = `
+<DocumentFragment>
+  <div
+    class="MetaDataHeader tab-container"
+  >
+    <p
+      class="meta-data pipes"
+    >
+      <span>
+        20 Entries
+      </span>
+      <span>
+        Total Time: 2:00
+      </span>
+    </p>
+  </div>
+</DocumentFragment>
+`;
