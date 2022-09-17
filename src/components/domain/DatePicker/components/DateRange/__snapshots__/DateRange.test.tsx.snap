@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<DateRange /> renders 1`] = `
+<DocumentFragment>
+  <div
+    class="field date-picker"
+  >
+    <label
+      for="form-select-control-task"
+    >
+      Date Range
+    </label>
+    <div
+      class="ui left icon input"
+    >
+      <i
+        aria-hidden="true"
+        class="calendar icon"
+      />
+      <input
+        name="dateRange"
+        placeholder="From - To"
+        tabindex="0"
+        type="text"
+        value="Test"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
