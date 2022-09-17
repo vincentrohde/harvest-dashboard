@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MetaData /> renders 1`] = `
+<DocumentFragment>
+  <div
+    class="meta-data-container"
+  >
+    <p
+      class="meta-data pipes"
+    >
+      <span
+        class="task"
+      >
+        Test task
+      </span>
+      <span>
+        01.01.2022
+      </span>
+    </p>
+    <h3
+      class="title"
+    >
+      Test notes
+    </h3>
+  </div>
+</DocumentFragment>
+`;
