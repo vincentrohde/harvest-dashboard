@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Time /> renders 1`] = `
+<DocumentFragment>
+  <h3
+    class="Time"
+  >
+    <i
+      aria-hidden="true"
+      class="clock outline icon js-toggle-active"
+    />
+    1:00
+  </h3>
+</DocumentFragment>
+`;
+
+exports[`<Time /> renders active 1`] = `
+<DocumentFragment>
+  <h3
+    class="Time"
+  >
+    <i
+      aria-hidden="true"
+      class="clock icon js-toggle-active"
+    />
+    1:00
+  </h3>
+</DocumentFragment>
+`;
+
+exports[`<Time /> renders inactive 1`] = `
+<DocumentFragment>
+  <h3
+    class="Time"
+  >
+    <i
+      aria-hidden="true"
+      class="clock outline icon js-toggle-active"
+    />
+    1:00
+  </h3>
+</DocumentFragment>
+`;
