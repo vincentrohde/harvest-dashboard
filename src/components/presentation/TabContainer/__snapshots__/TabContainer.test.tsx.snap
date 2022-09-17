@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TabContainer /> renders 1`] = `
+<DocumentFragment>
+  <div
+    class="TabContainer"
+  >
+    <div
+      class="header-container"
+    >
+      <h2
+        class="title"
+      >
+        My Test Container
+      </h2>
+      <p
+        class="tag"
+      >
+        This is a rendered test container.
+      </p>
+    </div>
+    <p>
+      Test
+    </p>
+  </div>
+</DocumentFragment>
+`;
