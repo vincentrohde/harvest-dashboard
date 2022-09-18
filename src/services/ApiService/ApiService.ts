@@ -8,7 +8,11 @@ import oAuthService from '../OAuthService/OAuthService';
 import {timeEntriesType, TimeEntryInterface, TimeEntrySubmissionInterface} from '@/types/TimeEntry';
 import {tasksType} from '@/types/Task';
 import {projectsType} from '@/types/Project';
-import {requestConfig} from './ApiService.types';
+import {requestConfig, requestConfigInput, apiOptions} from './ApiService.types';
+
+/**
+ * URLs for Harvest API V2
+ */
 
 const HARVEST_API_URL = process.env.HARVEST_API_URL;
 const TIME_ENTRIES_URL = HARVEST_API_URL + '/time_entries';
@@ -16,10 +20,13 @@ const TASKS_URL = HARVEST_API_URL + '/tasks';
 const PROJECTS_URL = HARVEST_API_URL + '/projects';
 
 class ApiService {
-    getAuthorizationConfig(write: boolean = false): Promise<requestConfig> {
-        return new Promise((resolve, reject) => {
-            const credentials = oAuthService.getOAuthCookieData();
+    getRequestConfig(options?: requestConfigInput): Promise<requestConfig> {
+        // TODO: Outsource this into a helper method
+        options = options ?? {};
+        const write = options.write || false;
+        const credentials = options.credentials || oAuthService.getOAuthCookieData();
 
+        return new Promise((resolve, reject) => {
             if (credentials) {
                 const config: requestConfig = {
                     headers: {
@@ -39,11 +46,15 @@ class ApiService {
         });
     }
 
-    getTimeEntries(from: string | undefined, to: string | undefined) {
+    getTimeEntries(dateRange: { from?: string, to?: string }, options?: apiOptions) {
+        dateRange = dateRange ?? {};
+        const from = dateRange.from || undefined;
+        const to = dateRange.to || undefined;
+
         const isParams = typeof from !== 'undefined' && typeof to !== 'undefined';
         const queryString = isParams ? `?from=${from}&to=${to}` : '';
 
-        return this.getAuthorizationConfig()
+        return this.getRequestConfig(options)
             .then((config) => {
                 return axios.get(TIME_ENTRIES_URL + queryString, config);
             })
@@ -53,8 +64,8 @@ class ApiService {
             });
     }
 
-    getTasks() {
-        return this.getAuthorizationConfig()
+    getTasks(options?: apiOptions) {
+        return this.getRequestConfig(options)
             .then((config) => {
                 return axios.get(TASKS_URL, config);
             })
@@ -64,8 +75,8 @@ class ApiService {
             });
     }
 
-    getProjects() {
-        return this.getAuthorizationConfig()
+    getProjects(options?: apiOptions) {
+        return this.getRequestConfig(options)
             .then((config) => {
                 return axios.get(PROJECTS_URL, config);
             })
@@ -75,26 +86,26 @@ class ApiService {
             });
     }
 
-    getTimeEntry(entryID: TimeEntryInterface['id']) {
-        return this.getAuthorizationConfig().then((config) => {
+    getTimeEntry(entryID: TimeEntryInterface['id'], options?: apiOptions) {
+        return this.getRequestConfig(options).then((config) => {
             return axios.get(`${TIME_ENTRIES_URL}/${entryID}`, config);
         });
     }
 
-    addTimeEntry(timeEntry: TimeEntrySubmissionInterface) {
-        return this.getAuthorizationConfig(true).then((config) => {
+    addTimeEntry(timeEntry: TimeEntrySubmissionInterface, options?: apiOptions) {
+        return this.getRequestConfig({ ...options, write: true }).then((config) => {
             return axios.post(TIME_ENTRIES_URL, timeEntry, config);
         });
     }
 
-    updateTimeEntry(timeEntry: TimeEntrySubmissionInterface, entryID: TimeEntryInterface['id']) {
-        return this.getAuthorizationConfig(true).then((config) => {
+    updateTimeEntry(timeEntry: TimeEntrySubmissionInterface, entryID: TimeEntryInterface['id'], options?: apiOptions) {
+        return this.getRequestConfig({ ...options, write: true }).then((config) => {
             return axios.patch(`${TIME_ENTRIES_URL}/${entryID}`, timeEntry, config);
         });
     }
 
-    deleteTimeEntry(entryID: TimeEntryInterface['id']) {
-        return this.getAuthorizationConfig(true).then((config) => {
+    deleteTimeEntry(entryID: TimeEntryInterface['id'], options?: apiOptions) {
+        return this.getRequestConfig({ ...options, write: true }).then((config) => {
             return axios.delete(`${TIME_ENTRIES_URL}/${entryID}`, config);
         });
     }
