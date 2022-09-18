@@ -2,6 +2,7 @@
 import Cookies from 'js-cookie';
 import Router from 'next/router';
 import jwt_decode from 'jwt-decode';
+import { sign } from 'jsonwebtoken';
 
 // Types
 import {oAuthData} from './OAuthService.types';
@@ -15,7 +16,7 @@ class OAuthService {
     getOAuthCookieData() {
         const credentials = this.getCredentialsCookie();
         if (credentials) {
-            const {access_token, account_id} = jwt_decode(credentials) as oAuthData;
+            const {access_token, account_id} = jwt_decode<oAuthData>(credentials);
 
             return {
                 access_token,
@@ -54,6 +55,12 @@ class OAuthService {
 
     deleteCredentialsParamsFromUrl() {
         Router.push('/');
+    }
+
+    // This method is also used by Cypress, to generate cookies,
+    // when executing E2E tests
+    getSignedJwt(data: oAuthData) {
+        return sign(data, 'harvest-dashboard');
     }
 }
 

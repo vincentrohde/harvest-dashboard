@@ -1,6 +1,5 @@
 // Libs
 import {useEffect, useState} from 'react';
-import jwt from 'jsonwebtoken';
 
 // Services
 import oAuthService from '@/services/OAuthService/OAuthService';
@@ -15,11 +14,7 @@ export const useOAuthCredentials = () => {
             const credentialsFromParams = oAuthService.getCredentialsParams();
 
             if (credentialsFromParams) {
-                const credentials = jwt.sign(
-                    credentialsFromParams,
-                    'harvest-dashboard',
-                );
-
+                const credentials = oAuthService.getSignedJwt(credentialsFromParams);
                 oAuthService.setCredentialsCookie(credentials);
                 oAuthService.deleteCredentialsParamsFromUrl();
                 setIsOAuthCredentials(true);

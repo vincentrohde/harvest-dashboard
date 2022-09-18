@@ -19,7 +19,7 @@ const OAuthOverlay = () => {
         }
     };
     return (
-        <div className={styles.OAuthOverlay}>
+        <div className={styles.OAuthOverlay} data-test="oauth-overlay">
             <h2 className={styles.title}>Authorization required 🔐</h2>
             <div className={styles.section}>
                 <p className={styles.notice}>
