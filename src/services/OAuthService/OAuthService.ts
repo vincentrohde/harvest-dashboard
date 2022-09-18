@@ -24,7 +24,7 @@ class OAuthService {
             };
         }
 
-        return false;
+        return undefined;
     }
 
     setCredentialsCookie(credentials: string) {
