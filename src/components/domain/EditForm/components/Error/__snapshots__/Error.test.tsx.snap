@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TabContainer /> renders default error correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="Error"
+  >
+    <div
+      class="ui error message"
+    >
+      <div
+        class="content"
+      >
+        <div
+          class="header"
+        >
+          Input Error
+        </div>
+        <p>
+          There is something wrong with your inputs
+        </p>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<TabContainer /> renders hours error correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="Error"
+  >
+    <div
+      class="ui error message"
+    >
+      <div
+        class="content"
+      >
+        <div
+          class="header"
+        >
+          Input Error
+        </div>
+        <p>
+          Hours need to be in format (H)H:MM
+        </p>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`<TabContainer /> renders spent_date error correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="Error"
+  >
+    <div
+      class="ui error message"
+    >
+      <div
+        class="content"
+      >
+        <div
+          class="header"
+        >
+          Input Error
+        </div>
+        <p>
+          Date needs to be in format DD.MM.YYYY
+        </p>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
