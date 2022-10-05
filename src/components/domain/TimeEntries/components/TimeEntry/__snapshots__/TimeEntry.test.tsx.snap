@@ -23,7 +23,7 @@ exports[`<TimeEntry /> renders 1`] = `
       <h3
         class="title"
       >
-        test notes
+        test note
       </h3>
     </div>
     <div
