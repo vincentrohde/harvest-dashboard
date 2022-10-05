@@ -15,6 +15,5 @@ jobs:
         with:
           node-version: 16
           cache: npm
-      - name: "Run Jest Tests"
       - run: npm ci --legacy-peer-deps
       - run: npm test
