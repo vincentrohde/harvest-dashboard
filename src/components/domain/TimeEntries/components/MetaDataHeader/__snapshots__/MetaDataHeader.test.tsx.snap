@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<MetaDataHeader /> renders 1`] = `
-<DocumentFragment>
+<div>
   <div
     class="MetaDataHeader tab-container"
   >
@@ -9,12 +9,19 @@ exports[`<MetaDataHeader /> renders 1`] = `
       class="meta-data pipes"
     >
       <span>
-        20 Entries
+        <span
+          data-test="entries-amount-label"
+        >
+          20
+        </span>
+         
+        Entries
       </span>
       <span>
-        Total Time: 2:00
+        Total Time: 
+        2:00
       </span>
     </p>
   </div>
-</DocumentFragment>
+</div>
 `;

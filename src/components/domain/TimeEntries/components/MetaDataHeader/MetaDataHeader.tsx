@@ -11,7 +11,10 @@ import styles from './MetaDataHeader.module.scss';
 const MetaDataHeader = ({ entriesAmount, totalHoursAndMinutes }: MetaDataHeaderProps) => (
     <div className={classNames(styles.MetaDataHeader, 'tab-container')}>
         <p className={classNames(styles['meta-data'], 'pipes')}>
-            <span>{ entriesAmount } { entriesAmount > 1 ? 'Entries': 'Entry'}</span>
+            <span>
+                <span data-test="entries-amount-label">{ entriesAmount }</span>
+                {' '}{ entriesAmount > 1 ? 'Entries': 'Entry'}
+            </span>
             <span>Total Time: { totalHoursAndMinutes }</span>
         </p>
     </div>

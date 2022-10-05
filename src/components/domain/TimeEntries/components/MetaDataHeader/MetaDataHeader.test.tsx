@@ -16,10 +16,10 @@ const mockData: MetaDataHeaderProps = {
 
 describe('<MetaDataHeader />', () => {
     it('renders', () => {
-        const { asFragment } = render(
+        const { container } = render(
             <MetaDataHeader {...mockData} />
         );
 
-        expect(asFragment()).toMatchSnapshot();
+        expect(container).toMatchSnapshot();
     });
 })
