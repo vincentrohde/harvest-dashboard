@@ -10,6 +10,9 @@ module.exports = {
     setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
     preset: 'ts-jest',
     transform: {
-        '^.+\\.tsx?$': 'babel-jest',
+        "node_modules/variables/.+\\.(j|t)sx?$": "ts-jest"
     },
+    transformIgnorePatterns: [
+        "node_modules/(?!variables/.*)"
+    ]
 };
