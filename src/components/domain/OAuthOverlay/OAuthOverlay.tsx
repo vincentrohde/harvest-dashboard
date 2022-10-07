@@ -1,10 +1,10 @@
 // Libs
 import React from 'react';
-import {Button} from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
+import classNames from 'classnames';
 
 // Styles
 import styles from './OAuthOverlay.module.scss';
-import classNames from 'classnames';
 
 const OAuthOverlay = () => {
     const openLink = (event: React.MouseEvent) => {
@@ -54,6 +54,7 @@ const OAuthOverlay = () => {
                     icon="right arrow"
                     onClick={openLink}
                     data-link={`https://id.getharvest.com/oauth2/authorize?client_id=${process.env.OAUTH_APP_ID}&response_type=token`}
+                    data-test="authorize-app"
                     primary
                     labelPosition="right"
                 />
@@ -71,6 +72,7 @@ const OAuthOverlay = () => {
                     content={<a href="https://www.getharvest.com">Create new account</a>}
                     onClick={openLink}
                     data-link="https://www.getharvest.com"
+                    data-test="create-account"
                     icon="right arrow"
                     primary
                     labelPosition="right"
